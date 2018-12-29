@@ -1,0 +1,216 @@
+<html>
+<head>
+<head>
+  <title>Magic Finapp</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        @font-face {
+            font-family: mohaver;
+            src: url(./font/MOHAVE-REGULAR.OTF);  
+            }
+        @font-face {
+         font-family:mohl;
+            src:url(./font/MOHAVE-LIGHT.otf);
+        }
+        *{margin: 0;padding:0;font-family: mohaver}
+        .popout{   
+    position: fixed;
+    right: 0%;
+    background: blue;
+    top: 10%;}
+        body{background: #f7f7f7}
+        .overlay{position: fixed;background: rgba(255,255,255,0.5); color:#fff;}
+        .closebtn{position: absolute; right: 0px;margin-top: -15px;margin-right: -10px;color:#fff; cursor: pointer}
+        .banner{border-bottom:5px solid #30aae6}
+        .banner img{width: 100%; }
+        .content{background:#5b5b5b;border: 1px solid #fff; border-radius: 10px;padding: 5px;margin: 5px;}
+        .sectionA .textPanel{font-size:16px;}
+        .confirmbox{ background: #fff; color: #333;z-index: 60; margin: 10px auto;width: auto;position: absolute;display: none;position: absolute;left: 50%; 
+transform: translateX(-50%);border:1px solid #333;border-radius: 5px;}
+        .confirmbox div{display: inline-block; padding: 10px;cursor:pointer}
+        .sectionB,.sectionC{font-weight: 100;font-family: mohl !important;background: #01a0e2;padding: 13px;}
+		.sectionB img, .sectionC img{width:80px;}
+        .sectionD{padding: 13px;box-sizing: border-box;}
+        .sectionB img,.sectionC img{border-radius: 5px;}
+        .box1{display: grid;grid-template-columns: 1fr 1fr;width:80%; margin: 0px auto;}
+        .box1 div{margin: 0px auto;}
+         .box2{display: grid;grid-template-columns: 1fr 1fr 1fr;width:90%; margin: 0px auto;}
+        .box2 div{margin: 0px auto;}
+        .box2 .TextPanel{margin-top:5px;} 
+        .box3{display: grid;grid-template-columns: 1fr 1fr 1fr;width:90%; margin: 0px auto;grid-gap: 10px}
+        .box3 div{margin: 0px auto;text-align: right}
+        .box3 .TextPanel{margin-top:5px;}  
+        .box4{display: grid;grid-template-columns: 1fr 1fr;width:80%; margin: 0px auto;}
+        .box4 div{margin: 0px auto;}
+        .box4 .TextPanel{margin-top:15px;}
+        .box4 a{color: inherit}
+        .video-box{position: absolute; width: 100%;top:4%;display: none}
+		.box1,.box2,.box3,.box4{padding:15px;}
+       <!--  .btnPanel img,.notnow img {width: 80px;    margin-top: 14px;
+    box-shadow: 0px 0 3px 3px rgba(91, 91, 91, 0.3);cursor: pointer} -->
+<!--         .notnow img{border-radius: 5px; margin-right: 10px;margin-bottom: 10px;} -->
+        .wrapper{overflow: auto}
+    </style>
+    
+    <script>
+    $(document).ready(function(){
+        //setTimeout(function(){ 
+        //$(".overlay").slideDown()
+        //}, 2000);
+        
+        
+        $("#close,.notnow").click(function(){
+            stopVid();
+            $(".overlay").hide(function(){
+                
+                $(this).css("animation","scaleIn 0.8s ease");
+            });
+        });
+        
+        $("#imgbtn").click(function(){
+            
+            $(".sectionA").css("background","rgba(91, 91, 91, 0.3)")
+            $(".confirmbox").show();
+            
+        })
+        
+        $("#hin_lan").click(function(e){
+           $(".video-box").slideDown(function(){
+               
+                startVid();
+               
+           });
+          
+        });
+        $("#en_lan").click(function(e){
+            $(".video-box").slideDown(function(){
+            $(".video-box iframe").attr("src","http://bit.ly/fin_english?autoplay=1");
+            })
+        })
+        
+        
+        function stopVid(){
+            var videoURL = $('.ytf').prop('src');
+            videoURL = videoURL.replace("&autoplay=1", "");
+            $('.ytf').prop('src','');
+            $('.ytf').prop('src',videoURL);
+        }
+        
+        function startVid(){
+            
+            var videoURL = $('.ytf').prop('src');
+            videoURL += "&autoplay=1";
+            $('.ytf').prop('src',videoURL);
+            
+        }
+        
+        $(".popout").click(function(){
+            
+            $(".overlay").show().css("animation","scaleIn 0.8s ease");
+        })
+        
+    });    
+    
+    </script>
+    
+    
+</head>
+    
+    
+    <body>
+        <div class="overlay">
+            <!-- <span class="closebtn text-right" id="close"><img src="close.png" width="30px" height="30px"></span> -->
+            <div class="banner">
+            <img src="header.jpg" class="img-responsive" />
+            </div>
+            <div class="wraper">
+                <div class="video-box">
+                <iframe width=100%  class = "ytf"
+                        src="http://bit.ly/fin_hindi?autoplay=1" allow='autoplay' frameborder="0" allowfullscreen >
+                        </iframe>
+                </div>
+                
+                <div class="content sectionA">
+                    <div class="confirmbox">
+                        <div id="hin_lan">HINDI</div>
+                        <div id="en_lan">ENGLISH</div>
+                    </div>
+                <div class="box1">
+                
+                    <div class="vidPanel">
+                        <img id="imgbtn" src="video-1.jpg" width="100px;">
+                    </div>
+                    <div class="txtPanel">
+                        <div class="TextPanel text-center"><p>KNOW<br>YOUR<br>FINMART</p></div>
+                    </div>
+                
+                </div>
+                </div>    
+                
+                <div class="content sectionB">
+                    <div class="box2">
+
+                        <div class="vidPanel "><img src="Lice-Business.jpg" class="img-responsive"></div>
+                        <div class="TextPanel text-left">Boost your<br>LIC Business</div>    
+                        <div class="btnPanel "><a href="licbusiness.pdf" target="_blank"><img src="click-1.png" width="100px;"></a></div>    
+
+
+                    </div>
+                </div>
+                
+                <div class="content sectionC" onclick="incomeCalculator();">
+                    <div class="box3">
+                        
+                         <div class="btnPanel"><img src="click-1.png" width="100px;"></div> 
+                        <div class="TextPanel">Calculate your Income</div>     
+                        <div class="vidPanel "><img src="calculate.jpg" class="img-responsive"></div>
+
+
+                    </div>
+                </div>
+                
+                <div class="content sectionD">
+                <div class="box4">
+                
+                    <div class="vidPanel "><a href="http://bit.ly/mfrt_youtube" target=""><img id="imgbtn" src="video-2.jpg" width="75px;"></a></div>
+
+                    <div class="TextPanel text-center"><p><a href="http://bit.ly/mfrt_youtube" target="">Watch More Videos</a></p></div>
+                
+                </div>
+                </div>
+                
+               <!--  <div class="notnow text-right">
+                <img src="not-now.png" width="75px;">
+                </div> -->
+             
+            </div>
+            
+            
+            
+            
+            
+        
+        </div>
+        
+        
+      <!--   <div class="popout">
+        <img src = "./info-2.png" width="30px">
+        </div> -->
+        
+        
+    </body>
+     <script type="text/javascript">
+        function incomePotential() {
+            Android.incomePotential();
+        }
+
+         function incomeCalculator() {
+            Android.incomeCalculator();
+        }
+    </script>
+</head>
+</html>

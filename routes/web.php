@@ -109,8 +109,6 @@ Route::get('new-fba-list','newfbaController@getnonfba');
 Route::get('export-excel','newfbaController@nonfbaexportexcel');
 
 
-
-
 Route::get('load-update-fba-list/{fbaid}','newfbaController@update_fba_list'); 
 Route::get('load-update-pospnew/{id}','newfbaController@UpdatePospnonew');
 Route::post('get-type','newfbaController@update_type'); 
@@ -143,6 +141,19 @@ Route::get('city_wise_state','statewisecityController@get_city');
 Route::post('citywisestate','statewisecityController@statewisecity'); 
 Route::get('city_wise_state2','statewisecityController@showlead2');
 //Test state_wise city End
+
+Route::get('state-city-profile','statecitywiseprofileController@show_state_city'); 
+Route::get('state-wise-profile','statecitywiseprofileController@state_city');
+Route::post('get-city','statecitywiseprofileController@profilecity'); 
+Route::post('get-city-pincode','statecitywiseprofileController@profilecity_pincode');   
+  //Route::get('get-city/{id}',array('as'=>'leadquick1.ajax','uses'=>'statecitywiseprofileController@profilecity'));
+
+
+
+
+
+
+
 
 
 

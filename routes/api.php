@@ -25,4 +25,9 @@ route::get('send-todays-sms','SendtodaysmsandmailController@getsmsview');
 route::get('send-todays-mail','SendtodaysmsandmailController@sendtodaysmail');
 Route::post('Fbadetails','FbadetailsapiController@getfbadata');
 Route::post('updat-fba-data','update_fba_dataController@update_fba_data');
+
 Route::post('Crmfollowup','FbadetailsapiController@getcrmfollowup');
+
+Route::post('get-crm-role','getcrmroleController@crm_role');
+Route::post('crm_disposition','getcrmroleController@get_crm_disposition');
+

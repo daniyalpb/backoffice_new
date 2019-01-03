@@ -1,5 +1,4 @@
-@extends('include.master')
-@section('content')
+<?php $__env->startSection('content'); ?>
 <!--  <body onload="currentrecort();"> -->
 
 
@@ -161,13 +160,14 @@
             <input type="checkbox" name="btnselectallprofile" id="btnselectallprofile" class="selectall" value="1"> <b>Select all</b> 
             <div style="overflow-y:scroll;height:270px;">         
               <table>                         
-                @foreach($profile as $val)
+                <?php $__currentLoopData = $profile; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr class="profile">
                   <td>
-                    <input type="checkbox" name="btnprofile" id="btnprofile" class="btnprofile" value="{{$val->role_id}}"> {{$val->Profile}}
+                    <input type="checkbox" name="btnprofile" id="btnprofile" class="btnprofile" value="<?php echo e($val->role_id); ?>"> <?php echo e($val->Profile); ?>
+
                   </td>
                 </tr>     
-                @endforeach                     
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>                     
               </table>   
             </div>
           </td>
@@ -503,9 +503,9 @@ function getuser(){
       var startdate=$("#min").val();
       var enddate=$("#max").val();
       if (uid!=''&&startdate!=''&&enddate!=''){
-        var v_token = "{{csrf_token()}}";
+        var v_token = "<?php echo e(csrf_token()); ?>";
         $.ajax({
-         url:"{{URL::to('get-mis-data-on-profile')}}",
+         url:"<?php echo e(URL::to('get-mis-data-on-profile')); ?>",
          dataType : 'json', 
          type: "POST", 
          data:{"_token":v_token,"startdate":startdate,"enddate":enddate,"Uids":uid},        
@@ -538,4 +538,5 @@ function getuser(){
 }
 }
   </script>
-  @endsection
+  <?php $__env->stopSection(); ?>
+<?php echo $__env->make('include.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

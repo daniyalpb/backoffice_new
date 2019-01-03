@@ -430,6 +430,8 @@ Route::get('all-mis-report-with-filters','allsalesreportController@getview');
 Route::get('mis-report-with-date/{startdate}/{enddate}','allsalesreportController@misreportfdateldate1');
 Route::get('mis-report-with-date-state/{startdate}/{enddate}/{state}','allsalesreportController@misreportfdateldatestate');
 route::post('get-mis-data-on-profile','allsalesreportController@getdataonprofile');
+route::get('mis-report-with-date-product/{startdate}/{enddate}/{product}','allsalesreportController@getmisrepoonproduct');
+route::post('get-mis-data-on-product-state','allsalesreportController@getmisrepoonpronstat');
 
 
 

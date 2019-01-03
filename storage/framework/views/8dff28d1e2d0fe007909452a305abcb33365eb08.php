@@ -4,31 +4,10 @@
 
  <div class="container-fluid white-bg">
    <div class="col-md-12"><h3 class="mrg-btm">System MIS</h3></div>
+   
    <div class="col-md-2">
-    <div class="form-group">
-      <p>From Date</p>
-      <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
-       <input class="form-control date-range-filter" type="text" placeholder="From Date" name="fdate" id="min" readonly />
-       <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-     </div>
+     <input type="submit" name="btnarea" id="btnarea"  class="mrg-top common-btn pull-left" value="Apply Filters" onclick="getarea()">
    </div>
- </div>
- <div class="col-md-2">
-  <div class="form-group">
-    <p>To Date</p>
-    <div id="datepicker1" class="input-group date" data-date-format="yyyy-mm-dd">
-      <input class="form-control date-range-filter" type="text" placeholder="To Date"  name="ldate"  id="max" readonly/>
-      <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-    </div>
-  </div>
-</div>
-<div class="col-md-2">
-  <input type="submit" name="btndate" id="btndate"  class="mrg-top common-btn pull-left" value="SHOW">
-
-</div>
-<div class="col-md-2">
- <input type="submit" name="btnarea" id="btnarea"  class="mrg-top common-btn pull-left" value="Select Areas" onclick="getarea()">
-</div>
 <!-- <div class="col-md-2">
   <input type="submit" name="btnprofile" id="btnprofile"  class="mrg-top common-btn pull-left" value="Select Profile" onclick="getprofile()">
 </div> -->
@@ -64,6 +43,7 @@
 </div>
 </div>
 </div>
+<input  type="hidden" id="txtproduct" name="txtproduct" >
 <input type="hidden" name="txtallzone" id="txtallzone">    
 <input type="hidden" name="txtzone" id="txtzone">
 
@@ -87,58 +67,91 @@
       </div>
 
       <!-- Modal body -->
-      <div class="modal-body col-md-12">    
-        <table class="col-md-12">
-          <tr>        
-            <td class="col-md-4">   
-              <label>Zone:</label>
-              <input type="checkbox" name="btnselectallzone" id="btnselectallzone" class="btnselectallzone" value="1"> <b>Select all</b>
-              <div style="overflow-y:scroll;height:270px;">                           
-                <table>                         
-                  <tr>
-                    <td>
-                      <input type="checkbox" name="btnzone" id="btnzone" class="btnzone" value="South"> South
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input type="checkbox" name="btnzone" id="btnzone" class="btnzone" value="West"> West
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input type="checkbox" name="btnzone" id="btnzone" class="btnzone" value="North"> North
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <input type="checkbox" name="btnzone" id="btnzone" class="btnzone" value="East"> East
-                    </td>
-                  </tr>
-                </table>   
-              </div>
-            </td>
-            <td class="col-md-4">
-              <label>State:</label>   
-              <input type="checkbox" name="btnselectallstate" id="btnselectallstate" class="btnselectallstate" value="1"> <b>Select all</b>   
-              <div style="overflow-y:scroll;height:270px;">                   
-               <table>  
-                 <div id="divstate">                   
+      <div class="modal-body col-md-12">
+        <div class="col-md-4">
+          <div class="form-group">
+            <p>From Date</p>
+            <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
+             <input class="form-control date-range-filter" type="text" placeholder="From Date" name="fdate" id="min" readonly />
+             <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+           </div>
+         </div>
+       </div>
+       <div class="col-md-4">
+        <div class="form-group">
+          <p>To Date</p>
+          <div id="datepicker1" class="input-group date" data-date-format="yyyy-mm-dd">
+            <input class="form-control date-range-filter" type="text" placeholder="To Date"  name="ldate"  id="max" readonly/>
+            <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+          </div>
+        </div>
+      </div>  
+      <table class="col-md-12">
+        <tr>        
+          <td class="col-md-4">   
+            <label>Product:</label>
+            <input type="checkbox" name="btnselectallproduct" id="btnselectallproduct" class="btnselectallproduct" value="1"> <b>Select all</b>
+            <div style="overflow-y:scroll;height:270px;">                           
+              <table> 
+                <?php $__currentLoopData = $product; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>                        
+                <tr>
+                  <td>
+                    <input type="checkbox" name="btnproductname" id="btnproductname" class="btnproductname" value="<?php echo e($val->ProductName); ?>"> <?php echo e($val->ProductName); ?>
 
-                 </div>                       
-               </table> 
-             </div>  
-           </td>               
-         </tr>
-       </table>  
-     </div>        
-     <!-- Modal footer -->
-     <div class="modal-footer">
-      <button type="button" class="btn btn-primary" id="btnarasave" data-dismiss="modal">Save</button>
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-    </div>
+                  </td>
+                </tr>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+              </table>   
+            </div>
+          </td>   
+          <td class="col-md-4">   
+            <label>Zone:</label>
+            <input type="checkbox" name="btnselectallzone" id="btnselectallzone" class="btnselectallzone" value="1"> <b>Select all</b>
+            <div style="overflow-y:scroll;height:270px;">                           
+              <table>                         
+                <tr>
+                  <td>
+                    <input type="checkbox" name="btnzone" id="btnzone" class="btnzone" value="South"> South
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="checkbox" name="btnzone" id="btnzone" class="btnzone" value="West"> West
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="checkbox" name="btnzone" id="btnzone" class="btnzone" value="North"> North
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <input type="checkbox" name="btnzone" id="btnzone" class="btnzone" value="East"> East
+                  </td>
+                </tr>
+              </table>   
+            </div>
+          </td> 
+          <td class="col-md-4">
+            <label>State:</label>   
+            <input type="checkbox" name="btnselectallstate" id="btnselectallstate" class="btnselectallstate" value="1"> <b>Select all</b>   
+            <div style="overflow-y:scroll;height:270px;">                   
+             <table>  
+               <div id="divstate">                   
 
+               </div>                       
+             </table> 
+           </div>  
+         </td>                    
+       </tr>         
+     </table>         
+   </div>        
+   <!-- Modal footer -->
+   <div class="modal-footer">
+    <input type="submit" name="btndate" id="btndate"  class="common-btn" value="SHOW">     
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
   </div>
+</div>
 </div>
 </div>
 <!-- The Modal profile-->
@@ -193,15 +206,25 @@
 </div>
 </div>
 </div>
-
 <script type="text/javascript">
-  $(document).ready(function(){       
-    $('#btndate').on("click", function(){  
-      if ($("#txtstate").val()!=''||$("#txtstateall").val()!=''){
+  $(document).ready(function(){ 
+
+    $('#btndate').on("click", function(){
+     $('#misreport>tbody').empty();
+     var startdate = $('#min').val();
+     var enddate = $('#max').val();
+     if(startdate =="" || enddate==""){
+      alert("Please select date Range");
+      return false;
+    }  
+      if(($("#txtstate").val()!='' && $("#txtproduct").val()==='')){          
        $('#misreport>tbody').empty();
        getmmisdatawithstate();
-     }else if($("#txtuserall").val()!=''||$("#txtuser").val()!=''){
-      getmisdataonprofile();
+     }else if( $("#txtproduct").val()!='' && $("#txtstate").val()===''){
+      //getmisdataonprofile();
+      getmisreportonproduct();
+    }else if($("#txtstate").val()!='' && $("#txtproduct").val()!=''){
+      getmisrepowithstatenproduct();
     }
     else{ 
      $('#misreport>tbody').empty();
@@ -215,8 +238,7 @@
        url: 'mis-report-with-date/'+startdate+'/'+enddate,
        dataType : 'json',
        method:"GET",
-       success: function(msg){
-    //$('#misreportf').empty();
+       success: function(msg){  
     $('#misreport').empty();
     if(msg!='' && msg!=null){     
 
@@ -227,16 +249,11 @@
      });
 
      $('#misreport').append(arr); 
-    /*$('#tblreport').dataTable({
-      "ordering": false,
-       "paging": false
-     }); */
-     //$('#misreport tr:last').css({'background-color':'#8cc9e2 ','font-size':'20px'});
-    // $('#misreport tr:last').prev().find("tr").css({'background-color':'#8cc9e2 ','font-size':'20px'});
-
+     $("#Areamodal").modal('hide');
   }else{
    $('#misreport>tbody').empty()
    $('#misreport').append("<tr><td colspan=10>Record not found</td></tr>")
+   $("#Areamodal").modal('hide');
  }
 
 }
@@ -288,31 +305,24 @@
     }); 
      var statecount=$(".btnstate:checked:checked").length;
      // alert(state);
-     $("#txtstateall").val('');
-     $("#txtstateall").val(state);        
-     if (statecount!=0){
-      $("#btnarea").val('Selected State # '+statecount);
-    }    
-  });
+     $("#txtstate").val('');
+     $("#txtstate").val(state);            
+   });
 
   });  
 
   function getarea()
   { 
-    if ($("#min").val()!=''&&$("#max").val()!='') {
-      $('#Areamodal').modal('show');   
-    }else{
-     alert("Please select date Range");
-   }    
- }
- function getstate(zone)
- {
-  $.ajax({
-   url: 'get-state-on-zone/'+zone,
-   type: "GET",             
-   success:function(state) 
-   {      
-    var data=  JSON.parse(state);                  
+    $('#Areamodal').modal('show');       
+  }
+  function getstate(zone)
+  {
+    $.ajax({
+     url: 'get-state-on-zone/'+zone,
+     type: "GET",             
+     success:function(state) 
+     {      
+      var data=  JSON.parse(state);                  
               // alert(State); 
               $('#divstate').empty();
               var arr=Array();              
@@ -331,8 +341,8 @@
            }                     
          }
        });  
-}
-function getstatevalue(){
+  }
+  function getstatevalue(){
  // alert('click');
  var state = [];
  $.each($("input[class='btnstate']:checked"), function(){            
@@ -340,10 +350,7 @@ function getstatevalue(){
 });   
  var statecount=$(".btnstate:checked:checked").length;
  $("#txtstate").val('');
- $("#txtstate").val(state);
- if (statecount!=0){
-  $("#btnarea").val('Selected State # '+statecount);
-}
+ $("#txtstate").val(state); 
 }
 function getmmisdatawithstate(){
  if ($("#txtstate").val()!=''){
@@ -382,6 +389,7 @@ if (state!=''&&$("#min").val()!=''&&$("#max").val()!=''){
   }else{
    $('#misreport>tbody').empty()
    $('#misreport').append("<tr><td colspan=10>Record not found</td></tr>")
+   $("#Areamodal").modal('hide');
  }
 
 }
@@ -535,8 +543,127 @@ function getuser(){
  }
 }
 });
+      }
+    }
+    function getproduct(){
+      $("#modalproduct").modal('show');
+
+    }
+    $("#btnselectallproduct").click(function(){
+     $(".btnproductname").not(this).prop('checked', this.checked);
+     $(".btnproductname:checkbox:checked");
+     var product = [];    
+     $.each($("input[class='btnproductname']:checked"), function(){            
+      product.push($(this).val());
+    });      
+      //alert(zone);
+      $("#txtproduct").val('');
+      $("#txtproduct").val(product);
+      if ($(".btnproductname").is(':checked')){           
+        //getstate(zone);
+      }
+    });
+    $(".btnproductname").click(function(){
+      var product = [];
+      $.each($("input[class='btnproductname']:checked"), function(){            
+        product.push($(this).val());
+      });
+    //alert(zone);
+    $("#txtproduct").val('');
+    $("#txtproduct").val(product);
+    if ($(".txtproduct").is(':checked')){           
+      //getstate(zone);
+    }
+  });
+
+
+    function getmisreportonproduct(){
+     if ($("#txtproduct").val()!=''){
+      var product=$("#txtproduct").val();
+    }else if($("#txtproductall").val()!=''){
+      var product=$("#txtproductall").val();
+    }else{
+      alert('Select Product');
+    }
+
+    if (product!=''&&$("#min").val()!=''&&$("#max").val()!=''){
+    //alert($('#max').val());
+    $.ajax({ 
+     url: 'mis-report-with-date-product/'+$('#min').val()+'/'+$('#max').val()+'/'+product,
+     dataType : 'json',
+     method:"GET",
+     success: function(msg){
+    //$('#misreportf').empty();
+    $('#misreport').empty();
+    if(msg!='' && msg!=null){     
+
+     arr=Array();
+     $.each(msg, function( index, val ){ 
+
+       arr.push("<tr><td>" + val.ProductName+"</td><td>" + val.POSPSource +"</td><td>" + val.Premium +"</td><td>" + val.Policy + "</td><td>" + val.ActivePOSP +"</td><td>" + val.TotalGWP +"</td><td>" + val.Total_OD +"</td><td>" + val.AvgNOP +"</td><td>" + val.AvgTicket +"</td><td>" + val.AvgProduct +"</td></tr>");
+     });
+     $("#Areamodal").modal('hide');
+     $('#misreport').append(arr); 
+      /*$('#tblreport').dataTable({
+        "ordering": false,
+         "paging": false
+       }); */ 
+     //$('#misreport tr:last').css({'background-color':'#8cc9e2 ','font-size':'20px'});
+    // $('#misreport tr:last').prev().find("tr").css({'background-color':'#8cc9e2 ','font-size':'20px'});
+
+  }else{
+   $('#misreport>tbody').empty()
+   $('#misreport').append("<tr><td colspan=10>Record not found</td></tr>")
+   $("#Areamodal").modal('hide');
+ }
+
 }
+});
+  }
 }
-  </script>
-  <?php $__env->stopSection(); ?>
+function getmisrepowithstatenproduct(){
+    var state=$("#txtstate").val(); 
+    var product=$("#txtproduct").val();
+  //alert(product);
+  var startdate=$("#min").val();
+  var enddate=$("#max").val();
+  if (state!=''&& startdate!='' && enddate!=''&& product!=''){
+    var v_token = "<?php echo e(csrf_token()); ?>";
+    $.ajax({
+     url:"<?php echo e(URL::to('get-mis-data-on-product-state')); ?>",
+     dataType : 'json', 
+     type: "POST", 
+     data:{"_token":v_token,"startdate":startdate,"enddate":enddate,"state":state,"product":product},        
+     success:function(msg) 
+     {  
+     // alert(msg);
+    //$('#misreportf').empty();
+    $('#misreport').empty();
+    if(msg!='' && msg!=null){     
+  
+     arr=Array();
+     $.each(msg, function( index, val ){ 
+
+       arr.push("<tr><td>" + val.ProductName+"</td><td>" + val.POSPSource +"</td><td>" + val.Premium +"</td><td>" + val.Policy + "</td><td>" + val.ActivePOSP +"</td><td>" + val.TotalGWP +"</td><td>" + val.Total_OD +"</td><td>" + val.AvgNOP +"</td><td>" + val.AvgTicket +"</td><td>" + val.AvgProduct +"</td></tr>");
+     });
+     $("#Areamodal").modal('hide');
+     $('#misreport').append(arr); 
+      /*$('#tblreport').dataTable({
+        "ordering": false,
+         "paging": false
+       }); */ 
+     //$('#misreport tr:last').css({'background-color':'#8cc9e2 ','font-size':'20px'});
+    // $('#misreport tr:last').prev().find("tr").css({'background-color':'#8cc9e2 ','font-size':'20px'});
+
+  }else{
+   $('#misreport>tbody').empty();
+   $('#misreport').append("<tr><td colspan=10>Record not found</td></tr>");
+   $("#Areamodal").modal('hide');
+ }
+}
+});
+  }
+}
+</script>
+<?php $__env->stopSection(); ?>
 <?php echo $__env->make('include.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -41,6 +41,6 @@ class ApiController extends CallApiController
   }
 
   public function send_success_json_encode($data){
-     return json_encode($res);
+     return json_encode($data);
   }
 }

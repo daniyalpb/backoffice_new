@@ -42,22 +42,28 @@ class SendnotificationapiController extends ApiController
 		  curl_close($curl);
 		 if ($err){
 		  $myJSONerr = json_decode($err);
-		  return $this::send_success_json_encode($myJSONerr);
+		  DB::select('call update_notification_failed(?)',array(
+					$val->UserNotificationRequestId));
+		  
+		  //return $this::send_success_json_encode($myJSONerr);
 		}else{
 			$myJSON = json_decode($response);			
 			 if ($myJSON->success==1){
 				DB::select('call update_notification_send(?,?)',array(
 					$val->UserNotificationRequestId,
 				    $myJSON->results[0]->message_id));
-			return $this::send_success_json_encode("Notification Send Successfully".$response);
+			//$data=$this::send_success_json_encode("Notification Send Successfully".$response);
+			//return $data;
 			}
 		  // return $this::send_success_json_encode($myJSON);
 		}
 
 		}
-		
+		$data=$this::send_success_json_encode("Process Completed");
+	    return $data;
 		}else{
-	return $this::send_success_json_encode("there is no Notification is Pending");
+	$data=$this::send_success_json_encode("there is no Notification is Pending");
+	return $data;
 		}
 		
 	}

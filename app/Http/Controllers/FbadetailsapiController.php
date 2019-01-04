@@ -31,6 +31,26 @@ class FbadetailsapiController extends ApiController
 		}	
 		
 	}
+
+   public function getcrmhistory(Request $req){
+     if (isset($req->fbaid)&&isset($req->fbacrmid)){
+		$data=DB::select("call Crm_history_app($req->fbacrmid,'$req->fbaid')");
+		}else{
+			$data=[];
+            $data1=$this->send_failure_response('No Data Found','failure',$data);
+			return 	$data1;	
+		}
+		if (!empty($data)){
+			$data1=$this->send_success_response('Data Has Been Feachted Successfully','success',$data);	
+			return 	$data1;
+		}else{
+			$data1=$this->send_failure_response('No Data Found','failure',$data);
+			return 	$data1;	
+		}
+   	
+
+   }
+
 	public function getcrmfollowup(Request $req)
 	{
        //print_r($req->all());exit();

@@ -77,7 +77,9 @@ class allsalesreportController extends CallApiController{
 //shubham
 	public function getview(){
 		$profile=DB::select("call profile_and_roleid()");
-		return view('all-mis-report-with-filter',['profile'=>$profile]);     
+		$product=DB::select("call product_list()");
+		
+		return view('all-mis-report-with-filter',['profile'=>$profile,'product'=>$product]);     
 	}
 	public function misreportfdateldate1($startdate,$enddate){
 				// print_r($startdate);exit();
@@ -105,8 +107,16 @@ class allsalesreportController extends CallApiController{
 		return json_encode($data);
 	}
 
+public function getmisrepoonproduct($sartdate,$enddate,$product){
+$data=DB::select("call getAllBusinessMISReportwithproduct('$sartdate','$enddate','$product')"); 
+return json_encode($data);
+}
+public function getmisrepoonpronstat(Request $req){
+	//print_r($req->all());exit();
+	$data=DB::select("call getAllBusinessMISReportwithstatenproduct('$req->startdate','$req->enddate','$req->state','$req->product')");
+		return json_encode($data);
 
-
+}
 
 
 }

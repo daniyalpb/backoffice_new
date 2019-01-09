@@ -1,12 +1,12 @@
-@extends('include.master')
-@section('content')
-@if($errors->any())
+<?php $__env->startSection('content'); ?>
+<?php if($errors->any()): ?>
 <div class="alert alert-info fade in alert-dismissible show">
  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
     <span aria-hidden="true" style="font-size:20px">×</span>
-  </button><strong>No Intraction!</strong>{{$errors->first()}}
+  </button><strong>No Intraction!</strong><?php echo e($errors->first()); ?>
+
 </div>
-@endif
+<?php endif; ?>
 <div class="container-fluid white-bg">
 <div class="col-md-12"><h3 class="mrg-btm">CRM Report</h3></div>
 
@@ -90,7 +90,7 @@ $.ajax({
 
 
 
-      window.location.href="{{url('hgshq')}}/"+msg;
+      window.location.href="<?php echo e(url('hgshq')); ?>/"+msg;
       $("#divcrmtable" ).empty();
         var newdata = JSON.stringify(msg);
         var data=JSON.parse(newdata);
@@ -109,4 +109,5 @@ $.ajax({
 
 }*/
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('include.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -398,6 +398,7 @@ Route::POST('gethealthdata','ImportsalesdataController@importExcelhealth');
 Route::POST('getmotordata','ImportsalesdataController@importExcelmotor');
 
 Route::get('Crm-report','Crm_reportsController@getcrmreport');
+route::get('get_crm_interaction/{uid}/{fdate}/{tdate}','Crm_reportsController@getcrminteraction');
 Route::get('getcrmreport/{fromdate}/{todate}','Crm_reportsController@crm_report');
 
 Route::get('fba-communication','FbacommunicationController@getfbacommunication');

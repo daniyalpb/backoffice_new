@@ -28,6 +28,9 @@ Route::post('Fbadetails','FbadetailsapiController@getfbadata');
 Route::post('updat-fba-data','update_fba_dataController@update_fba_data');
 Route::post('Crmfollowup','FbadetailsapiController@getcrmfollowup');
 Route::post('Crm_my_follow_up','FbadetailsapiController@getcrmhistory');
+Route::post('Crm_others_follow_up','FbadetailsapiController@getothersfollowup');
+Route::post('Crm_comment','FbadetailsapiController@getcrmcomment');
+Route::post('Crm_comment_insert','FbadetailsapiController@insertcrmcomment');
 //shubham end
 
 Route::post('get-crm-role','getcrmroleController@crm_role');

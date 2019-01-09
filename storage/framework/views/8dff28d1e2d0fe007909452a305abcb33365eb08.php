@@ -1,7 +1,5 @@
 <?php $__env->startSection('content'); ?>
 <!--  <body onload="currentrecort();"> -->
-
-
  <div class="container-fluid white-bg">
    <div class="col-md-12"><h3 class="mrg-btm">System MIS</h3></div>
    

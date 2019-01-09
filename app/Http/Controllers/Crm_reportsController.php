@@ -25,5 +25,15 @@ class Crm_reportsController extends CallApiController
            //print_r($crmrpdata); exit();
            return json_encode($crmrpdata);
 	}
+	public function getcrminteraction($uid,$fdate,$tdate){
+		
+		 $crmdata = DB::select('call crm_interactions_details(?,?,?)',[$uid,$fdate,$tdate]);
+		 if (!empty($crmdata)) {
+		 	return view('Crm_interaction',['crmdata'=>$crmdata]);
+		 }
+		return Redirect::back()->withErrors(['msg', 'No Data Found']);
+         
+
+	}
 
 }

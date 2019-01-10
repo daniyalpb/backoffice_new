@@ -434,6 +434,9 @@ route::post('get-mis-data-on-profile','allsalesreportController@getdataonprofile
 route::get('mis-report-with-date-product/{startdate}/{enddate}/{product}','allsalesreportController@getmisrepoonproduct');
 route::post('get-mis-data-on-product-state','allsalesreportController@getmisrepoonpronstat');
 
+Route::get('ImportMisdata','ImportmisdataController@importmisdata');
+Route::post('Importmisfile','ImportmisdataController@importExcelmis');
+
 
 
 ///shubham end ///

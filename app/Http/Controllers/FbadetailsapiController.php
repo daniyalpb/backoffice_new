@@ -140,6 +140,7 @@ class FbadetailsapiController extends ApiController
 			return 	$data1;	
 		}
 	}
+	
  
 }
 

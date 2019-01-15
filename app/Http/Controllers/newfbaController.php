@@ -46,9 +46,10 @@ use Excel;
                  //$fbid=Session::get('fbaid');
                  //print_r($fbaid);exit();
                 //echo "call update_new_fba_fbaList($fbaid)";
+                 $subfba = DB::select("call parrent_fba_data($fbaid)");
                  $update = DB::select("call update_new_fba_fbaList($fbaid)");
                 if(count($update) > 0){
-                      return view('dashboard.update-fba-list',['data'=>$update[0]]);
+                      return view('dashboard.update-fba-list',['data'=>$update[0],'subfba'=>$subfba]);
                     }
            else{
 
@@ -102,10 +103,46 @@ use Excel;
       echo json_encode($arr);
 }
 
+public function uploadpaygrid(Request $req){  
+  $fbauser=Session::get('fbauserid');
+  $filepaymentgrid=$this->fileupload_fn($req->file('filepaymentgrid'));
+  if (isset($req->txtolddoc)){    
+    DB::select('call payment_grid_update(?,?,?,?)',array(
+              $req->txtpayfbaid,
+              $filepaymentgrid,
+              $fbauser,
+              $req->txtolddoc));
+    Session::flash('message', 'Payment Grid Has Been updated Successfully');
+    return Redirect('load-update-fba-list/'.$req->txtpayfbaid);    
+  }else{      
+    DB::select('call payment_grid_insert(?,?,?)',array(
+              $req->txtpayfbaid,
+              $filepaymentgrid,
+              $fbauser));
+    Session::flash('message', 'Payment Grid Has Been Uploaded Successfully');
+    return Redirect('load-update-fba-list/'.$req->txtpayfbaid);
+  }
+}
 
+public  function fileupload_fn($image)
+  {
+    $declva='';
+    if($image!=''){
+      $name = time().'.'.$image->getClientOriginalName();
+            $destinationPath = public_path('upload/paygrid/'); //->save image folder 
+            $image->move($destinationPath, $name);
+            $declva=$name;
+          }else
+          {
+            $declva='0';
+          } 
 
-
-
+          return $declva;
+  }
+  public function getpaygriddoc($fbaid){    
+    $data = DB::select("call payment_grid_doc_path($fbaid)"); 
+    return json_encode($data);
+  }
 }
 
 

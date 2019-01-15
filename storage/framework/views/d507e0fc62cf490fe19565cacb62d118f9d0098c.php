@@ -83,7 +83,11 @@ th,td {
                         	<tr>
                         		<th>DOB</th>
                         		<td><?php echo e($val->DOB); ?></td>
-                        	</tr>                        	
+                        	</tr> 
+                            <tr>
+                                <th>Access</th>
+                                <td><?php echo e($val->Location); ?></td>
+                            </tr>                       	
                         	<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </table>              
 						</div>

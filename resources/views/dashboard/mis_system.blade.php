@@ -70,15 +70,15 @@ $.ajax({
         var response = JSON.parse(response);
 
         if(response.messege == "success"){
-          console.log(response.arr_success);
+          /*console.log(response.arr_success);
           console.log(JSON.parse(response.arr_success));
 
-          var success_response = $("#success_response").text();
+         // var success_response = $("#success_response").text();
           $.each(JSON.parse(response.arr_success) , function(key , value){
           	success_response += value + "<br>";
-          	$("#success_response").html(success_response);
+          	//$("#success_response").html(success_response);
           	success_response += "";
-          });
+          });*/
           $("#file_excel_data").val('');
         alert("File Imported Successfully");      
         }else{

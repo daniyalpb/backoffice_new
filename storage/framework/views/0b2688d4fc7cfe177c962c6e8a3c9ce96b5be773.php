@@ -62,7 +62,7 @@ label.error{top:34px !important; color:#ff0000 !important;font-size:15px !import
              </td>
              <td width="20%;">
               <label>
-              <input id="iscompany" type="radio" name="iscompany" value="1" checked>&nbsp;YES</label>
+              <input id="iscompany" type="radio" name="iscompany" value="1" >&nbsp;YES</label>
              </td>
              <td width="20%;">
               <label><input id="" type="radio" name="iscompany" class="iscompanyNo" value="0">&nbsp;NO</label>
@@ -74,11 +74,11 @@ label.error{top:34px !important; color:#ff0000 !important;font-size:15px !import
         <table class="table">
           <tr>
             <td><label>Business Name: <b style="color: red; font-size: 15px;">*</b></label></td>
-            <td><input type="text" id="txtbusinesstype" name="txtbusinesstype" class="form-control" required></td>
+            <td><input type="text" id="txtbusinesstype" name="txtbusinesstype" class="form-control" ></td>
             <td><label>Office Address: <b style="color: red; font-size: 15px;">*</b></label></td>
-            <td><textarea  id="txtofficeadd" name="txtofficeadd" class="form-control" required></textarea></td>
+            <td><textarea  id="txtofficeadd" name="txtofficeadd" class="form-control" ></textarea></td>
             <td><label>Staff Strength: <b style="color: red; font-size: 15px;">*</b></label></td>
-            <td><input type="number" id="txtstaff" name="txtstaff" class="form-control numericOnly" required></td>
+            <td><input type="number" id="txtstaff" name="txtstaff" class="form-control numericOnly" ></td>
           </tr>
         </table>
         <hr>
@@ -104,18 +104,18 @@ label.error{top:34px !important; color:#ff0000 !important;font-size:15px !import
           <table class="table">
             <tr>
               <td><label>No of Policies Sold per month: <b style="color: red; font-size: 15px;">*</b></label></td>
-              <td><input type="number" id="txtnoofpolicy" name="txtnoofpolicy" class="form-control numericOnly" required></td>
+              <td><input type="number" id="txtnoofpolicy" name="txtnoofpolicy" class="form-control numericOnly" ></td>
               <td><label>Premium collected per month: <b style="color: red; font-size: 15px;">*</b></label></td>
-              <td><input type="number" id="txtpremium" name="txtpremium" class="form-control numericOnly" required></td>
+              <td><input type="number" id="txtpremium" name="txtpremium" class="form-control numericOnly" ></td>
               <td><label>Base of LIC Customers: <b style="color: red; font-size: 15px;">*</b></label></td>
-              <td><input type="number" id="txtliccustomer" name="txtliccustomer" class="form-control numericOnly" required></td>
+              <td><input type="number" id="txtliccustomer" name="txtliccustomer" class="form-control numericOnly" ></td>
             </tr>
             <tr>
               <td><label>Preferred LIC products: <b style="color: red; font-size: 15px;">*</b></label></td>
-              <td><input type="text" id="txtlicproduct" name="txtlicproduct" class="form-control" required></td>
+              <td><input type="text" id="txtlicproduct" name="txtlicproduct" class="form-control" ></td>
               <td><label>LIC Club Memberships: <b style="color: red; font-size: 15px;">*</b></label></td>
               <!-- <td><input type="text" id="txtlicclub" name="txtlicclub" class="form-control" required></td> -->
-              <td><select  id="txtlicclub" name="txtlicclub" class="form-control" required>
+              <td><select  id="txtlicclub" name="txtlicclub" class="form-control" >
                   <option value="">--Select--</option>
                   <option value="Corporate Club">Corporate Club</option>
                   <option value="Chairman Club">Chairman Club</option>
@@ -220,7 +220,7 @@ label.error{top:34px !important; color:#ff0000 !important;font-size:15px !import
                    <td><label class="radio-inline"><input type="checkbox" id="txtlap" name="txtlap" value="1">&nbsp;LAP</label></td>
                    <td><label class="radio-inline"><input type="checkbox" id="txtbl" name="txtbl" value="1">&nbsp;Business Loan</label></td>
                    <td><label class="radio-inline"><input id="txtloan" type="checkbox" name="txtloan" value="1">Others</label></td>
-                     <td id="divloan" style="display: none;" ><textarea type="text" name="txtotherloan" placeholder="Please Specify" class="form-control" id="txtotherloan" required></textarea></td>
+                     <td id="divloan" style="display: none;" ><textarea type="text" name="txtotherloan" placeholder="Please Specify" class="form-control" id="txtotherloan" ></textarea></td>
                </tr>
            </table>
         </div>
@@ -241,7 +241,7 @@ label.error{top:34px !important; color:#ff0000 !important;font-size:15px !import
                   <label class="radio-inline"><input id="txtother" type="checkbox" name="txtother" value="1">Others</label>
                 </td>
            
-                <td id="divother" style="display: none;"><textarea type="text" name="txtotherremark" placeholder="please specify" class="form-control" id="txtotherremark" required></textarea>
+                <td id="divother" style="display: none;"><textarea type="text" name="txtotherremark" placeholder="please specify" class="form-control" id="txtotherremark" ></textarea>
                 </td>
              
                </tr>
@@ -250,7 +250,7 @@ label.error{top:34px !important; color:#ff0000 !important;font-size:15px !import
         <div class="form-group divremark">
          <div>
                <label for="comment">Remark: <b style="color: red; font-size: 15px;">*</b></label>
-               <textarea class="form-control" rows="4" id="txtremark" name="txtremark" style="width:50%" required></textarea>
+               <textarea class="form-control" rows="4" id="txtremark" name="txtremark" style="width:50%"></textarea>
          </div>      
          </div>
          <div style="text-align:center">

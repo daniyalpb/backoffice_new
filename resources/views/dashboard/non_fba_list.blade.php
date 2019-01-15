@@ -103,6 +103,7 @@
 @if(Session::get('usergroup')==50)
   <a href="{{url('export-excel')}}" class="qry-btn" id="pospbtn">Export</a>
 @endif
+
   
 </div>
 </div>

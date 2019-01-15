@@ -14,7 +14,8 @@ class fbablocklistController extends Controller
 {
 	public function  fbablocklist(){
 
-   $fbauser=Session::get('fbaid'); $query=DB::select("call fbaList($fbauser)");
+   $fbauser=Session::get('fbaid');
+    $query=DB::select("call new_fba_fbaList($fbauser)");
 		// print_r($query); exit();
 
                 // $query=array(1,2,3,4);

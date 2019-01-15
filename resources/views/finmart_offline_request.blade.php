@@ -26,6 +26,7 @@
                    <th>Name</th>
                   
                    <th>Product Name</th>
+                  <!--   <th>RRM Name</th> -->
                    <th>Quote Description</th>
                    <th>Doc Links</th>
                    <th>Current Status</th>
@@ -44,6 +45,7 @@
     <td><?php echo $val->quotes_request_id; ?></td>   
     <td><?php echo $val->FullName.'<br>'.$val->MobiNumb1;?></td>
     <td><?php echo $val->product_name; ?></td>
+   <!-- <td><?php echo $val->EmployeeName; ?></td> -->
      <td><a data-toggle="modal" data-target="#Quotedescription" onclick="viewdiscription('{{$val->id}}')">View Requirement</a>
 
     </td>
@@ -609,11 +611,15 @@ return false;
 </script>
 
 <script type="text/javascript">
-    function viewImage(id)
-    {
+    function viewImage(id){
 
 $('#imagefile').attr('src', '');
 $('#imagefileone').attr('src', '');
+
+$("#docview1").attr('data-val','');  
+$("#docview2").attr('data-val','');  
+$("#docview3").attr('data-val',''); 
+$("#docview4").attr('data-val','');   
  //alert(id);
   $.ajax({
  url: 'view-upload-doc/'+id,
@@ -765,6 +771,11 @@ $("#docview1").val(quotename1);
 }
 
 function docdisplay(this_id){
+    $("#docviewModal").val('');
+        // $("#docview1").val('');
+   //    $("#docview2").val('');
+   //    $("#docview3").val('');
+   //    $("#docview4").val(''); 
  // alert(this_id); exit();
 var path = $("#"+this_id).attr("data-val");
 //alert(path); exit();

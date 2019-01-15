@@ -103,6 +103,7 @@
 <?php if(Session::get('usergroup')==50): ?>
   <a href="<?php echo e(url('export-excel')); ?>" class="qry-btn" id="pospbtn">Export</a>
 <?php endif; ?>
+
   
 </div>
 </div>

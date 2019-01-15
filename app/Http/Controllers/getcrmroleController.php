@@ -32,7 +32,7 @@ use Excel;
 			public function get_crm_disposition(Request $req){
 			//print_r($req->all());exit();
 		 	 //$data=DB::select("call get_crm_disposition($req->followup_internalteam)");	
-		 	 $data=DB::select('call get_crm_disposition(?)',array($req->followup_internalteam));	
+		 	 $data=DB::select('call get_crm_disposition(?)',array($req->fba_id));	
 
 		  	if (!empty($data)) {
 		  	return $this->send_success_response('Successfully','Success',$data);

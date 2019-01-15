@@ -78,11 +78,10 @@ Route::get('getloanid/{fbaid}','FbaController@getupdateloanid');
 
 
 //QuicK Lead start  
-Route::get('quickleadassignmentshow','quickleadController@showlead');
-  Route::get('quickleadassignment','quickleadController@quicklead');
+  Route::get('quickleadassignmentshow','quickleadController@showlead');
+  Route::get('quickleadassignment','quickleadController@quicklead');  
   Route::post('quickleadcity','quickleadController@quickleadcity');
   Route::get('quickleadcity/{id}',array('as'=>'leadquick.ajax','uses'=>'quickleadController@quickleadcity'));
-
   Route::post('fbaquickleadcity','quickleadController@statecityfba'); 
   Route::post('fbaquickleadcitysave','quickleadController@Insertquicklead');  
 
@@ -145,18 +144,19 @@ Route::get('city_wise_state2','statewisecityController@showlead2');
 Route::get('state-city-profile','statecitywiseprofileController@show_state_city'); 
 Route::get('state-wise-profile','statecitywiseprofileController@state_city');
 Route::post('get-city','statecitywiseprofileController@profilecity'); 
-Route::post('get-city-pincode','statecitywiseprofileController@profilecity_pincode');   
-  //Route::get('get-city/{id}',array('as'=>'leadquick1.ajax','uses'=>'statecitywiseprofileController@profilecity'));
+Route::post('get-city-pincode','statecitywiseprofileController@profilecity_pincode'); 
+Route::get('profile-name/{Profile}','statecitywiseprofileController@get_profile_name');
+Route::post('empuidupdate','statecitywiseprofileController@updateuid');
 
+// Vikas FBA EXCEPTION MAPPING START
 
-
-
-
-
-
-
-
-
+  Route::get('fba-crm-exception','fba_crm_exceptionController@show_state_city');
+  Route::get('get-fba-exception','fba_crm_exceptionController@getstateexceptionfba');
+  Route::get('crm-profile-name/{Profile}','fba_crm_exceptionController@get_profile_uid');
+  Route::post('fba-exception-update','fba_crm_exceptionController@updatecrm_fba_exception_updatedate');
+  Route::post('fba-exception-data','fba_crm_exceptionController@statecityfbaexception'); 
+  Route::post('fbaexception-city','fba_crm_exceptionController@fba_exception_city');
+ // Route::get('fbaexception-city/{id}',array('as'=>'leadquick.ajax','uses'=>'fba_crm_exceptionController@fba_exception_city'));
 
 
 

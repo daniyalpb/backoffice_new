@@ -108,7 +108,8 @@ Route::get('load-non-fba-list','newfbaController@nonfbalist');
 Route::get('new-fba-list','newfbaController@getnonfba');
 Route::get('export-excel','newfbaController@nonfbaexportexcel');
 
-
+route::post('upload-paygrid','newfbaController@uploadpaygrid');
+route::get('get-paygrid-doc/{fbaid}','newfbaController@getpaygriddoc');
 Route::get('load-update-fba-list/{fbaid}','newfbaController@update_fba_list'); 
 Route::get('load-update-pospnew/{id}','newfbaController@UpdatePospnonew');
 Route::post('get-type','newfbaController@update_type'); 

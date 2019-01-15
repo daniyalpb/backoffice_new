@@ -130,24 +130,25 @@ if(count($all_rows) <= 3000){
 	//print_r($all_rows);exit();
 	$data_row_count = '2';
 	$fbaid=Session::get('fbaid');
+	DB::select("call delete_data_form_mis_temp_table()");
 	foreach($all_rows as $row => $value){
 		if(!empty($value['A'.$data_row_count])){
 
-			$exploded_entry_date = explode("-",trim($value['U'.$data_row_count]));
+			//$exploded_entry_date = explode("-",trim($value['U'.$data_row_count]));
 			//print_r($exploded_entry_date);exit();
-			$entry_date = $exploded_entry_date[0]."-".$exploded_entry_date[1]."-".$exploded_entry_date[2];
+		//	$entry_date = $exploded_entry_date[0]."-".$exploded_entry_date[1]."-".$exploded_entry_date[2];
 			//print_r($entry_date);exit();
          //print_r($value['R'.$data_row_count]);exit();
-			$sp_query = DB::select("call update_mis_system('".$value['A'.$data_row_count]."', '".$value['B'.$data_row_count]."', '".$value['C'.$data_row_count]."', '".$value['D'.$data_row_count]."', '".$value['E'.$data_row_count]."', '".$value['F'.$data_row_count]."', '".$value['G'.$data_row_count]."', '".$value['H'.$data_row_count]."', '".$value['I'.$data_row_count]."', '".$value['J'.$data_row_count]."', '".$value['K'.$data_row_count]."', '".$value['L'.$data_row_count]."', '".$value['M'.$data_row_count]."', '".$value['N'.$data_row_count]."', '".$value['O'.$data_row_count]."', '".$value['P'.$data_row_count]."', '".$value['Q'.$data_row_count]."', '".$value['R'.$data_row_count]."', '".$value['S'.$data_row_count]."', '".$value['T'.$data_row_count]."', '".$entry_date."', '".$value['V'.$data_row_count]."', '".$value['W'.$data_row_count]."', '".$value['X'.$data_row_count]."', '".$value['Y'.$data_row_count]."', '".$value['Z'.$data_row_count]."', '".$value['AA'.$data_row_count]."', '".$value['AB'.$data_row_count]."', '".$value['AC'.$data_row_count]."', '".$value['AD'.$data_row_count]."', '".$value['AE'.$data_row_count]."', '".$value['AF'.$data_row_count]."', '".$value['AG'.$data_row_count]."', '".$value['AH'.$data_row_count]."', '".$value['AI'.$data_row_count]."', '".$value['AJ'.$data_row_count]."', '".$value['AK'.$data_row_count]."', '".$value['AL'.$data_row_count]."', '".$value['AM'.$data_row_count]."', '".$value['AN'.$data_row_count]."', '".$value['AO'.$data_row_count]."', '".$value['AP'.$data_row_count]."', '".$value['AQ'.$data_row_count]."', '".$value['AR'.$data_row_count]."', '".$value['AS'.$data_row_count]."', '".$value['AT'.$data_row_count]."', '".$value['AU'.$data_row_count]."', '".$value['AV'.$data_row_count]."', '".$value['AW'.$data_row_count]."', '".$value['AX'.$data_row_count]."', '".$value['AY'.$data_row_count]."', '".$value['AZ'.$data_row_count]."', '".$value['BA'.$data_row_count]."', '".$value['BB'.$data_row_count]."', '".$value['BC'.$data_row_count]."', '".$value['BD'.$data_row_count]."', '".$value['BE'.$data_row_count]."', '".$value['BF'.$data_row_count]."', '".$value['BG'.$data_row_count]."', '".$value['BH'.$data_row_count]."', '".$value['BI'.$data_row_count]."', '".$value['BJ'.$data_row_count]."', '".$value['BK'.$data_row_count]."', '".$value['BL'.$data_row_count]."', '".$value['BM'.$data_row_count]."', '".$value['BN'.$data_row_count]."', '".$value['BO'.$data_row_count]."','".$fbaid."')");
+			$sp_query = DB::select("call update_mis_system('".$value['A'.$data_row_count]."', '".$value['B'.$data_row_count]."', '".$value['C'.$data_row_count]."', '".$value['D'.$data_row_count]."', '".$value['E'.$data_row_count]."', '".$value['F'.$data_row_count]."', '".$value['G'.$data_row_count]."', '".$value['H'.$data_row_count]."', '".$value['I'.$data_row_count]."', '".$value['J'.$data_row_count]."', '".$value['K'.$data_row_count]."', '".$value['L'.$data_row_count]."', '".$value['M'.$data_row_count]."', '".$value['N'.$data_row_count]."', '".$value['O'.$data_row_count]."', '".$value['P'.$data_row_count]."', '".$value['Q'.$data_row_count]."', '".$value['R'.$data_row_count]."', '".$value['S'.$data_row_count]."', '".$value['T'.$data_row_count]."', '".$value['U'.$data_row_count]."', '".$value['V'.$data_row_count]."', '".$value['W'.$data_row_count]."', '".$value['X'.$data_row_count]."', '".$value['Y'.$data_row_count]."', '".$value['Z'.$data_row_count]."', '".$value['AA'.$data_row_count]."', '".$value['AB'.$data_row_count]."', '".$value['AC'.$data_row_count]."', '".$value['AD'.$data_row_count]."', '".$value['AE'.$data_row_count]."', '".$value['AF'.$data_row_count]."', '".$value['AG'.$data_row_count]."', '".$value['AH'.$data_row_count]."', '".$value['AI'.$data_row_count]."', '".$value['AJ'.$data_row_count]."', '".$value['AK'.$data_row_count]."', '".$value['AL'.$data_row_count]."', '".$value['AM'.$data_row_count]."', '".$value['AN'.$data_row_count]."', '".$value['AO'.$data_row_count]."', '".$value['AP'.$data_row_count]."', '".$value['AQ'.$data_row_count]."', '".$value['AR'.$data_row_count]."', '".$value['AS'.$data_row_count]."', '".$value['AT'.$data_row_count]."', '".$value['AU'.$data_row_count]."', '".$value['AV'.$data_row_count]."', '".$value['AW'.$data_row_count]."', '".$value['AX'.$data_row_count]."', '".$value['AY'.$data_row_count]."', '".$value['AZ'.$data_row_count]."', '".$value['BA'.$data_row_count]."', '".$value['BB'.$data_row_count]."', '".$value['BC'.$data_row_count]."', '".$value['BD'.$data_row_count]."', '".$value['BE'.$data_row_count]."', '".$value['BF'.$data_row_count]."', '".$value['BG'.$data_row_count]."', '".$value['BH'.$data_row_count]."', '".$value['BI'.$data_row_count]."', '".$value['BJ'.$data_row_count]."', '".$value['BK'.$data_row_count]."', '".$value['BL'.$data_row_count]."', '".$value['BM'.$data_row_count]."', '".$value['BN'.$data_row_count]."', '".$value['BO'.$data_row_count]."','".$fbaid."')");
 
-			$success_array[] = $sp_query[0]->result;
+			//$success_array[] = $sp_query[0]->result;
 
 			$data_row_count++;
 
 		}
 
-		$arr_success = json_encode($success_array);
-		$response = array("messege"=>"success","arr_success"=>$arr_success);
+		/*$arr_success = json_encode($success_array);*/
+		$response = array("messege"=>"success");
 		
 	}
 

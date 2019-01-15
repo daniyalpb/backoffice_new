@@ -33,8 +33,8 @@ class FbadetailsapiController extends ApiController
 	}
 //my followup
    public function getcrmhistory(Request $req){
-     if (isset($req->fbaid)&&isset($req->fbacrmid)){
-		$data=DB::select("call Crm_history_app($req->fbacrmid,'$req->fbaid')");
+     if (isset($req->Uid)&&isset($req->fbacrmid)){
+		$data=DB::select("call Crm_history_app($req->fbacrmid,'$req->Uid')");
 		}else{
 			$data=[];
             $data1=$this->send_failure_response('No Data Found','failure',$data);
@@ -52,8 +52,8 @@ class FbadetailsapiController extends ApiController
    }
    //others followup
    public function getothersfollowup(Request $req){
-   	if (isset($req->fbaid)&&isset($req->fbacrmid)){
-		$data=DB::select("call Crm_all_history_app($req->fbacrmid,'$req->fbaid')");
+   	if (isset($req->Uid)&&isset($req->fbacrmid)){
+		$data=DB::select("call Crm_all_history_app($req->fbacrmid,'$req->Uid')");
 		}else{
 			$data=[];
             $data1=$this->send_failure_response('No Data Found','failure',$data);
@@ -91,7 +91,7 @@ class FbadetailsapiController extends ApiController
 		if (isset($req->disposition_id)&&isset($req->remark)){
 		 $data=DB::select('call crm_insert_from_app(?,?,?,?,?,?,?,?,?)',array(
               $req->disposition_id,
-              $req->user_id,
+              $req->Uid,
               $req->crm_id,
               $req->fbamappin_id,             
               $req->followup_date,
@@ -109,7 +109,7 @@ class FbadetailsapiController extends ApiController
 			$data1=$this->send_success_response('Data Has Been Saved Successfully','success',$data);
 				
 			DB::select('call crm_insert_followup_app(?,?,?,?)',array(              
-              $req->user_id,                                   
+              $req->Uid,                                   
               $req->followup_assign_id,
               $req->fbamappin_id,
               $data[0]->history_id 

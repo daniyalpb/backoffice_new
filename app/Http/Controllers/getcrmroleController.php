@@ -29,17 +29,14 @@ use Excel;
 
 
 
-			public function get_crm_disposition(Request $req){
-			//print_r($req->all());exit();
-		 	 //$data=DB::select("call get_crm_disposition($req->followup_internalteam)");	
-		 	 $data=DB::select('call get_crm_disposition(?)',array($req->fba_id));	
-
+	public function get_crm_disposition(Request $req){
+		 	 $data=DB::select('call get_crm_disposition(?)',array($req->Uid));
 		  	if (!empty($data)) {
 		  	return $this->send_success_response('Successfully','Success',$data);
 		  }else{
 		  	return $this->send_failure_response('Data Not Found','Failure',[]);
 		  }
-		 //print_r($data);exit();
+		 
 	}
 
 }

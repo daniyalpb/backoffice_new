@@ -34,7 +34,8 @@ h3.mrg-btm {
      </div>
      </div>
 
-      <div class="form-group"> <input type="Submit" name="qlead" id="qlead"  class="mrg-top common-btn pull-left"  value="SHOW">
+      <div class="form-group"> <input type="Submit" name="qlead" id="qlead"  class="mrg-top common-btn pull-left" style="margin-top: 56px;
+"  value="SHOW">
       <!-- style=" margin-top: 11%; margin-left: -237px"  -->
       </div>
  <!--  </form> -->
@@ -86,7 +87,7 @@ h3.mrg-btm {
            </table>
            <div>
            <input type="hidden" name="hiddenid" id="hiddenid" readonly="readonly"> 
-      <input type="Submit" name="fbdatail" id="fbdatail" value="submit" class="btn btn-success">
+      <input type="Submit" name="fbdatail" id="fbdatail" value="submit" class="btn btn-success" style="margin-left: 972px;margin-top: -1287px;">
 <!-- 
            <a id="fbdatail" name="fbdatail" class="btn btn-success">Submit</a> -->
            </div>
@@ -115,6 +116,7 @@ function getLoanData(){
   success:function(data) {
     var json = JSON.parse(data);
     console.log(json);
+
     if(json.length>0){
 
      $('#tablediv').removeClass('hidden');
@@ -258,22 +260,20 @@ $("#hiddenid").val(fbaid_array.join(","));
   var fbaid_array = [];
   // Handle click on "Select all" control
   var table = $('#example').DataTable();
-
   // Get all rows with search applied
   var rows = table.rows({ 'search': 'applied' }).nodes();
+  if($("#" + this_id).is(":checked")){            //if checkbox is checked
 
-    if($("#" + this_id).is(":checked")){            //if checkbox is checked
-
-      $.each($('input[type="checkbox"]', rows) , function(key , input_checkbox){
-        fbaid_array.push(input_checkbox.value);
-        $(input_checkbox).prop('checked', true);
-      });
-      $("#hiddenid").val(fbaid_array.join(","));
-    }
-    else{                                           //if checkbox is unchecked
+     $.each($('input[type="checkbox"]', rows) , function(key , input_checkbox){
+     fbaid_array.push(input_checkbox.value);
+     $(input_checkbox).prop('checked', true);
+});
+       $("#hiddenid").val(fbaid_array.join(","));
+   }
+     else{                                           //if checkbox is unchecked
       $.each($('input[type="checkbox"]', rows) , function(key , input_checkbox){
         $(input_checkbox).prop('checked', false);
-      });
+    });
       $("#hiddenid").val("");
     }
   }

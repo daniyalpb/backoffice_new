@@ -56,7 +56,7 @@ class FbaController extends CallApiController
 
             public function get_fba_count($fbaid){
             $loggedinfba=Session::get('fbaid');
-            $count=DB::select("call getfba_count('$loggedinfba','$fbaid')");
+            //$count=DB::select("call getfba_count('$loggedinfba','$fbaid')");
              // print_r($count); exit();
              return json_encode($count);
          }

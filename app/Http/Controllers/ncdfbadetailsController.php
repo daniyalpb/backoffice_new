@@ -17,12 +17,4 @@ class ncdfbadetailsController extends CallApiController {
 			return view('ncd_fba_details', ['data'=>$data]);
  }
 
-
-
-
-
-
-	// public function ncdfbadetails(){
-	// 	return view('ncd_fba_details');
-	// }
 }

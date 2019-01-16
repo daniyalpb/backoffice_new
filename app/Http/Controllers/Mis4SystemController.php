@@ -126,7 +126,7 @@ if(count(array_filter($response)) === 0){
 }
 	//echo count($all_rows);exit();
 
-if(count($all_rows) <= 3000){
+if(count($all_rows) <= '3000' && !empty($all_rows)){
 	//print_r($all_rows);exit();
 	$data_row_count = '2';
 	$fbaid=Session::get('fbaid');

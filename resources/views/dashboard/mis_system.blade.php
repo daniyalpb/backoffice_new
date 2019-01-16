@@ -40,7 +40,7 @@
 		    		<span id="other_errors" class="error_class"></span>
 		    	</div>
 		    </div>
-<p style="color: red;">Note: You can uploade file with less than #3000 records in given format only i.e(.xls,xlsx)and Entry Date in format of (YYYY-MM-DD)</p>
+<p style="color: red;">Note: You can uploade file with less than #3000 records in given format only i.e(.xlsx)and Entry Date in format of (YYYY-MM-DD)</p>
 		    <div class="row">
 		    	<div class="col-md-12">
 		    		<span id="success_response" class="success_class"></span>
@@ -68,6 +68,7 @@ $.ajax({
       contentType : false,
       success : function(response){
         var response = JSON.parse(response);
+        alert(response);
 
         if(response.messege == "success"){
           /*console.log(response.arr_success);

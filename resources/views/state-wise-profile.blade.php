@@ -29,10 +29,10 @@ h3.mrg-btm {
             @endforeach
           </ul>
         </div>
-         </div> -->
+        </div> -->
 
 
-  <div class="col-md-4 col-sm-4 col-xs-12">
+   <div class="col-md-4 col-sm-4 col-xs-12">
      <h4 style="margin-left: 45%;">State</h4>
                <ul class="dropdown-menu" style="min-width: 24rem;   height: 250px; overflow: auto;"> </ul>
 

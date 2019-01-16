@@ -1,5 +1,4 @@
-@extends('include.master')
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <style>
 .error_class{
@@ -11,7 +10,7 @@
 </style>
 
 <form name="mis_system_update" id="mis_system_update" enctype="multipart/form-data" method="POST">  
-{{ csrf_field() }}  
+<?php echo e(csrf_field()); ?>  
      
 <div class="container-fluid">
     <div class="col-lg-12">
@@ -30,7 +29,7 @@
 		      		<input type="button" name="btn_submit" id="btn_submit" value="Submit" class="btn btn-primary">
 		      	</div>
 		      	<div class="col-md-3">
-		      		<a href="{{URL::to("upload/MIs_excle_file.xls")}}" class="btn btn-primary">Download File Format</a>		      		
+		      		<a href="<?php echo e(URL::to("upload/MIs_excle_file.xls")); ?>" class="btn btn-primary">Download File Format</a>		      		
 		      	</div>
 		    </div>
 
@@ -61,7 +60,7 @@ $(".success_class").empty();
 var formdata = new FormData($("#mis_system_update")[0]);
 $.ajax({
       type : 'POST',
-      url : "{{URL::to("/mis-system-update")}}",
+      url : "<?php echo e(URL::to("/mis-system-update")); ?>",
       data : formdata,
       processData : false,
       contentType : false,
@@ -100,4 +99,5 @@ $.ajax({
       });
 });
 </script>
-@endsection	
+<?php $__env->stopSection(); ?>	
+<?php echo $__env->make('include.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

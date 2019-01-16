@@ -71,6 +71,7 @@ class FbadetailsapiController extends ApiController
    public function getcrmcomment(Request $req){
    		if (isset($req->fbacrmid)){
 		$data=DB::select("call Fba_crm_comment_app($req->fbacrmid)");
+		//print_r($data);exit();
 		}else{
 			$data=[];
             $data1=$this->send_failure_response('No Data Found','failure',$data);
@@ -78,6 +79,7 @@ class FbadetailsapiController extends ApiController
 		}
 		if (!empty($data)){
 			$data1=$this->send_success_response('Data Has Been Feachted Successfully','success',$data);	
+			//print_r($data1);exit();
 			return 	$data1;
 		}else{
 			$data1=$this->send_failure_response('No Data Found','failure',$data);
@@ -139,6 +141,9 @@ class FbadetailsapiController extends ApiController
 			$data1=$this->send_failure_response('No Data Found','failure',$data);
 			return 	$data1;	
 		}
+	}
+	public function closecrmfollowup(){
+
 	}
 	
  

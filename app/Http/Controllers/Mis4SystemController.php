@@ -27,11 +27,7 @@ class Mis4SystemController extends Controller{
 
 			$extension = pathinfo($request->file('file_excel_data')->getClientOriginalName(), PATHINFO_EXTENSION);
 			//print_r($extension);exit();
-			if($extension == "xls" || $extension == "xlsx"){	
-
-				if($extension == "xls"){
-					$file_value_reader = 'Excel5';
-				}	
+			if($extension == "xlsx"){					
 				if($extension == "xlsx"){
 					$file_value_reader = 'Excel2007';
 				}		
@@ -126,11 +122,10 @@ if(count(array_filter($response)) === 0){
 }
 	//echo count($all_rows);exit();
 
-if(count($all_rows) <= 3000){
+if(count($all_rows) <= '3000'){
 	//print_r($all_rows);exit();
 	$data_row_count = '2';
 	$fbaid=Session::get('fbaid');
-	DB::select("call delete_data_form_mis_temp_table()");
 	foreach($all_rows as $row => $value){
 		if(!empty($value['A'.$data_row_count])){
 
@@ -157,7 +152,7 @@ if(count($all_rows) <= 3000){
 }
 
 }else{
-	$response['file_excel_data'] = "Invalid File Type.(Only 'xsl' or 'xslx' File Types are allowed)";
+	$response['file_excel_data'] = "Invalid File Type.(Only 'xslx' File Types are allowed)";
 }
 
 }else{

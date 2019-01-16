@@ -16,7 +16,7 @@ use Excel;
          {
          		public function show_state_city(){
          		$stateview = DB::select("call usp_load_state_list()");
-         		$empprofile=DB::select("call get_finmartemployeemaster_profile()");
+         		$empprofile=DB::select("call get_fba_crm_profile()");
 				//echo json_encode($stateview);
 
 

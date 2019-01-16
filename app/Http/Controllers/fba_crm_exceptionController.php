@@ -19,7 +19,7 @@ use Excel;
 				public function show_state_city(){
 					$query=[];
          		 $state = DB::select("call usp_load_state_list()");
-         		 $empprofile=DB::select("call get_finmartemployeemaster_profile()");
+         		 $empprofile=DB::select("call get_fba_crm_profile()");
          		 return view('fba_crm_exception_mapping',['state'=>$state,'empprofile'=>$empprofile]);
             	}
 

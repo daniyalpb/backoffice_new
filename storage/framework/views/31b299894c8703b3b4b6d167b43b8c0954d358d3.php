@@ -1,11 +1,10 @@
-@extends('include.master')
-@section('content')
-@if(Session::has('message'))
+<?php $__env->startSection('content'); ?>
+<?php if(Session::has('message')): ?>
 <div class="alert alert-success alert-dismissible">
 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-<p class="alert alert-success">{{ Session::get('message') }}</p>
+<p class="alert alert-success"><?php echo e(Session::get('message')); ?></p>
 </div>
-@endif
+<?php endif; ?>
 
 
 
@@ -26,7 +25,7 @@
                    <th>Name</th>
                   
                    <th>Product Name</th>
-                  <!--   <th>RRM Name</th> -->
+                    <th>RRM Name</th>
                    <th>Quote Description</th>
                    <th>Doc Links</th>
                    <th>Current Status</th>
@@ -40,13 +39,13 @@
 
               
  
- @foreach($Quotes as $val) 
+ <?php $__currentLoopData = $Quotes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
      <tr>
     <td><?php echo $val->quotes_request_id; ?></td>   
     <td><?php echo $val->FullName.'<br>'.$val->MobiNumb1;?></td>
     <td><?php echo $val->product_name; ?></td>
-   <!-- <td><?php echo $val->EmployeeName; ?></td> -->
-     <td><a data-toggle="modal" data-target="#Quotedescription" onclick="viewdiscription('{{$val->id}}')">View Requirement</a>
+    <td><?php echo $val->EmployeeName; ?></td>
+     <td><a data-toggle="modal" data-target="#Quotedescription" onclick="viewdiscription('<?php echo e($val->id); ?>')">View Requirement</a>
 
     </td>
 <!--  <td>
@@ -57,38 +56,38 @@
 
  <!--    </td>   -->
     <td align=center>   
-  <!--   @if($val->Status=='')
-    <a href="" style="" data-toggle="modal"   onclick="Gettype('{{$val->id}}')">Update Status</a>
-    @else 
+  <!--   <?php if($val->Status==''): ?>
+    <a href="" style="" data-toggle="modal"   onclick="Gettype('<?php echo e($val->id); ?>')">Update Status</a>
+    <?php else: ?> 
       <span class="glyphicon glyphicon-blank"></span> 
-      @endif -->
+      <?php endif; ?> -->
 <!--     <br>
-    <a href="" style="" data-toggle="modal" data-target="#statusdetails" onclick="statusviewoffline('{{$val->id}}')">View Status History</a> -->
-      <a href="" style="" data-toggle="modal"  data-target="#docviwer" onclick="offlinedocview('{{$val->id}}')">Uploaded Quote</a>
-@if($val->Type==1)
- ({{$val->totaldocs}})
-   @else
+    <a href="" style="" data-toggle="modal" data-target="#statusdetails" onclick="statusviewoffline('<?php echo e($val->id); ?>')">View Status History</a> -->
+      <a href="" style="" data-toggle="modal"  data-target="#docviwer" onclick="offlinedocview('<?php echo e($val->id); ?>')">Uploaded Quote</a>
+<?php if($val->Type==1): ?>
+ (<?php echo e($val->totaldocs); ?>)
+   <?php else: ?>
     <span class="glyphicon glyphicon-blank"></span> 
-  @endif
-  <br><a type="button" id="hidetype1" onclick="viewImage('{{$val->id}}')">View User Doc</a>
- ({{$val->userupload}})
+  <?php endif; ?>
+  <br><a type="button" id="hidetype1" onclick="viewImage('<?php echo e($val->id); ?>')">View User Doc</a>
+ (<?php echo e($val->userupload); ?>)
    
     </td>
     <td align="center">
    <!--  <?php echo $val->Status; ?> -->
-      @if($val->Status=='Lost' || $val->Status=='Converted' )
-        <a href="" style="" data-toggle="modal" data-target="#statusdetails" onclick="statusviewoffline('{{$val->id}}')">{{$val->Status}}</a>
-<!--     <a href="" style="" data-toggle="modal"   onclick="Gettype('{{$val->id}}')">Update</a>
- -->    @else 
+      <?php if($val->Status=='Lost' || $val->Status=='Converted' ): ?>
+        <a href="" style="" data-toggle="modal" data-target="#statusdetails" onclick="statusviewoffline('<?php echo e($val->id); ?>')"><?php echo e($val->Status); ?></a>
+<!--     <a href="" style="" data-toggle="modal"   onclick="Gettype('<?php echo e($val->id); ?>')">Update</a>
+ -->    <?php else: ?> 
      <!--  <?php echo $val->Status; ?> -->
       <!-- <span class="glyphicon glyphicon-blank"></span>  -->
     <br>
-        <a href="" style="" data-toggle="modal"  onclick="Gettype('{{$val->id}}')">Update</a>
+        <a href="" style="" data-toggle="modal"  onclick="Gettype('<?php echo e($val->id); ?>')">Update</a>
     
 
- <!--    <a href="" style="" data-toggle="modal" data-target="#statusdetails" onclick="statusviewoffline('{{$val->id}}')">{{$val->Status}}</a> -->
-      @endif
-          <td><a data-toggle="modal" data-target="#updateremark" onclick="Getremarkhiddenid('{{$val->id}}')">Remarks</a></td>
+ <!--    <a href="" style="" data-toggle="modal" data-target="#statusdetails" onclick="statusviewoffline('<?php echo e($val->id); ?>')"><?php echo e($val->Status); ?></a> -->
+      <?php endif; ?>
+          <td><a data-toggle="modal" data-target="#updateremark" onclick="Getremarkhiddenid('<?php echo e($val->id); ?>')">Remarks</a></td>
       </td>
          <td><?php echo $val->Created_date; ?></td>
         <td><?php echo $val->Converted_date; ?></td>  
@@ -97,21 +96,21 @@
 </tr>
 
 
-  <!-- <td><a href="" style="" data-toggle="modal"  data-target="#docviwer" onclick="offlinedocview('{{$val->id}}')">Upload Doc</a><span style="font-size:15; margin-left: 10px">{{$val->totaldocs}}</span></td> -->
-<!--   <td><a href="" style="" data-toggle="modal"  data-target="#docviwer" onclick="offlinedocview('{{$val->id}}')">Upload Doc</a>
+  <!-- <td><a href="" style="" data-toggle="modal"  data-target="#docviwer" onclick="offlinedocview('<?php echo e($val->id); ?>')">Upload Doc</a><span style="font-size:15; margin-left: 10px"><?php echo e($val->totaldocs); ?></span></td> -->
+<!--   <td><a href="" style="" data-toggle="modal"  data-target="#docviwer" onclick="offlinedocview('<?php echo e($val->id); ?>')">Upload Doc</a>
 
 
-@if($val->Type==1)
-  <span style="font-size:15; margin-left: 10px">({{$val->totaldocs}}) </span>
-   @else
+<?php if($val->Type==1): ?>
+  <span style="font-size:15; margin-left: 10px">(<?php echo e($val->totaldocs); ?>) </span>
+   <?php else: ?>
     <span class="glyphicon glyphicon-blank"></span> 
-  @endif
+  <?php endif; ?>
  </td>
-    <td><a type="button" id="hidetype1" onclick="viewImage('{{$val->id}}')">View Doc</a>
-  <span style="font-size:15; margin-left: 10px">({{$val->userupload}}) </span>
+    <td><a type="button" id="hidetype1" onclick="viewImage('<?php echo e($val->id); ?>')">View Doc</a>
+  <span style="font-size:15; margin-left: 10px">(<?php echo e($val->userupload); ?>) </span>
     </td>
   </tr>-->
-    @endforeach 
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
 
  </tbody>
 
@@ -159,7 +158,8 @@
           <form id="statustype" name="statustype" method="post">
              <input type="hidden" name="hiddenid" id="hiddenid" >
 
-              {{csrf_field()}}
+              <?php echo e(csrf_field()); ?>
+
                   <label>Select Status:</label>
                   <select class="form-control" required id="ddltype" name="ddltype" onchange="getdate();">
                    <option id="statusConverted" value="1">Lost</option>
@@ -224,14 +224,15 @@
           </div>
              <form id="remarkupdate" name="remarkupdate" enctype="multipart/form-data" method="post">
              <input type="hidden" name="hiddenidremark" id="hiddenidremark" >
-              {{csrf_field()}}
+              <?php echo e(csrf_field()); ?>
+
                   <br>
                   <textarea name="rmkupdte" id="rmkupdte" rows="4" cols="50" placeholder="Write a Remark" required></textarea>
                     <div id="loadremark"> </div>
          </div>        
         <!-- Modal footer -->
         <div class="modal-footer">
-      <input type="button" name="btn_submit" id="btn_submit" class="btn btn-primary" onclick="updatremark('{{$val->id}}')" value="Submit"> 
+      <input type="button" name="btn_submit" id="btn_submit" class="btn btn-primary" onclick="updatremark('<?php echo e($val->id); ?>')" value="Submit"> 
          </form>
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
@@ -324,8 +325,9 @@
         <h4 class="modal-title" style="text-align:center;">Attachment</h4>
       </div><br>
        <div class="modal-body">
-      <form  method="post" enctype="multipart/form-data" action="{{url('upload-doc')}}">
-      {{ csrf_field() }}
+      <form  method="post" enctype="multipart/form-data" action="<?php echo e(url('upload-doc')); ?>">
+      <?php echo e(csrf_field()); ?>
+
       <input type="hidden" name="hidedenquote" id="hidedenquote">
   <table class="table table-striped ">
         <tr>
@@ -384,7 +386,8 @@
  <tr>
  <form id="amtupdate" name="amtupdate" method="POST">
       <input type="hidden" name="hiddenidamt" id="hiddenidamt" >
-        {{csrf_field()}}
+        <?php echo e(csrf_field()); ?>
+
       <div style="width: 80;height:20px;"  class="modal-body">
 
 
@@ -544,7 +547,7 @@ function statussubmit(){
 }else{
      //alert('Test');
      $.ajax({ 
-   url: "{{URL::to('update-status')}}",
+   url: "<?php echo e(URL::to('update-status')); ?>",
    method:"GET",
    data: $('#statustype').serialize(),
    success: function(msg){
@@ -570,7 +573,7 @@ location.reload();
 function statussubmit(){
      //alert('Test');
      $.ajax({ 
-   url: "{{URL::to('update-status')}}",
+   url: "<?php echo e(URL::to('update-status')); ?>",
    method:"GET",
    data: $('#statustype').serialize(),
    success: function(msg){
@@ -596,7 +599,7 @@ return false;
 }else{
   //alert(hiddenid);
      $.ajax({ 
-   url: "{{URL::to('update-amount-date')}}",
+   url: "<?php echo e(URL::to('update-amount-date')); ?>",
    method:"GET",
    data: $('#amtupdate').serialize(),
    success: function(msg){
@@ -717,10 +720,10 @@ if(i==4)
 
 
 
-// $("#docview1").attr('data-val','{{url('/upload/offlinedocs')}}/'+p_Quote1);
-// $("#docview2").attr('data-val','{{url('/upload/offlinedocs')}}/'+p_Quote2);
-// $("#docview3").attr('data-val','{{url('/upload/offlinedocs')}}/'+p_Quote3);
-// $("#docview4").attr('data-val','{{url('/upload/offlinedocs')}}/'+p_Quote4);
+// $("#docview1").attr('data-val','<?php echo e(url('/upload/offlinedocs')); ?>/'+p_Quote1);
+// $("#docview2").attr('data-val','<?php echo e(url('/upload/offlinedocs')); ?>/'+p_Quote2);
+// $("#docview3").attr('data-val','<?php echo e(url('/upload/offlinedocs')); ?>/'+p_Quote3);
+// $("#docview4").attr('data-val','<?php echo e(url('/upload/offlinedocs')); ?>/'+p_Quote4);
 
 
 // $("#docview1").val(p_Quote1);
@@ -835,7 +838,7 @@ function statusviewoffline(id){
 <script type="text/javascript">
 function viewdocone(this_data_val){
     
-$("#imagefileone").attr('src','{{url('/upload/offlinedocs')}}/' + this_data_val.innerText);
+$("#imagefileone").attr('src','<?php echo e(url('/upload/offlinedocs')); ?>/' + this_data_val.innerText);
 }
 
 </script>
@@ -907,7 +910,7 @@ function Getremarkhiddenid(id){
 return false;
 }else{
    $.ajax({ 
-   url: "{{URL::to('update-remark')}}",
+   url: "<?php echo e(URL::to('update-remark')); ?>",
    method:"GET",
    data: $('#remarkupdate').serialize(),
    success: function(msg){
@@ -931,7 +934,7 @@ function updatremark(id){
  $('#hiddenidremark').val(hiddenidremark);
  //alert('test2');
      $.ajax({ 
-   url: "{{URL::to('update-remark')}}",
+   url: "<?php echo e(URL::to('update-remark')); ?>",
    method:"GET",
    data: $('#remarkupdate').serialize(),
    success: function(msg){
@@ -948,7 +951,7 @@ function updatremark(id){
 function getremarkoffline(quote_request_id){
 $.ajax({  
          type: "GET",  
-         url:'get-remark/'+quote_request_id,//"{{URL::to('Fsm-Details')}}",
+         url:'get-remark/'+quote_request_id,//"<?php echo e(URL::to('Fsm-Details')); ?>",
          success: function(mmsg){
 console.log(data);
         var data = JSON.parse(mmsg);
@@ -983,5 +986,7 @@ function forceDownload(url, fileName){
 
 </script>
 <!-- Update Remark End -->  
- @endsection
+ <?php $__env->stopSection(); ?>
 
+
+<?php echo $__env->make('include.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

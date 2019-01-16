@@ -1,6 +1,15 @@
 <?php $__env->startSection('content'); ?>
 
-   <div class="col-md-12"><h3 class="mrg-btm">State_City_Wise_Profile  </h3>
+
+<style type="text/css">
+
+h3.mrg-btm {
+  font-style: italic;
+}
+
+</style>
+
+   <div class="col-md-12"><h3 class="mrg-btm">Pincode CRM FBA Mapping  </h3>
 
 <form id="updateempdtl" name="updateempdtl" method="POST" action="<?php echo e(url('empuidupdate')); ?>" >
 

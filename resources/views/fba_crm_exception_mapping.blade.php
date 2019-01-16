@@ -1,5 +1,14 @@
 @extends('include.master')
 @section('content')
+
+<style type="text/css">
+
+h3.mrg-btm {
+  font-style: italic;
+}
+
+</style>
+
    <div class="col-md-12"><h3 class="mrg-btm">FBA CRM Exception Mapping</h3>
 
 
@@ -69,15 +78,15 @@
 
            <thead>
            <tr>
-           <th><input name="select_all" value="1" id="example-select-all" type="checkbox" /></th>       
+           <th><input name="select_all" id="example-select-all" type="checkbox" onclick="p_check_all_fba(this.id)"/></th>       
            <th>FBA ID</th> 
            <th>FBA Name</th>                                
            </tr>
            </thead>
            </table>
            <div>
-           <input type="text" name="hiddenid" id="hiddenid" > 
-        <input type="Submit" name="fbdatail" id="fbdatail" value="submit" class="btn btn-success">
+           <input type="hidden" name="hiddenid" id="hiddenid" readonly="readonly"> 
+      <input type="Submit" name="fbdatail" id="fbdatail" value="submit" class="btn btn-success">
 <!-- 
            <a id="fbdatail" name="fbdatail" class="btn btn-success">Submit</a> -->
            </div>
@@ -220,7 +229,7 @@ function getLoanData(){
 
 function stausupdate(this_id){
 
-  //$("#check_all_fba").prop("checked",false);
+  $("#example-select-all").prop("checked",false);
 
   if($("#hiddenid").val() == ""){
     var fbaid_array = [];
@@ -243,6 +252,34 @@ function stausupdate(this_id){
 
 $("#hiddenid").val(fbaid_array.join(","));
 }
+</script>
+<script type="text/javascript">
+  function p_check_all_fba(this_id){
+  var fbaid_array = [];
+  // Handle click on "Select all" control
+  var table = $('#example').DataTable();
+
+  // Get all rows with search applied
+  var rows = table.rows({ 'search': 'applied' }).nodes();
+
+    if($("#" + this_id).is(":checked")){            //if checkbox is checked
+
+      $.each($('input[type="checkbox"]', rows) , function(key , input_checkbox){
+        fbaid_array.push(input_checkbox.value);
+        $(input_checkbox).prop('checked', true);
+      });
+      $("#hiddenid").val(fbaid_array.join(","));
+    }
+    else{                                           //if checkbox is unchecked
+      $.each($('input[type="checkbox"]', rows) , function(key , input_checkbox){
+        $(input_checkbox).prop('checked', false);
+      });
+      $("#hiddenid").val("");
+    }
+  }
+
+
+
 </script>
 
 

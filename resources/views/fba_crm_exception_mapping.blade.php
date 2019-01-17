@@ -56,10 +56,10 @@ h3.mrg-btm {
          </div> 
 <div class="form-group col-md-6"> 
         <div class="col-md-5">
-    <select name="eprofile" id="eprofile"  class="text-primary form-control" onclick="getprofilename(this.value,document.getElementById ('pname').value)" >
+    <select name="eprofile" id="eprofile"  class="text-primary form-control" onchange="getprofilename(this.value,document.getElementById ('pname').value)" >
      <option value="">--Select Profile--</option>
       @foreach($empprofile as $val)
-    <option value="{{$val->role_id}}">{{$val->Profile}},{{$val->role_id}}</option>
+    <option value="{{$val->role_id}}">{{$val->Profile}}</option>
  @endforeach
           </select>
           </div>
@@ -201,7 +201,7 @@ function getLoanData(){
 
   <script type="text/javascript">
   function getprofilename(Profile){
-   $("#pname").val("");
+    $("#pname").empty();
     //console.log(Profile);
         $.ajax({ 
           url: 'crm-profile-name/'+Profile,

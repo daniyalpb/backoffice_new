@@ -59,7 +59,7 @@ h3.mrg-btm {
     <select name="eprofile" id="eprofile"  class="text-primary form-control" onclick="getprofilename(this.value,document.getElementById ('pname').value)" >
      <option value="">--Select Profile--</option>
       <?php $__currentLoopData = $empprofile; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-    <option value="<?php echo e($val->role_id); ?>"><?php echo e($val->Profile); ?>,<?php echo e($val->role_id); ?></option>
+    <option value="<?php echo e($val->role_id); ?>"><?php echo e($val->Profile); ?></option>
  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           </select>
           </div>

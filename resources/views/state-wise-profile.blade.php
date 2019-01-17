@@ -91,10 +91,10 @@ h3.mrg-btm {
          </div> -->
 <div class="form-group col-md-6"> 
         <div class="col-md-5">
-    <select name="eprofile" id="eprofile"  class="text-primary form-control" onclick="getprofilename(this.value,document.getElementById ('PinCode').value)" value="{{$val->Profile}}" >
+    <select name="eprofile" id="eprofile"  class="text-primary form-control" onchange="getprofilename(this.value,document.getElementById ('PinCode').value)" value="{{$val->Profile}}" >
      <option value="">--Select Profile--</option>
       @foreach($empprofile as $val)
-      ($val->Profile->Profile){
+      <!-- ($val->Profile->Profile) -->{
     <option value="{{$val->role_id}}">{{$val->Profile}},{{$val->role_id}}</option>
     }
   
@@ -192,7 +192,7 @@ h3.mrg-btm {
     console.log(msg);
     if(msg)
     {  $.each(msg, function( index, value ) {
-   $('#city').append('<option value="'+value.pincode+'">'+value.cityname+'</option>');   
+   $('#city').append('<option value="'+value.cityid+'">'+value.cityname+'</option>');   
     }); 
      }else{
       $('#city').empty().append('No Result Found');
@@ -211,27 +211,27 @@ h3.mrg-btm {
   var state=$('#city').find(":selected").val();
   var array = "";
   var i=0;
-
+ 
  var arr=Array();
    $('#city  option:selected').each(function() {
      arr.push('<option value="'+$(this).val()+'">'+$(this).val()+'</option>');
     array+= $(this).val()+",";
     });
    console.log(array);
-   $('#PinCode').append(arr); 
+  // $('#PinCode').append(arr); 
 
-return  false;
+ 
  
     var v_token ="{{csrf_token()}}";
    $.ajax({  
     type: "POST",  
     url: "{{URL::to('get-city-pincode')}}",
-    data : {'_token': v_token,'pincode':array},
+    data : {'_token': v_token,'cityid':array},
     success: function(msg){
-    console.log(msg);
+   
     if(msg)
     {  $.each(msg, function( index, value ) {
-   $('#PinCode').append('<option value="'+value.cityid+'">'+value.pincode+'</option>');   
+   $('#PinCode').append('<option value="'+value.pincode+'">'+value.pincode+'</option>');   
     }); 
      }else{
       $('#PinCode').empty().append('No Result Found');
@@ -271,7 +271,7 @@ $( '.dropdown-menu a' ).on( 'click', function( event ) {
 
 <script type="text/javascript">
   function getprofilename(Profile){
-   $("#pname").val("");
+   $("#pname").empty();
     //console.log(Profile);
         $.ajax({ 
         //url: 'profile-name/'+Profile+'/'+PinCode,
@@ -279,8 +279,9 @@ $( '.dropdown-menu a' ).on( 'click', function( event ) {
         method:"GET",
         success: function(data){
           var msg = JSON.parse(data);
+          //$("#pname").val("");
           $.each(msg, function(index) {
-          $("#pname").append('<option value="'+msg[index].UId+'">'+msg[index].EmployeeName+'</option');
+      $("#pname").append('<option value="'+msg[index].UId+'">'+msg[index].EmployeeName+'</option');
             //alert(msg[index].EmployeeName);
        });
 

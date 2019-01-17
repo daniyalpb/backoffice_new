@@ -18,10 +18,7 @@ use Excel;
          		$stateview = DB::select("call usp_load_state_list()");
          		$empprofile=DB::select("call get_fba_crm_profile()");
 				//echo json_encode($stateview);
-
-
- 
-         		return view('state-wise-profile',['stateview'=>$stateview,'empprofile'=>$empprofile]);
+			return view('state-wise-profile',['stateview'=>$stateview,'empprofile'=>$empprofile]);
             	}
 
 
@@ -37,10 +34,21 @@ use Excel;
  		  }  
 
   			   public  function profilecity_pincode(Request $req){
+                  
+               
+
+			   $profilrcity2 = DB::select('call get_pincode_on_city_id(?)',array($req->cityid));
+          	 	return $profilrcity2;
+
+    }
+
+ 
+
+
 
 			// print_r($req->pincode);exit;
 
-	    }
+	
 
 				public function get_profile_name($Profile){
 				$pname = DB::select("call pincode_wise_profile_name(?)",array($Profile) );

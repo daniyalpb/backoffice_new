@@ -148,6 +148,9 @@ Route::post('get-city-pincode','statecitywiseprofileController@profilecity_pinco
 Route::get('profile-name/{Profile}','statecitywiseprofileController@get_profile_name');
 Route::post('empuidupdate','statecitywiseprofileController@updateuid');
 
+// Route::get('get-city-pincode/{flag}/{value}',array('as'=>'FSMRegister.ajax','uses'=>'statecitywiseprofileController@profilecity_pincode'));
+
+
 // Vikas FBA EXCEPTION MAPPING START
 
   Route::get('fba-crm-exception','fba_crm_exceptionController@show_state_city');

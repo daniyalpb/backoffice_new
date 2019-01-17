@@ -84,7 +84,11 @@ th,td {
                         	<tr>
                         		<th>DOB</th>
                         		<td>{{$val->DOB}}</td>
-                        	</tr>                        	
+                        	</tr> 
+                            <tr>
+                                <th>Access</th>
+                                <td>{{$val->Location}}</td>
+                            </tr>                       	
                         	@endforeach
                         </table>              
 						</div>

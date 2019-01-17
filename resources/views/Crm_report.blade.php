@@ -1,5 +1,12 @@
 @extends('include.master')
 @section('content')
+@if($errors->any())
+<div class="alert alert-info fade in alert-dismissible show">
+ <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true" style="font-size:20px">×</span>
+  </button><strong>No Intraction!</strong>{{$errors->first()}}
+</div>
+@endif
 <div class="container-fluid white-bg">
 <div class="col-md-12"><h3 class="mrg-btm">CRM Report</h3></div>
 
@@ -55,10 +62,12 @@ $.ajax({
       $("#divcrmtable" ).empty();
         var newdata = JSON.stringify(msg);
         var data=JSON.parse(newdata);
+        var fdate=$("#txtfromdate").val();
+        var tdate=$("#txttodate").val();
         var str = "<table class='datatable-responsive table table-striped table-bordered dt-responsive nowrap' id='crmtable'><thead><tr><th>UID</th><th>Employee Name</th><th>Profile</th><th>New</th><th>Open</th><th>Closed</th><th>Interactions</th</tr></thead><tbody>";
        for (var i = 0; i < data.length; i++) 
        {
-         str = str + "<tr style='height:30px;margin:5px;'><td>"+data[i].UID+"</td><td>"+data[i].EmployeeName+"</td><td>"+data[i].Profile+"</td><td>"+data[i].New+"</td><td>"+data[i].Open+"</td><td>"+data[i].Closed+"</td><td>"+data[i].Interactions+"</td></tr>";
+         str = str + "<tr style='height:30px;margin:5px;'><td>"+data[i].UID+"</td><td>"+data[i].EmployeeName+"</td><td>"+data[i].Profile+"</td><td>"+data[i].New+"</td><td>"+data[i].Open+"</td><td>"+data[i].Closed+"</td><td><a href='get_crm_interaction/"+data[i].UID+"/"+fdate+"/"+tdate+"' target='_blank'>"+data[i].Interactions+"</a></td></tr>";
         }     
          str = str + "</tbody></table>";
            $('#divcrmtable').html(str);  
@@ -69,5 +78,35 @@ $.ajax({
 });
 }
 }
+/*function getcrminteraction(UID){
+  var fdate=$("#txtfromdate").val();
+  var tdate=$("#txttodate").val();
+  $.ajax({ 
+     url: 'get_crm_interaction/'+UID+'/'+fdate+'/'+tdate,
+     dataType : 'json',
+     method:"GET",
+     success: function(msg)
+     {
+
+
+
+      window.location.href="{{url('hgshq')}}/"+msg;
+      $("#divcrmtable" ).empty();
+        var newdata = JSON.stringify(msg);
+        var data=JSON.parse(newdata);
+        var str = "<table class='datatable-responsive table table-striped table-bordered dt-responsive nowrap' id='crmtable'><thead><tr><th>UID</th><th>Employee Name</th><th>Profile</th><th>New</th><th>Open</th><th>Closed</th><th>Interactions</th</tr></thead><tbody>";
+       for (var i = 0; i < data.length; i++) 
+       {
+         str = str + "<tr style='height:30px;margin:5px;'><td>"+data[i].UID+"</td><td>"+data[i].EmployeeName+"</td><td>"+data[i].Profile+"</td><td>"+data[i].New+"</td><td>"+data[i].Open+"</td><td>"+data[i].Closed+"</td><td><a onclick='getcrminteraction("+data[i].UID+")'>"+data[i].Interactions+"</a></td></tr>";
+        }     
+         str = str + "</tbody></table>";
+           $('#divcrmtable').html(str);  
+           $('#crmtable').DataTable(); 
+     }  
+     
+
+});
+
+}*/
 </script>
 @endsection

@@ -40,7 +40,7 @@
 		    		<span id="other_errors" class="error_class"></span>
 		    	</div>
 		    </div>
-<p style="color: red;">Note: You can uploade file with less than #3000 records in given format only i.e(.xls,xlsx)and Entry Date in format of (YYYY-MM-DD)</p>
+<p style="color: red;">Note: You can uploade file with less than #3000 records in given format only i.e(.xlsx)and Entry Date in format of (YYYY-MM-DD)</p>
 		    <div class="row">
 		    	<div class="col-md-12">
 		    		<span id="success_response" class="success_class"></span>
@@ -68,17 +68,18 @@ $.ajax({
       contentType : false,
       success : function(response){
         var response = JSON.parse(response);
+        alert(response);
 
         if(response.messege == "success"){
-          console.log(response.arr_success);
+          /*console.log(response.arr_success);
           console.log(JSON.parse(response.arr_success));
 
-          var success_response = $("#success_response").text();
+         // var success_response = $("#success_response").text();
           $.each(JSON.parse(response.arr_success) , function(key , value){
           	success_response += value + "<br>";
-          	$("#success_response").html(success_response);
+          	//$("#success_response").html(success_response);
           	success_response += "";
-          });
+          });*/
           $("#file_excel_data").val('');
         alert("File Imported Successfully");      
         }else{

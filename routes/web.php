@@ -107,7 +107,8 @@ Route::get('load-non-fba-list','newfbaController@nonfbalist');
 Route::get('new-fba-list','newfbaController@getnonfba');
 Route::get('export-excel','newfbaController@nonfbaexportexcel');
 
-
+route::post('upload-paygrid','newfbaController@uploadpaygrid');
+route::get('get-paygrid-doc/{fbaid}','newfbaController@getpaygriddoc');
 Route::get('load-update-fba-list/{fbaid}','newfbaController@update_fba_list'); 
 Route::get('load-update-pospnew/{id}','newfbaController@UpdatePospnonew');
 Route::post('get-type','newfbaController@update_type'); 
@@ -401,6 +402,7 @@ Route::POST('gethealthdata','ImportsalesdataController@importExcelhealth');
 Route::POST('getmotordata','ImportsalesdataController@importExcelmotor');
 
 Route::get('Crm-report','Crm_reportsController@getcrmreport');
+route::get('get_crm_interaction/{uid}/{fdate}/{tdate}','Crm_reportsController@getcrminteraction');
 Route::get('getcrmreport/{fromdate}/{todate}','Crm_reportsController@crm_report');
 
 Route::get('fba-communication','FbacommunicationController@getfbacommunication');
@@ -433,6 +435,11 @@ Route::get('all-mis-report-with-filters','allsalesreportController@getview');
 Route::get('mis-report-with-date/{startdate}/{enddate}','allsalesreportController@misreportfdateldate1');
 Route::get('mis-report-with-date-state/{startdate}/{enddate}/{state}','allsalesreportController@misreportfdateldatestate');
 route::post('get-mis-data-on-profile','allsalesreportController@getdataonprofile');
+route::get('mis-report-with-date-product/{startdate}/{enddate}/{product}','allsalesreportController@getmisrepoonproduct');
+route::post('get-mis-data-on-product-state','allsalesreportController@getmisrepoonpronstat');
+
+Route::get('ImportMisdata','ImportmisdataController@importmisdata');
+Route::post('Importmisfile','ImportmisdataController@importExcelmis');
 
 
 

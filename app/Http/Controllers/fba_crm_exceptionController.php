@@ -44,19 +44,13 @@ use Excel;
 		$city_string = "'";
 		$city_string .= implode("','",$req->city);
 		$city_string .= "'";
-
 		$state_string = "'";
 		$state_string .= implode("','",$req->state);
 		$state_string .= "'";
 
-	$fbascity = DB::select("select FBAID,FullName from FBAMast where StatID in ($state_string) and City in($city_string) and AppSource = 2");
+	$fbascity = DB::select("select FBAID,FullName from FBAMast where StatID in ($state_string) and City in($city_string) and AppSource = 1");
 	return json_encode($fbascity);
 }
-
-
-
-
-
 
 		// 			 public function statecityfbaexception (Request $req){
 		// 			 $fbascity = DB::select('call get_fba_exception_fba(?,?)',[implode(',',$req->state),implode(',',$req->city)]);

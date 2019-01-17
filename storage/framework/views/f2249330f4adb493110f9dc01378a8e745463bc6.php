@@ -1,5 +1,4 @@
-@extends('include.master')
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 
 <style type="text/css">
@@ -12,9 +11,10 @@ h3.mrg-btm {
 
    <div class="col-md-12"><h3 class="mrg-btm">Pincode CRM FBA Mapping  </h3>
 
-<form id="updateempdtl" name="updateempdtl" method="POST" action="{{url('empuidupdate')}}" >
+<form id="updateempdtl" name="updateempdtl" method="POST" action="<?php echo e(url('empuidupdate')); ?>" >
 
-    {{ csrf_field() }}
+    <?php echo e(csrf_field()); ?>
+
      <hr>
      </div>
 
@@ -24,9 +24,9 @@ h3.mrg-btm {
         <div class="col-md-5">
            <button type="button" class="btn btn-default btn-sm dropdown-toggle form-control" data-toggle="dropdown">--SELECT --</button>
           <ul class="dropdown-menu" style="min-width: 24rem;   height: 250px; overflow: auto;">
-             @foreach($stateview as $val)
-            <li style="font-size: 17px;"><a href="#" class="small" data-value="option1" tabIndex="-1"><input type="checkbox" name="state[]" id="state" value="{{$val->state_id}}" style="margin: 4px 7px 0;" />{{$val->state_name}}</a></li>
-            @endforeach
+             <?php $__currentLoopData = $stateview; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <li style="font-size: 17px;"><a href="#" class="small" data-value="option1" tabIndex="-1"><input type="checkbox" name="state[]" id="state" value="<?php echo e($val->state_id); ?>" style="margin: 4px 7px 0;" /><?php echo e($val->state_name); ?></a></li>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           </ul>
         </div>
         </div> -->
@@ -47,11 +47,11 @@ h3.mrg-btm {
         <div class="col-md-5">
            <button type="button" class="btn btn-default btn-sm dropdown-toggle form-control" data-toggle="dropdown">--SELECT --</button>
           <ul class="dropdown-menu" style="min-width: 24rem;   height: 250px; overflow: auto;">
-           @isset($profilrcity)
-             @foreach($profilrcity as $val)
-            <li style="font-size: 17px;"><a href="#" class="small" data-value="option1" tabIndex="-1"><input type="checkbox" name="city[]" id="city" value="{{$val->PinCode}}" style="margin: 4px 7px 0;" />{{$val->cityname}}</a></li>
-            @endforeach
-              @endisset
+           <?php if(isset($profilrcity)): ?>
+             <?php $__currentLoopData = $profilrcity; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <li style="font-size: 17px;"><a href="#" class="small" data-value="option1" tabIndex="-1"><input type="checkbox" name="city[]" id="city" value="<?php echo e($val->PinCode); ?>" style="margin: 4px 7px 0;" /><?php echo e($val->cityname); ?></a></li>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+              <?php endif; ?>
           </ul>
         </div>
          </div>
@@ -81,24 +81,24 @@ h3.mrg-btm {
         </div>
          <div class="col-md-7">
         <select name="eprofile" id="eprofile"  class="text-primary form-control">
-             @isset($empprofile)
-      @foreach($empprofile as $val)
-      <option value="{{$val->Profile}}">{{$val->Profile}}</option>
- @endforeach
-   @endisset
+             <?php if(isset($empprofile)): ?>
+      <?php $__currentLoopData = $empprofile; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+      <option value="<?php echo e($val->Profile); ?>"><?php echo e($val->Profile); ?></option>
+ <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+   <?php endif; ?>
           </select>
           </div>
          </div> -->
 <div class="form-group col-md-6"> 
         <div class="col-md-5">
-    <select name="eprofile" id="eprofile"  class="text-primary form-control" onchange="getprofilename(this.value,document.getElementById ('PinCode').value)" value="{{$val->Profile}}" >
+    <select name="eprofile" id="eprofile"  class="text-primary form-control" onchange="getprofilename(this.value,document.getElementById ('PinCode').value)" value="<?php echo e($val->Profile); ?>" >
      <option value="">--Select Profile--</option>
-      @foreach($empprofile as $val)
+      <?php $__currentLoopData = $empprofile; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       <!-- ($val->Profile->Profile) -->{
-    <option value="{{$val->role_id}}">{{$val->Profile}},{{$val->role_id}}</option>
+    <option value="<?php echo e($val->role_id); ?>"><?php echo e($val->Profile); ?>,<?php echo e($val->role_id); ?></option>
     }
   
- @endforeach
+ <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           </select>
           </div>
           </div>
@@ -111,9 +111,9 @@ h3.mrg-btm {
         <div class="col-md-5">
            <button type="button" class="btn btn-default btn-sm dropdown-toggle form-control" data-toggle="dropdown">--SELECT PROFILE--</button>
           <ul class="dropdown-menu" style="min-width: 24rem;   height: 250px; overflow: auto;">
-             @foreach($empprofile as $val)
-            <li style="font-size: 17px;"><a href="#" class="small" data-value="option1" tabIndex="-1"><input type="checkbox" name="eprofile" onclick="getprofilename(this.value,document.getElementById('PinCode').value)" value="{{$val->Profile}}" style="margin: 4px 7px 0;" />{{$val->Profile}},{{$val->role_id}}</a></li>
-            @endforeach
+             <?php $__currentLoopData = $empprofile; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <li style="font-size: 17px;"><a href="#" class="small" data-value="option1" tabIndex="-1"><input type="checkbox" name="eprofile" onclick="getprofilename(this.value,document.getElementById('PinCode').value)" value="<?php echo e($val->Profile); ?>" style="margin: 4px 7px 0;" /><?php echo e($val->Profile); ?>,<?php echo e($val->role_id); ?></a></li>
+            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           </ul>
            
         </div>
@@ -157,7 +157,7 @@ h3.mrg-btm {
 
  <script type="text/javascript">
  $.ajax({ 
- url: "{{URL::to('state-wise-profile')}}",
+ url: "<?php echo e(URL::to('state-wise-profile')); ?>",
  method:"GET",
  success: function(datas)  
  {
@@ -183,10 +183,10 @@ h3.mrg-btm {
     array+= $(this).val()+",";
     });
    console.log(array);
-    var v_token ="{{csrf_token()}}";
+    var v_token ="<?php echo e(csrf_token()); ?>";
    $.ajax({  
     type: "POST",  
-    url: "{{URL::to('get-city')}}",
+    url: "<?php echo e(URL::to('get-city')); ?>",
     data : {'_token': v_token,'state':array},
     success: function(msg){
     console.log(msg);
@@ -222,10 +222,10 @@ h3.mrg-btm {
 
  
  
-    var v_token ="{{csrf_token()}}";
+    var v_token ="<?php echo e(csrf_token()); ?>";
    $.ajax({  
     type: "POST",  
-    url: "{{URL::to('get-city-pincode')}}",
+    url: "<?php echo e(URL::to('get-city-pincode')); ?>",
     data : {'_token': v_token,'cityid':array},
     success: function(msg){
    
@@ -312,7 +312,7 @@ $( '.dropdown-menu a' ).on( 'click', function( event ) {
 //       alert('test');
 //    ($('#updateempdtl').valid()){
 //    $.ajax({ 
-//    url: "{{URL::to('update-uid')}}",
+//    url: "<?php echo e(URL::to('update-uid')); ?>",
 //    method:"POST",
 //    data: $('#updateempdtl').serialize(),
 //    success: function(msg)  
@@ -336,4 +336,5 @@ $( '.dropdown-menu a' ).on( 'click', function( event ) {
   </script>
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('include.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

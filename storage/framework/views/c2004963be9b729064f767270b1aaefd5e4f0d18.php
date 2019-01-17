@@ -1,5 +1,4 @@
-@extends('include.master')
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 <style type="text/css">
 
@@ -12,8 +11,9 @@ h3.mrg-btm {
    <div class="col-md-12"><h3 class="mrg-btm">FBA CRM Exception Mapping</h3>
 
 
-    <form  id="leadquick" name="leadquick" action="{{url('fba-exception-update')}}" method="post"> 
-    {{ csrf_field() }}
+    <form  id="leadquick" name="leadquick" action="<?php echo e(url('fba-exception-update')); ?>" method="post"> 
+    <?php echo e(csrf_field()); ?>
+
      <hr>
      </div>
      <!-- <table class="table table-responsive table-hover" cellspacing="0" id="example"> -->
@@ -47,7 +47,7 @@ h3.mrg-btm {
     <!-- <th><input type="checkbox" name="chekfba" id="chekfba" class="select-checkall-header"></th> 
     <input name="select_all" id="checkAll" type="checkbox" />-->
       <!-- <form method="post" id="fbdatail-table-from">
-        {{ csrf_field() }} -->
+        <?php echo e(csrf_field()); ?> -->
       <input type="hidden" name="txtfid" id="txtfid">
        
     <!--  -->
@@ -58,9 +58,9 @@ h3.mrg-btm {
         <div class="col-md-5">
     <select name="eprofile" id="eprofile"  class="text-primary form-control" onchange="getprofilename(this.value,document.getElementById ('pname').value)" >
      <option value="">--Select Profile--</option>
-      @foreach($empprofile as $val)
-    <option value="{{$val->role_id}}">{{$val->Profile}}</option>
- @endforeach
+      <?php $__currentLoopData = $empprofile; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+    <option value="<?php echo e($val->role_id); ?>"><?php echo e($val->Profile); ?></option>
+ <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
           </select>
           </div>
           </div>
@@ -153,7 +153,7 @@ function getLoanData(){
 })
 
  $.ajax({ 
- url: "{{URL::to('get-fba-exception')}}",
+ url: "<?php echo e(URL::to('get-fba-exception')); ?>",
  method:"GET",
  success: function(datas)  
  {
@@ -179,10 +179,10 @@ function getLoanData(){
     array+= $(this).val()+",";
     });
    console.log(array);
-    var v_token ="{{csrf_token()}}";
+    var v_token ="<?php echo e(csrf_token()); ?>";
    $.ajax({  
     type: "POST",  
-    url: "{{URL::to('fbaexception-city')}}",
+    url: "<?php echo e(URL::to('fbaexception-city')); ?>",
     data : {'_token': v_token,'state':array},
     success: function(msg){
     console.log(msg);
@@ -286,4 +286,5 @@ $("#hiddenid").val(fbaid_array.join(","));
 
 
 
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('include.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

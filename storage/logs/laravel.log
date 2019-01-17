@@ -218,3 +218,7 @@
 #58 C:\\xampp\\htdocs\\backoffice_new\\server.php(21): require_once('C:\\\\xampp\\\\htdocs...')
 #59 {main}
 "} 
+[2019-01-17 06:32:02] local.ERROR: Maximum execution time of 600 seconds exceeded {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 1): Maximum execution time of 600 seconds exceeded at C:\\xampp\\htdocs\\backoffice_new\\vendor\\laravel\\framework\\src\\Illuminate\\Database\\Connection.php:332)
+[stacktrace]
+#0 {main}
+"} 

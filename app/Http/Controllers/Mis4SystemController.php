@@ -124,8 +124,10 @@ if(count(array_filter($response)) === 0){
 
 if(count($all_rows) <= '3000'){
 	//print_r($all_rows);exit();
+
 	$data_row_count = '2';
 	$fbaid=Session::get('fbaid');
+	DB::select("call delete_data_form_mis_temp_table()"); 	
 	foreach($all_rows as $row => $value){
 		if(!empty($value['A'.$data_row_count])){
 
@@ -143,6 +145,7 @@ if(count($all_rows) <= '3000'){
 		}
 
 		/*$arr_success = json_encode($success_array);*/
+		//DB::select("call mis_report_data_update_from_fbamast_n_temp()"); 
 		$response = array("messege"=>"success");
 		
 	}

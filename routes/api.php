@@ -31,6 +31,8 @@ Route::post('Crm_my_follow_up','FbadetailsapiController@getcrmhistory');
 Route::post('Crm_others_follow_up','FbadetailsapiController@getothersfollowup');
 Route::post('Crm_comment','FbadetailsapiController@getcrmcomment');
 Route::post('Crm_comment_insert','FbadetailsapiController@insertcrmcomment');
+Route::post('Crm_child_followup','FbadetailsapiController@getchildfolloup');
+Route::post('Check_disposition','FbadetailsapiController@checkdisposition');
 
 //shubham end
 

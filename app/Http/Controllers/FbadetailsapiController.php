@@ -160,6 +160,29 @@ class FbadetailsapiController extends ApiController
 			return 	$data1;	
 		}
  }
+
+ public function checkdisposition(){
+ 	//print_r($req->all());exit();
+ 	if (isset($req->fbacrmid)&&isset($req->disposition_id)&&isset($req->user_id)){
+ 		$data=DB::select("call crm_check_disposition('$req->fbacrmid','$req->disposition_id','$req->user_id')");		
+ 	}else{
+ 		$data=[];
+ 		$data1=$this->send_failure_response('No Data Found','failure',$data);
+ 		return 	$data1;	
+ 	}
+		if (!empty($data)){
+			if ($data[0]->dispositionexist=='1') {
+				$data1=$this->send_success_response('you have already select this dispostion for same fba','success',$data);
+				return 	$data1;
+			}else{
+				$data1=$this->send_success_response('Continue','success',$data);
+				return 	$data1;
+			}			
+		}else{
+			$data1=$this->send_failure_response('No Data Found','failure',$data);
+			return 	$data1;	
+		}
+ }
 	
  
 }

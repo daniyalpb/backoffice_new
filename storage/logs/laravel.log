@@ -308,3 +308,15 @@
 [stacktrace]
 #0 {main}
 "} 
+[2019-01-18 06:40:08] local.ERROR: Cannot use [] for reading {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 64): Cannot use [] for reading at C:\\xampp\\htdocs\\backoffice_new\\app\\Http\\Controllers\\FbadetailsapiController.php:174)
+[stacktrace]
+#0 {main}
+"} 
+[2019-01-18 06:40:40] local.ERROR: Cannot use [] for reading {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 64): Cannot use [] for reading at C:\\xampp\\htdocs\\backoffice_new\\app\\Http\\Controllers\\FbadetailsapiController.php:174)
+[stacktrace]
+#0 {main}
+"} 
+[2019-01-18 06:41:00] local.ERROR: Cannot use [] for reading {"exception":"[object] (Symfony\\Component\\Debug\\Exception\\FatalErrorException(code: 64): Cannot use [] for reading at C:\\xampp\\htdocs\\backoffice_new\\app\\Http\\Controllers\\FbadetailsapiController.php:174)
+[stacktrace]
+#0 {main}
+"} 

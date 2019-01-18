@@ -34,7 +34,7 @@ h3.mrg-btm {
 
    <div class="col-md-4 col-sm-4 col-xs-12">
      <h4 style="margin-left: 45%;">State</h4>
-               <ul class="dropdown-menu" style="min-width: 24rem;   height: 250px; overflow: auto;"> </ul>
+      <ul class="dropdown-menu" style="min-width: 24rem;  height: 250px; overflow: auto;"> </ul>
 
      <div class="form-group">
      <select multiple="multiple" class="form-control select-sty" name="state[]" id="state" >    
@@ -95,7 +95,7 @@ h3.mrg-btm {
      <option value="">--Select Profile--</option>
       @foreach($empprofile as $val)
       <!-- ($val->Profile->Profile) -->{
-    <option value="{{$val->role_id}}">{{$val->Profile}},{{$val->role_id}}</option>
+    <option value="{{$val->role_id}}">{{$val->Profile}}</option>
     }
   
  @endforeach

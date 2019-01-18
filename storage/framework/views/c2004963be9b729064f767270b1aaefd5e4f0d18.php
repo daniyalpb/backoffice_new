@@ -84,15 +84,19 @@ h3.mrg-btm {
            <th>FBA Name</th>                                
            </tr>
            </thead>
-           </table>
+        
+
            <div>
            <input type="hidden" name="hiddenid" id="hiddenid" readonly="readonly"> 
-      <input type="Submit" name="fbdatail" id="fbdatail" value="submit" class="btn btn-success" style="margin-left: 972px;margin-top: -1287px;">
+      <input type="Submit" name="fbdatail" id="fbdatail" value="submit" class="btn btn-success"
+      style="margin-left: 108px;margin-top: -145px;">
+    <!--   style="margin-left: 575px;margin-top:-1040px;" -->
+
 <!-- 
            <a id="fbdatail" name="fbdatail" class="btn btn-success">Submit</a> -->
            </div>
-
-       </form> 
+ </form> 
+    </table>
     </div>
    </div>
  </div>

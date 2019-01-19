@@ -34,10 +34,7 @@ use Excel;
  		  }  
 
   			   public  function profilecity_pincode(Request $req){
-                  
-
-
-			   $profilrcity2 = DB::select('call get_pincode_on_city_id(?)',array($req->cityid));
+               $profilrcity2 = DB::select('call get_pincode_on_city_id(?)',array($req->cityid));
           	 	return $profilrcity2;
 
     }
@@ -70,6 +67,7 @@ use Excel;
 
 	}
 			 }
+Session::flash('message', 'Record Updated successfully');
 		 //print_r($req->all());exit;
 		return redirect('state-city-profile');
        

@@ -1,6 +1,13 @@
 @extends('include.master')
 @section('content')
 
+@if(Session::has('message'))
+<div class="alert alert-success alert-dismissible">
+<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+<p class="alert alert-success">{{ Session::get('message') }}</p>
+</div>
+@endif
+
 <style type="text/css">
 
 h3.mrg-btm {
@@ -15,7 +22,7 @@ h3.mrg-btm {
     <form  id="leadquick" name="leadquick" action="{{url('fba-exception-update')}}" method="post"> 
     {{ csrf_field() }}
      <hr>
-     </div>
+      </div>
      <!-- <table class="table table-responsive table-hover" cellspacing="0" id="example"> -->
 
      <div class="col-md-4 col-sm-4 col-xs-12">

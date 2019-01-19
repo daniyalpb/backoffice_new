@@ -37,7 +37,7 @@ if(last_segment.split("=")[1]==1){
      $( "#export_id" ).append( "<p><a href='"+urld+"?export=7' class='btn btn-primary'>Export</a></p>" );
    
 }else if(last_segment.split("=")[1]==8){
-	$('tr.thead_cl').append('<th>FBAID</th><th>FBAName</th><th>Mobile</th><th>Email</th> <th>City</th><th>MOTOR</th><th>TWO_WHEELER</th><th>Life</th><th>PL</th>');
+	$('tr.thead_cl').append('<th>FBAID</th><th>FBAName</th><th>Mobile</th><th>Email</th> <th>City</th><th>MOTOR</th><th>TWO_WHEELER</th><th>Life</th><th>PL</th> <th>RRM Name</th>');
     $( "#export_id" ).append( "<p><a href='"+urld+"?export=8' class='btn btn-primary' >Export</a></p>" );
    
 }else if(last_segment.split("=")[1]==9){

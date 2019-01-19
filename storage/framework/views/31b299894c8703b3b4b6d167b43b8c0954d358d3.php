@@ -25,7 +25,7 @@
                    <th>Name</th>
                   
                    <th>Product Name</th>
-                  <!--   <th>RRM Name</th> -->
+                    <th>RRM Name</th>
                    <th>Quote Description</th>
                    <th>Doc Links</th>
                    <th>Current Status</th>
@@ -44,17 +44,11 @@
     <td><?php echo $val->quotes_request_id; ?></td>   
     <td><?php echo $val->FullName.'<br>'.$val->MobiNumb1;?></td>
     <td><?php echo $val->product_name; ?></td>
-   <!-- <td><?php echo $val->EmployeeName; ?></td> -->
+    <td><?php echo $val->RRM_Name; ?></td> 
      <td><a data-toggle="modal" data-target="#Quotedescription" onclick="viewdiscription('<?php echo e($val->id); ?>')">View Requirement</a>
 
     </td>
-<!--  <td>
-    <textarea style="height: 70px;width:338px" readonly >
-<?php echo $val->Quote_description ; ?> 
-      
-</textarea>  --> 
 
- <!--    </td>   -->
     <td align=center>   
   <!--   <?php if($val->Status==''): ?>
     <a href="" style="" data-toggle="modal"   onclick="Gettype('<?php echo e($val->id); ?>')">Update Status</a>

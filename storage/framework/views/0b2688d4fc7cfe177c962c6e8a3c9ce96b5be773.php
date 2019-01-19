@@ -1,5 +1,4 @@
-@extends('include.master')
-@section('content')
+<?php $__env->startSection('content'); ?>
 <style type="text/css">
   .fbadiv,.divupdate,.isdivcompany,.divworklic,.divlicins,.divgenco,.divstandalone,.divotherfinpro,.divothloan,.divremark,.isdivdemo{
     border: 1px solid gray;
@@ -19,35 +18,36 @@ label.error{top:34px !important; color:#ff0000 !important;font-size:15px !import
    <div class="col-md-12">
       <div class="overflow-scroll">
         <form id="fbaprofile" method="post">
-          {{ csrf_field() }}
+          <?php echo e(csrf_field()); ?>
+
        <div class="fbadiv form-group">
-        @foreach ($fbadetails as $val)
+        <?php $__currentLoopData = $fbadetails; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <table class="table">          
          <tr> 
-          <input type="hidden" name="txtfbaid" id="txtfbaid" value="{{$val->FBAID}}">
-          <td><label>FBA ID: </label>{{$val->FBAID}}</td>         
-          <td><label>FBA Name:</label>{{$val->FullName}}</td>          
-          <td><label>Date of Registration:</label>{{$val->JoinDate}}</td>          
-          <td><label>City:</label>{{$val->City}}</td>          
-          <td><label>State:</label>{{$val->State}}</td>          
-          <td><label>RRM:</label>{{$val->RRM}}</td>
-          <td><label>Field Manger:</label>{{$val->Field_Manger}}</td>
+          <input type="hidden" name="txtfbaid" id="txtfbaid" value="<?php echo e($val->FBAID); ?>">
+          <td><label>FBA ID: </label><?php echo e($val->FBAID); ?></td>         
+          <td><label>FBA Name:</label><?php echo e($val->FullName); ?></td>          
+          <td><label>Date of Registration:</label><?php echo e($val->JoinDate); ?></td>          
+          <td><label>City:</label><?php echo e($val->City); ?></td>          
+          <td><label>State:</label><?php echo e($val->State); ?></td>          
+          <td><label>RRM:</label><?php echo e($val->RRM); ?></td>
+          <td><label>Field Manger:</label><?php echo e($val->Field_Manger); ?></td>
         </tr>
         </table>
-         @endforeach
+         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         <hr>
        </div>
        <div class="divupdate form-group">
         <label>Update History</label>      
         <table class="table">
-       @foreach ($fbaupdate as $val)
+       <?php $__currentLoopData = $fbaupdate; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
           <tr>
-            <td><label>Last Updated By:</label>{{$val->UserName}}</td>
-            <td><label>Last Update Date:</label>{{$val->createddate}}</td>
-            <td><label>Last Update Time:</label>{{$val->updateddate}}</td>
-            <td><label>Remarks:</label><textarea readonly class="form-control">{{$val->remark}}</textarea></td>
+            <td><label>Last Updated By:</label><?php echo e($val->UserName); ?></td>
+            <td><label>Last Update Date:</label><?php echo e($val->createddate); ?></td>
+            <td><label>Last Update Time:</label><?php echo e($val->updateddate); ?></td>
+            <td><label>Remarks:</label><textarea readonly class="form-control"><?php echo e($val->remark); ?></textarea></td>
           </tr>
-       @endforeach
+       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
         </table>
      
         <hr>
@@ -173,9 +173,9 @@ label.error{top:34px !important; color:#ff0000 !important;font-size:15px !import
             <tr id="divprivate">
               <td><label>Private Life Co's:</label></td>
               <td><select multiple class="form-control ddlprivetlifeco" id="sel2" name="ddlprivetlifeco">
-                 @foreach($lifeins as $val)
-                         <option value="{{$val->LifeInsurerCompanyMasterId}}">{{$val->CompanyName}}</option>
-                          @endforeach
+                 <?php $__currentLoopData = $lifeins; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                         <option value="<?php echo e($val->LifeInsurerCompanyMasterId); ?>"><?php echo e($val->CompanyName); ?></option>
+                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
               </td>
             </tr>
@@ -196,9 +196,9 @@ label.error{top:34px !important; color:#ff0000 !important;font-size:15px !import
             <tr id="divgenins">
               <td><label>General Insurance Co's:</label></td>
               <td><select id="ddlgenins" name="ddlgenins" multiple class="form-control ddlgenins" id="sel2">
-                @foreach($Genins as $val)
-                 <option value="{{$val->GeneralInsuranceCompanyMasterId}}">{{$val->CompanyName}}</option>
-                          @endforeach
+                <?php $__currentLoopData = $Genins; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                 <option value="<?php echo e($val->GeneralInsuranceCompanyMasterId); ?>"><?php echo e($val->CompanyName); ?></option>
+                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
               </td>
           </tr>
@@ -218,9 +218,9 @@ label.error{top:34px !important; color:#ff0000 !important;font-size:15px !import
             <tr id="divhealth">
               <td><label>Stand Alone Health Insurance Co's:</label></td>              
               <td><select name="ddlhealth" id="ddlhealth" multiple class="form-control ddlhealth">
-                  @foreach($healthins as $val)
-                  <option value="{{$val->HealthInsuranceCompanyMasterId}}">{{$val->CompanyName}}</option>
-                          @endforeach
+                  <?php $__currentLoopData = $healthins; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                  <option value="<?php echo e($val->HealthInsuranceCompanyMasterId); ?>"><?php echo e($val->CompanyName); ?></option>
+                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </select>
               </td>
             </tr>
@@ -402,7 +402,7 @@ if($("input[name='isWorksGeneralins']:checked").val()==2){
     {
       console.log($('#fbaprofile').serialize());
           $.ajax({ 
-             url: "{{URL::to('Fba-profile-insert')}}",
+             url: "<?php echo e(URL::to('Fba-profile-insert')); ?>",
              method:"POST",
              data: $('#fbaprofile').serialize(),
              success: function(msg)  
@@ -636,4 +636,5 @@ $("#isCOT").prop("checked", true);
 }
 
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('include.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

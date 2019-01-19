@@ -1,5 +1,4 @@
-@extends('include.master')
-@section('content')
+<?php $__env->startSection('content'); ?>
 <!--  <body onload="currentrecort();"> -->
  <div class="container-fluid white-bg">
    <div class="col-md-12"><h3 class="mrg-btm">System MIS</h3></div>
@@ -91,13 +90,14 @@
             <input type="checkbox" name="btnselectallproduct" id="btnselectallproduct" class="btnselectallproduct" value="1"> <b>Select all</b>
             <div style="overflow-y:scroll;height:270px;">                           
               <table> 
-                @foreach($product as $val)                        
+                <?php $__currentLoopData = $product; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>                        
                 <tr>
                   <td>
-                    <input type="checkbox" name="btnproductname" id="btnproductname" class="btnproductname" value="{{$val->ProductName}}"> {{$val->ProductName}}
+                    <input type="checkbox" name="btnproductname" id="btnproductname" class="btnproductname" value="<?php echo e($val->ProductName); ?>"> <?php echo e($val->ProductName); ?>
+
                   </td>
                 </tr>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               </table>   
             </div>
           </td>   
@@ -170,13 +170,14 @@
             <input type="checkbox" name="btnselectallprofile" id="btnselectallprofile" class="selectall" value="1"> <b>Select all</b> 
             <div style="overflow-y:scroll;height:270px;">         
               <table>                         
-                @foreach($profile as $val)
+                <?php $__currentLoopData = $profile; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <tr class="profile">
                   <td>
-                    <input type="checkbox" name="btnprofile" id="btnprofile" class="btnprofile" value="{{$val->role_id}}"> {{$val->Profile}}
+                    <input type="checkbox" name="btnprofile" id="btnprofile" class="btnprofile" value="<?php echo e($val->role_id); ?>"> <?php echo e($val->Profile); ?>
+
                   </td>
                 </tr>     
-                @endforeach                     
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>                     
               </table>   
             </div>
           </td>
@@ -514,9 +515,9 @@ function getuser(){
       var startdate=$("#min").val();
       var enddate=$("#max").val();
       if (uid!=''&&startdate!=''&&enddate!=''){
-        var v_token = "{{csrf_token()}}";
+        var v_token = "<?php echo e(csrf_token()); ?>";
         $.ajax({
-         url:"{{URL::to('get-mis-data-on-profile')}}",
+         url:"<?php echo e(URL::to('get-mis-data-on-profile')); ?>",
          dataType : 'json', 
          type: "POST", 
          data:{"_token":v_token,"startdate":startdate,"enddate":enddate,"Uids":uid},        
@@ -631,9 +632,9 @@ function getmisrepowithstatenproduct(){
   var startdate=$("#min").val();
   var enddate=$("#max").val();
   if (state!=''&& startdate!='' && enddate!=''&& product!=''){
-    var v_token = "{{csrf_token()}}";
+    var v_token = "<?php echo e(csrf_token()); ?>";
     $.ajax({
-     url:"{{URL::to('get-mis-data-on-product-state')}}",
+     url:"<?php echo e(URL::to('get-mis-data-on-product-state')); ?>",
      dataType : 'json', 
      type: "POST", 
      data:{"_token":v_token,"startdate":startdate,"enddate":enddate,"state":state,"product":product},        
@@ -668,4 +669,5 @@ function getmisrepowithstatenproduct(){
   }
 }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('include.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

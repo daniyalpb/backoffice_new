@@ -1,5 +1,12 @@
 <?php $__env->startSection('content'); ?>
 
+<?php if(Session::has('message')): ?>
+<div class="alert alert-success alert-dismissible">
+<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+<p class="alert alert-success"><?php echo e(Session::get('message')); ?></p>
+</div>
+<?php endif; ?>
+
 <style type="text/css">
 
 h3.mrg-btm {

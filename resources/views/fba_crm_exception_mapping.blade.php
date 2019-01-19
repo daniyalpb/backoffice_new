@@ -1,6 +1,13 @@
 @extends('include.master')
 @section('content')
 
+@if(Session::has('message'))
+<div class="alert alert-success alert-dismissible">
+<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+<p class="alert alert-success">{{ Session::get('message') }}</p>
+</div>
+@endif
+
 <style type="text/css">
 
 h3.mrg-btm {

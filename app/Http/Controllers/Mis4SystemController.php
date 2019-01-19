@@ -145,7 +145,8 @@ if(count($all_rows) <= '3000'){
 		}
 
 		/*$arr_success = json_encode($success_array);*/
-		//DB::select("call mis_report_data_update_from_fbamast_n_temp()"); 
+		DB::select("call mis_report_data_delete_match()"); 
+		DB::select("call mis_report_data_insert_from_temp()"); 
 		$response = array("messege"=>"success");
 		
 	}

@@ -71,6 +71,15 @@ class FbadetailsapiController extends ApiController
 	{
        //print_r($req->all());exit();
 		if (isset($req->disposition_id)&&isset($req->remark)){
+
+		$assign = DB::table('crm_disposition')->select('followup_internalteam')->where('id', '=', $req->disposition_id)->get();		 
+		 $data=DB::table('fbacrmmapping')->select($assign[0]->followup_internalteam)->where('id','=',$req->fbamappin_id)->get();
+		 $assign_name=$assign[0]->followup_internalteam;	
+		 $assign_id=$data[0]->$assign_name;
+		 if ($assign_id=='' && $assign_id=='0'){
+		 	$data=DB::table('crmexception')->select($assign[0]->followup_internalteam)->get();
+		 	$assign_id=$data[0]->$assign_name;
+		 }
 		 $data=DB::select('call crm_insert_from_app(?,?,?,?,?,?,?,?,?)',array(
               $req->disposition_id,
               $req->Uid,
@@ -89,13 +98,15 @@ class FbadetailsapiController extends ApiController
 		}      
         if (!empty($data)){
 			$data1=$this->send_success_response('Data Has Been Saved Successfully','success',$data);
-				
-			DB::select('call crm_insert_followup_app(?,?,?,?)',array(              
-              $req->Uid,                                   
-              $req->followup_assign_id,
-              $req->fbamappin_id,
-              $data[0]->history_id 
-              ));
+			if ($req->ch_id=='' && $req->ch_id=='0' && isset($data[0]->history_id)){				
+				DB::select('call crm_insert_followup_app(?,?,?,?)',array(              
+					$req->Uid,                                   
+					$assign_id,
+					$req->fbamappin_id,
+					$data[0]->history_id 
+				));
+			}	
+			
 			return 	$data1;
 		}else{
 			$data1=$this->send_failure_response('No Data Found','failure',$data);

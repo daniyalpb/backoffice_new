@@ -404,6 +404,7 @@ Route::POST('getmotordata','ImportsalesdataController@importExcelmotor');
 Route::get('Crm-report','Crm_reportsController@getcrmreport');
 route::get('get_crm_interaction/{uid}/{fdate}/{tdate}','Crm_reportsController@getcrminteraction');
 Route::get('getcrmreport/{fromdate}/{todate}','Crm_reportsController@crm_report');
+/*route::get('crmexportexcel/{uid}/{fdate}/{tdate}','Crm_reportsController@exportexcel');*/
 
 Route::get('fba-communication','FbacommunicationController@getfbacommunication');
 route::get('get-state-on-zone/{zone}','FbacommunicationController@getstateonzone');

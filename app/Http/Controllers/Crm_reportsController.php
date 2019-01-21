@@ -31,9 +31,19 @@ class Crm_reportsController extends CallApiController
 		 if (!empty($crmdata)) {
 		 	return view('Crm_interaction',['crmdata'=>$crmdata]);
 		 }
-		return Redirect::back()->withErrors(['msg', 'No Data Found']);
-         
-
+		return Redirect::back()->withErrors(['msg', 'No Data Found']); 
 	}
+	/*public function exportexcel($uid,$fdate,$tdate){
+		 $query=[];
+		 $query = DB::select('call crm_interactions_details(?,?,?)',[$uid,$fdate,$tdate]);
+              //$query=DB::select('call fbaList_export()');
+		$data = json_decode( json_encode($query), true);
+		return Excel::create('Crm_interaction', function($excel) use ($data) {
+			$excel->sheet('Crm_interaction', function($sheet) use ($data)
+			{
 
+				$sheet->fromArray($data);
+			});
+		})->download('xls');
+	}*/
 }

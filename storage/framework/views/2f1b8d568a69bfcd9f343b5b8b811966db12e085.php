@@ -38,7 +38,7 @@
                 <tbody> 
 
            <?php if($val->ExpiryDate!=null): ?>
-<tr   <tr <?php if($val->EntryType=='From Contacts'): ?> style="color:#18e850" <?php else: ?> style="" <?php endif; ?>
+<tr   <tr <?php if($val->EntryType=='From Contacts'): ?> style="background-color:#18e850" <?php else: ?> style="" <?php endif; ?>
 > 
          <td><?php echo $val->ClientName; ?></td> 
         <td><?php echo $val->MobileNo; ?></td>

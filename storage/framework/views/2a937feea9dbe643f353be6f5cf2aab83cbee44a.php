@@ -1,5 +1,4 @@
-@extends('include.master')
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="container-fluid white-bg">
 <div class="col-md-12"><h3 class="mrg-btm">CRM Interaction</h3></div>
 
@@ -17,26 +16,26 @@
  		</tr>
  	</thead>
  	<tbody>
- 		@foreach($crmdata as $val)
+ 		<?php $__currentLoopData = $crmdata; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
  		<tr>
- 			<td>{{$val->history_id}}</td>
- 			<td>{{$val->disposition}}</td>
- 			<td><textarea readonly>{{$val->remark}}</textarea></td>
- 			<td>{{$val->followup_date}}</td>
- 			<td>{{$val->FBAID}}</td>
- 			<td>{{$val->FullName}}</td>
- 			@if($val->action=='y')
+ 			<td><?php echo e($val->history_id); ?></td>
+ 			<td><?php echo e($val->disposition); ?></td>
+ 			<td><textarea readonly><?php echo e($val->remark); ?></textarea></td>
+ 			<td><?php echo e($val->followup_date); ?></td>
+ 			<td><?php echo e($val->FBAID); ?></td>
+ 			<td><?php echo e($val->FullName); ?></td>
+ 			<?php if($val->action=='y'): ?>
  			<td ><p style="color:green">Open</p></td>
- 			@else
+ 			<?php else: ?>
  			<td><p style="color: red">Close</p></td>
- 			@Endif
+ 			<?php endif; ?>
  		</tr>
- 		@endforeach
+ 		<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
  	</tbody>
  </table>
 </div>
 <div>
-	<a href="#" class="btn btn-primary" onclick="fnExcelReport();">Export Excel</a>
+	<a href="#" class="btn btn-primary" onclick="fnExcelReport();">Import Excle</a>
 </div>
 </div>
 <script type="text/javascript">
@@ -77,4 +76,5 @@ function fnExcelReport()
     return (sa);
 }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('include.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

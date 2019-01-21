@@ -46,7 +46,7 @@
         <td><?php echo $val->RegistrationNo; ?></td>
         <td><?php echo $val->ExpiryDate; ?></td> 
 
-        <?php endif; ?>
+         <?php endif; ?>
         </tr>   
         <?php else: ?>
         <?php if($val->ExpiryDate!=null): ?>

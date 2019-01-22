@@ -89,7 +89,7 @@ class FbadetailsapiController extends ApiController
 	{
        //print_r($req->all());exit();
 		if (isset($req->disposition_id)&&isset($req->remark)){
-		 $data=DB::select('call crm_insert_from_app(?,?,?,?,?,?,?,?,?,?)',array(
+		 $data=DB::select('call crm_insert_from_app(?,?,?,?,?,?,?,?,?)',array(
               $req->disposition_id,
               $req->Uid,
               $req->crm_id,
@@ -98,8 +98,8 @@ class FbadetailsapiController extends ApiController
               $req->remark,
               $req->action,
               $req->ch_id,
-              $req->followup_assign_id,
-              $req ->callDuration
+              $req->followup_assign_id
+            
               ));
 		}else{
 			$data=[];

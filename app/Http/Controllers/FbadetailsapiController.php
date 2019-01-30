@@ -71,12 +71,14 @@ class FbadetailsapiController extends ApiController
 	{
        //print_r($req->all());exit();
 		if (isset($req->disposition_id)&&isset($req->remark)){
-
+        $assign_id='';
 		$assign = DB::table('crm_disposition')->select('followup_internalteam')->where('id', '=', $req->disposition_id)->get();		 
+		if ($assign[0]->followup_internalteam!=''){
 		 $data=DB::table('fbacrmmapping')->select($assign[0]->followup_internalteam)->where('id','=',$req->fbamappin_id)->get();
 		 $assign_name=$assign[0]->followup_internalteam;	
 		 $assign_id=$data[0]->$assign_name;
-		 if ($assign_id=='' && $assign_id=='0'){
+		}		
+		 if ($assign_id=='' && $assign_id=='0' &&$assign[0]->followup_internalteam!=''){
 		 	$data=DB::table('crmexception')->select($assign[0]->followup_internalteam)->get();
 		 	$assign_id=$data[0]->$assign_name;
 		 }

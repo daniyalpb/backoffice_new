@@ -23,7 +23,10 @@ class motorleaddetailsController extends CallApiController
 
       	 	 public function getleadata(Request $req){
      		//print_r($req->all()); exit();
+
+
      		$leaddata=DB::select("call usp_get_motor_lead_data(?,?)",array($req->FBAID,$req->month_no));
+     			//var_dump($leaddata); exit();
 			return view('motor-lead-all-details',['leaddata'=>$leaddata]);
 
         }

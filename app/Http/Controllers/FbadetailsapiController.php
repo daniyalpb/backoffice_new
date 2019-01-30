@@ -89,7 +89,8 @@ class FbadetailsapiController extends ApiController
               $req->remark,
               $req->action,
               $req->ch_id,
-              $req->followup_assign_id
+               $req->followup_assign_id
+            
               ));
 		}else{
 			$data=[];

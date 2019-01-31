@@ -80,7 +80,7 @@ use Excel;
 					foreach($fbaid_array as $PinCode){
 					DB::select('call update_fba_exception_mapping(?,?,?)',array($post_array['eprofile'],$PinCode,$post_array['pname']));
 }
-Session::flash('message', 'Record Updated successfully');
+			Session::flash('message', 'Record Updated successfully');
 						return redirect('fba-crm-exception');
 
 }

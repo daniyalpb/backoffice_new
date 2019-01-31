@@ -36,8 +36,11 @@
                  </tr>
                 </thead>
                 <tbody> 
-                <?php if($val->ExpiryDate!=null): ?>
-        <td><?php echo $val->ClientName; ?></td> 
+
+           <?php if($val->ExpiryDate!=null): ?>
+<tr   <tr <?php if($val->EntryType=='From Contacts'): ?> style="background-color:#18e850" <?php else: ?> style="" <?php endif; ?>
+> 
+         <td><?php echo $val->ClientName; ?></td> 
         <td><?php echo $val->MobileNo; ?></td>
         <td><?php echo $val->Category; ?></td>
         <td><?php echo $val->RegistrationNo; ?></td>
@@ -65,6 +68,25 @@
       </div>
       </div>
       </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!--       <script type="text/javascript">
         

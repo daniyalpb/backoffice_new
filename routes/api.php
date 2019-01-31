@@ -33,6 +33,7 @@ Route::post('Crm_comment','FbadetailsapiController@getcrmcomment');
 Route::post('Crm_comment_insert','FbadetailsapiController@insertcrmcomment');
 Route::post('Crm_child_followup','FbadetailsapiController@getchildfolloup');
 Route::post('Check_disposition','FbadetailsapiController@checkdisposition');
+route::post('My_follow_up','FbadetailsapiController@getmyfollowup');
 
 //shubham end
 

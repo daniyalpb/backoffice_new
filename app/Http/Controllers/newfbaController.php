@@ -44,7 +44,7 @@ use Excel;
            
            public function update_fba_list($fbaid){
                  //$fbid=Session::get('fbaid');
-                 //print_r($fbaid);exit();
+                 //print_r($pwd);exit();
                 //echo "call update_new_fba_fbaList($fbaid)";
                  $subfba = DB::select("call parrent_fba_data($fbaid)");
                  $update = DB::select("call update_new_fba_fbaList($fbaid)");
@@ -55,11 +55,8 @@ use Excel;
 
         $update[0] = (object) array('fbaid' => '','FullName' => '','MobiNumb1' => '','EMaiID' => '','City' => '','Zone' => '','pospname' => '','pwd' => '','Pincode' => '','POSPNo' => '' ,'pospstatus' => '','bankaccount' => '','Refcode' => '','Refbycode' => '','salescode' => '','CustID' => '','Type' => '','erpid' => '','AppSource' => '','statename' => '','RRM' => '','Field_Manger' => '');
 
-  // print_r($update);
-  // exit;
-
-
-
+ // print_r($update);
+  //exit;
 }
          return view('dashboard.update-fba-list',['data'=>$update[0]]);
 

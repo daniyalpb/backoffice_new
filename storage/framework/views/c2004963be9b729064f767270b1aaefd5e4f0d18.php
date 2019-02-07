@@ -22,7 +22,7 @@ h3.mrg-btm {
     <?php echo e(csrf_field()); ?>
 
      <hr>
-     </div>
+      </div>
      <!-- <table class="table table-responsive table-hover" cellspacing="0" id="example"> -->
 
      <div class="col-md-4 col-sm-4 col-xs-12">

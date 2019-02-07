@@ -1189,7 +1189,7 @@ $.ajax({
 
  // show Password start
  function getpassword(password){
-  // alert('Test');
+   //alert('Test');
  $('#show_password').html(password);
 }
 

@@ -1,11 +1,11 @@
-﻿@extends('include.master')
-@section('content')
-@if(Session::has('message'))
+﻿
+<?php $__env->startSection('content'); ?>
+<?php if(Session::has('message')): ?>
 <div class="alert alert-success alert-dismissible">
 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-<p class="alert alert-success">{{ Session::get('message') }}</p>
+<p class="alert alert-success"><?php echo e(Session::get('message')); ?></p>
 </div>
-@endif
+<?php endif; ?>
 <style type="text/css">
 
 .hide {
@@ -38,14 +38,14 @@
      </thead>
      <tbody> 
        <tr>
-         <td>{{$data->fbaid}}</td>
-         <td>{{$data->FullName}}</td>
-         <td>{{$data->EMaiID}}</td>
-         <td> @if($data->PayStat=="S")
+         <td><?php echo e($data->fbaid); ?></td>
+         <td><?php echo e($data->FullName); ?></td>
+         <td><?php echo e($data->EMaiID); ?></td>
+         <td> <?php if($data->PayStat=="S"): ?>
            <span class="glyphicon glyphicon-blank"></span> 
-           @else                    
-           <a onclick="getpaymentlink({{$data->fbaid}},{{$data->MobiNumb1}})" id="btnviewhistory" data-toggle="modal" data-target="#paylink_payment" onclick="getpaylinknew('{{$data->fbaid}}','{{$data->MobiNumb1}}')">Payment link</a>
-           @endif
+           <?php else: ?>                    
+           <a onclick="getpaymentlink(<?php echo e($data->fbaid); ?>,<?php echo e($data->MobiNumb1); ?>)" id="btnviewhistory" data-toggle="modal" data-target="#paylink_payment" onclick="getpaylinknew('<?php echo e($data->fbaid); ?>','<?php echo e($data->MobiNumb1); ?>')">Payment link</a>
+           <?php endif; ?>
            <!--   <span class="glyphicon glyphicon-envelope"></span> -->
          </td>
        </tr>
@@ -56,23 +56,23 @@
         <th>Loan ID</th> 
       </tr>
       <tr>
-        <td><a id="btnshowpassword" data-toggle="modal" data-target="#spassword" onclick="getpassword('{{$data->pwd}}')">*****</a>
+        <td><a id="btnshowpassword" data-toggle="modal" data-target="#spassword" onclick="getpassword('<?php echo e($data->pwd); ?>')">*****</a>
         </td>
-        <td>{{$data->Pincode}}</td>
+        <td><?php echo e($data->Pincode); ?></td>
         <td>
-         @if($data->POSPNo=='')
-         <a id="posp_{{$data->fbaid}}" class="checkPosp" data-toggle="modal" data-target="#updatePosp" onclick="updateposp('{{$data->fbaid}}')">update</a>
-         @else
-         <span id="posp_{{$data->fbaid}}" class="checkPosp" href="#" >{{$data->POSPNo}}</span>
-         @endif
+         <?php if($data->POSPNo==''): ?>
+         <a id="posp_<?php echo e($data->fbaid); ?>" class="checkPosp" data-toggle="modal" data-target="#updatePosp" onclick="updateposp('<?php echo e($data->fbaid); ?>')">update</a>
+         <?php else: ?>
+         <span id="posp_<?php echo e($data->fbaid); ?>" class="checkPosp" href="#" ><?php echo e($data->POSPNo); ?></span>
+         <?php endif; ?>
        </td> 
-       <!-- <td><a id="btnviewid {{$data->fbaid}}" onclick="getloanid(this,'{{$data->fbaid}}')">Update</a></td>  -->
+       <!-- <td><a id="btnviewid <?php echo e($data->fbaid); ?>" onclick="getloanid(this,'<?php echo e($data->fbaid); ?>')">Update</a></td>  -->
        <td>
-        @if($data->LoanID=='')
-        <a id="btnviewid{{$data->fbaid}}" onclick="getloanid(this,'{{$data->fbaid}}')">Update</a>
-        @else
-        <span id="btnviewid{{$data->fbaid}}">{{$data->LoanID}}</span>
-        @endif
+        <?php if($data->LoanID==''): ?>
+        <a id="btnviewid<?php echo e($data->fbaid); ?>" onclick="getloanid(this,'<?php echo e($data->fbaid); ?>')">Update</a>
+        <?php else: ?>
+        <span id="btnviewid<?php echo e($data->fbaid); ?>"><?php echo e($data->LoanID); ?></span>
+        <?php endif; ?>
       </td>
     </tr>
     <tr>
@@ -82,10 +82,10 @@
       <th>Referer Code</th> 
     </tr>
     <tr>
-      <td>{{$data->pospstatus}}</td>  
-      <td>{{$data->bankaccount}}</td>  
-      <td><a href="" data-toggle="modal" data-target="#partnerInfo"onclick="getpartnerinfo('{{$data->fbaid}}')">partner info</a>
-        <td>{{$data->Refcode}}</td> 
+      <td><?php echo e($data->pospstatus); ?></td>  
+      <td><?php echo e($data->bankaccount); ?></td>  
+      <td><a href="" data-toggle="modal" data-target="#partnerInfo"onclick="getpartnerinfo('<?php echo e($data->fbaid); ?>')">partner info</a>
+        <td><?php echo e($data->Refcode); ?></td> 
     </tr>  
       <tr>
         <th>Referedby Code</th>   
@@ -94,23 +94,23 @@
         <th>Customer ID</th> 
       </tr>  
       <tr>
-        <td>{{$data->Refbycode}}</td>  
+        <td><?php echo e($data->Refbycode); ?></td>  
         <td>
-         @if($data->salescode=='' || $data->salescode=='Update')
-         <a id="update_{{$data->fbaid}}" onclick="sales_update_fn('{{$data->fbaid}}'),('{{$data->fbaid}}')">Update</a>
-         @else
-         <a id="update_{{$data->fbaid}}" onclick="sales_update_fn('{{$data->fbaid}}',{{$data->salescode}})">  {{$data->salescode}}</a>
-         @endif
+         <?php if($data->salescode=='' || $data->salescode=='Update'): ?>
+         <a id="update_<?php echo e($data->fbaid); ?>" onclick="sales_update_fn('<?php echo e($data->fbaid); ?>'),('<?php echo e($data->fbaid); ?>')">Update</a>
+         <?php else: ?>
+         <a id="update_<?php echo e($data->fbaid); ?>" onclick="sales_update_fn('<?php echo e($data->fbaid); ?>',<?php echo e($data->salescode); ?>)">  <?php echo e($data->salescode); ?></a>
+         <?php endif; ?>
        </td>
        <td>
         <a href="#" style="" data-toggle="modal" data-target=".fsmdetails">Fsm details</a>
       </td>
        <td>
-        @if($data->CustID=='')
-        <a id="btnviewcid{{$data->fbaid}}" onclick="getcustomerid(this,'{{$data->fbaid}}')">Update</a>
-        @else
-        <span id="btnviewcid{{$data->fbaid}}">{{$data->CustID}}</span>
-        @endif
+        <?php if($data->CustID==''): ?>
+        <a id="btnviewcid<?php echo e($data->fbaid); ?>" onclick="getcustomerid(this,'<?php echo e($data->fbaid); ?>')">Update</a>
+        <?php else: ?>
+        <span id="btnviewcid<?php echo e($data->fbaid); ?>"><?php echo e($data->CustID); ?></span>
+        <?php endif; ?>
       </td>
     </tr>
     <tr>
@@ -121,15 +121,15 @@
     </tr>
     <tr>
       <td>
-       @if($data->Type=='')
-       <span id="bind_updated_type_{{$data->fbaid}}"><a id="type{{$data->fbaid}}" data-toggle="modal" onclick="Gettype('{{$data->fbaid}}',this)" data-target="#myModal">Update</a><span id="bind_updated_type_{{$data->fbaid}}"></span>  
-       @else
-       <span id="type{{$data->fbaid}}">{{$data->Type}}</span>
-       @endif
+       <?php if($data->Type==''): ?>
+       <span id="bind_updated_type_<?php echo e($data->fbaid); ?>"><a id="type<?php echo e($data->fbaid); ?>" data-toggle="modal" onclick="Gettype('<?php echo e($data->fbaid); ?>',this)" data-target="#myModal">Update</a><span id="bind_updated_type_<?php echo e($data->fbaid); ?>"></span>  
+       <?php else: ?>
+       <span id="type<?php echo e($data->fbaid); ?>"><?php echo e($data->Type); ?></span>
+       <?php endif; ?>
      </td> 
-     <td>{{$data->erpid}}</td>
-     <td>{{$data->AppSource}}</td>
-     <td>{{$data->statename}}</td>
+     <td><?php echo e($data->erpid); ?></td>
+     <td><?php echo e($data->AppSource); ?></td>
+     <td><?php echo e($data->statename); ?></td>
    </tr>
    <tr>
     <th>Document</th>
@@ -139,15 +139,15 @@
   </tr>
   <tr>
    <td>
-     @if($data->isdocupload=='Uploaded')
-     <a href="" style="" data-toggle="modal"  data-target="#docviwer" onclick="docview('{{$data->fbaid}}')">uploaded</a>
-     @else
-     <a data-target="#docviwer"{{$data->fbaid}}">Pending</a>      
-     @endif     
+     <?php if($data->isdocupload=='Uploaded'): ?>
+     <a href="" style="" data-toggle="modal"  data-target="#docviwer" onclick="docview('<?php echo e($data->fbaid); ?>')">uploaded</a>
+     <?php else: ?>
+     <a data-target="#docviwer"<?php echo e($data->fbaid); ?>">Pending</a>      
+     <?php endif; ?>     
    </td>
-   <td>{{$data->RRM}}</td>
-   <td>{{$data->Field_Manger}}</td>
-   <td><a onclick="uploadpaymentgrid('{{$data->fbaid}}',this)">View/Upload</a></td>
+   <td><?php echo e($data->RRM); ?></td>
+   <td><?php echo e($data->Field_Manger); ?></td>
+   <td><a onclick="uploadpaymentgrid('<?php echo e($data->fbaid); ?>',this)">View/Upload</a></td>
  </tr>
 </tbody>
 </table>
@@ -166,14 +166,14 @@
       </tr>
     </thead>
     <tbody>
-      @foreach($subfba as $val)
+      <?php $__currentLoopData = $subfba; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       <tr>
-        <td>{{$val->FBAID}}</td>
-        <td>{{$val->FullName}}</td>
-        <td>{{$val->MobiNumb1}}</td>
-        <td>{{$val->EmailID}}</td>
+        <td><?php echo e($val->FBAID); ?></td>
+        <td><?php echo e($val->FullName); ?></td>
+        <td><?php echo e($val->MobiNumb1); ?></td>
+        <td><?php echo e($val->EmailID); ?></td>
       </tr>
-      @endforeach
+      <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     </tbody>
   </table>
 </div>
@@ -190,7 +190,8 @@
       </div>
       <div class="modal-body">
         <form id="message_sms_from" method="post">
-          {{ csrf_field() }}
+          <?php echo e(csrf_field()); ?>
+
           <div class="form-group">
             <label class="control-label" for="recipient-name">Mobile Nubmer:</label>
             <input class="form-control Mobile_ID" id="recipient" type="text" name="mobile_no" readonly=""/>
@@ -257,7 +258,8 @@
       </div>
       <div class="modal-body">
         <form name="update_remark" id="update_remark">
-         {{ csrf_field() }}
+         <?php echo e(csrf_field()); ?>
+
          <div class="form-group">
           <input type="hidden" name="p_fbaid" id="p_fbaid" value="">
           <label class="control-label" for="message-text">Enter Sales Code : </label>
@@ -282,7 +284,8 @@
       </div>
       <div class="modal-body">
         <form name="update_posp" id="update_posp">
-         {{ csrf_field() }}
+         <?php echo e(csrf_field()); ?>
+
          <div class="form-group">
           <input type="hidden" name="fbaid" id="fbaid" value=" ">
           <label class="control-label" for="message-text">Enter POSP : </label>
@@ -332,7 +335,8 @@
       <!-- Modal body -->
       <div class="modal-body">
        <form id="frmtype" name="frmtype" method="post">
-        {{ csrf_field() }}
+        <?php echo e(csrf_field()); ?>
+
         <label>Select Type:</label>
         <select class="form-control" required id="ddltype" name="ddltype">
          <option value="">---Select---</option>
@@ -430,7 +434,8 @@
     </div>
     <div class="col-md-12"> <br>
       <form method="POST" id="modelpaylink">
-        {{ csrf_field() }}
+        <?php echo e(csrf_field()); ?>
+
         <textarea type="text" rows="3" id="divpartnertable_payment" name="divpartnertable_payment" class="divpartnertable_payment form-control">
         </textarea>      
         <br>
@@ -479,8 +484,9 @@
       </div>
       <div class="modal-body">
         <div class="">
-          <form enctype="multipart/form-data" action="{{url('upload-paygrid')}}" method="post">
-            {{ csrf_field() }}
+          <form enctype="multipart/form-data" action="<?php echo e(url('upload-paygrid')); ?>" method="post">
+            <?php echo e(csrf_field()); ?>
+
             <div class="form-group">           
             <a id="olddocpath" target="_blank"><img id="olddocpath1" style="height:100px;width: 100px;"></a> 
             <br> 
@@ -499,7 +505,7 @@
     </div>
   </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
@@ -557,7 +563,7 @@
     var formdata = new FormData($("#frmtype")[0]);
 
     $.ajax({ 
-      url: "{{URL::to('get-type')}}",
+      url: "<?php echo e(URL::to('get-type')); ?>",
       method:"POST",
       data: formdata,
       contentType:false,
@@ -636,7 +642,7 @@
     function pmesgsend(){
      alert("SMS Send successfully..");
      $.ajax({ 
-       url: "{{URL::to('pmesgsend')}}",
+       url: "<?php echo e(URL::to('pmesgsend')); ?>",
        method:"POST",
        data: $('#modelpaylink').serialize(),
        success: function(msg)  
@@ -660,8 +666,8 @@ function uploadpaymentgrid(fbaid){
             if(json[0].doc_path!=0){   
               $("#txtolddoc").val('');        
               $("#txtolddoc").val(json[0].doc_path);              
-              $("#olddocpath1").attr('src','{{url('/upload/paygrid')}}/'+json[0].doc_path);
-              $("#olddocpath").attr('href','{{url('/upload/paygrid')}}/'+json[0].doc_path);
+              $("#olddocpath1").attr('src','<?php echo e(url('/upload/paygrid')); ?>/'+json[0].doc_path);
+              $("#olddocpath").attr('href','<?php echo e(url('/upload/paygrid')); ?>/'+json[0].doc_path);
             }
           }
         }
@@ -690,3 +696,5 @@ function uploadpaymentgrid(fbaid){
 
 
 
+
+<?php echo $__env->make('include.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

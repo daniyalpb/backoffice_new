@@ -317,9 +317,9 @@ class FbaController extends CallApiController
           return response()->json($data);
    }  
 
-          public function update_fba_table(Request $req){
-         //echo $dbirth = str_replace('-','',$req->dbirth);
-    $id=Session::get('fbauserid');
+public function update_fba_table(Request $req){
+     
+
 $msg=DB::select('call usp_update_fba_details(?,?,?,?,?,?,?)',array(
     $req->fba_id,      
     $req->f_name, 
@@ -327,28 +327,14 @@ $msg=DB::select('call usp_update_fba_details(?,?,?,?,?,?,?)',array(
     $req->work_email,
     $req->mobile,
     $req->dbirth,
-    $req->midname, 
-    $id 
+    $req->midname
 ));
 
-  //print_r($msg);exit();
 
    Session::flash('message', 'Record has been Updated successfully'); 
            return redirect('fbamaster-edit');
-
-
-// if($Result != 1){
-//            Session::flash('message', 'Record has been Updated successfully'); 
-//            return redirect('fbamaster-edit');
-//          }else{
-//               ('mesage); 
-//            return redirect('fbamaster-edit');
-//          }
- 
-   // $arra= array('FirsName'=>$req->f_name,'LastName'=>$req->l_name,'emailID'=>$req->work_email,'MobiNumb1'=>$req->mobile,'DOB'=>$req->dbirth,'MiddName'=>$req->midname,);
-          // $que=DB::table('FBAMast')->where('FBAID','=',$req->fba_id)->update($arra);
            
-       }
+}
 
 
 private function getPaymentLinkFromFinmart($fbaid){

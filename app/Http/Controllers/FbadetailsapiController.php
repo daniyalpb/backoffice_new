@@ -16,7 +16,7 @@ class FbadetailsapiController extends ApiController
 	{ 
 		//print_r($req->search_parameter);exit();
 		if (isset($req->Fbaid)){
-		$data=DB::select("call fbaListapp($req->Fbaid,$req->count,'$req->search_parameter')");
+		$data=DB::select("call c($req->Fbaid,$req->count,'$req->search_parameter')");
 		}else{
 			$data=[];
             $data1=$this->send_failure_response('No Data Found','failure',$data);
@@ -204,7 +204,7 @@ class FbadetailsapiController extends ApiController
  }
 	public function getmyfollowup(Request $req){
        if (isset($req->Uid)){
-		$data=DB::select("call sp_crm_myfollowup($req->Uid)");
+		$data=DB::select("call crm_my_open_followup_data($req->Uid,$req->p_count)");
 		}else{
 			$data=[];
             $data1=$this->send_failure_response('No Data Found','failure',$data);

@@ -1,5 +1,4 @@
-@extends('include.master')
-@section('content')
+<?php $__env->startSection('content'); ?>
 <style type="text/css">
   .textarea{
     width: 250px !important;
@@ -12,12 +11,12 @@
         <div>
           <div class="overflow-scroll">
             <div class="table-responsive">
-          @if(Session::has('message'))
+          <?php if(Session::has('message')): ?>
           <div class="alert alert-success alert-dismissible">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-          <p class="alert alert-success">{{ Session::get('message') }}</p>
+          <p class="alert alert-success"><?php echo e(Session::get('message')); ?></p>
           </div>
-          @endif
+          <?php endif; ?>
       <table class="table table-bordered table-striped" id="noifydatatbl">
         <thead>
           <tr>
@@ -35,26 +34,26 @@
           </tr>
         </thead>
         <tbody>
-          @foreach($notifydata as $val)
+          <?php $__currentLoopData = $notifydata; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
           <tr>
-            <td>{{$val->MessageId}}</td>
-            <td>{{$val->NotificationTitle}}</td>
-            <td><textarea readonly class="textarea">{{$val->Message}}</textarea></td>
-            @if($val->ImagePath!='0')
-             <td><a href="{{$val->ImagePath}}" class=" btn btn-primary" target="_blank">Show</a></td>
-             @else           
+            <td><?php echo e($val->MessageId); ?></td>
+            <td><?php echo e($val->NotificationTitle); ?></td>
+            <td><textarea readonly class="textarea"><?php echo e($val->Message); ?></textarea></td>
+            <?php if($val->ImagePath!='0'): ?>
+             <td><a href="<?php echo e($val->ImagePath); ?>" class=" btn btn-primary" target="_blank">Show</a></td>
+             <?php else: ?>           
             <td>Nothing To Show</td>
-            @endif
-            <td>{{$val->MessageType}}</td>
-            <td>{{$val->WebUrl}}</td>
-            <td>{{$val->WebTitle}}</td>
-            <td>{{$val->CreatedDate}}</td>
-            <td>{{$val->FullName}}</td>
-            <td><a class="btn btn-success" onclick="Editnotification({{$val->MessageId}});">Edit</a></td>               
+            <?php endif; ?>
+            <td><?php echo e($val->MessageType); ?></td>
+            <td><?php echo e($val->WebUrl); ?></td>
+            <td><?php echo e($val->WebTitle); ?></td>
+            <td><?php echo e($val->CreatedDate); ?></td>
+            <td><?php echo e($val->FullName); ?></td>
+            <td><a class="btn btn-success" onclick="Editnotification(<?php echo e($val->MessageId); ?>);">Edit</a></td>               
             <td><a class="btn btn-danger">Delete</a></td>
             </td>
           </tr>
-         @endforeach
+         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
        </tbody>
 </table>
 </div>
@@ -71,8 +70,9 @@
           <h4 class="modal-title">Update Notification Template</h4>
         </div>
         <div class="modal-body">
-        <form name="notify_template" id="notify_template"  method="post" action="{{url('update-notification')}}" enctype="multipart/form-data">
-           {{ csrf_field() }}
+        <form name="notify_template" id="notify_template"  method="post" action="<?php echo e(url('update-notification')); ?>" enctype="multipart/form-data">
+           <?php echo e(csrf_field()); ?>
+
            <input type="hidden" class="form-control" id="notifyid" name="notifyid" requried>
           <div class="col-md-2 col-xs-12">
             <label>Noification Title:</label>
@@ -185,4 +185,5 @@
     }   
   }
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('include.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,10 +1,10 @@
-@extends('include.master')
-@section('content')
+<?php $__env->startSection('content'); ?>
 <div class="container-fluid white-bg">
  <div class="col-md-12"><h3 class="mrg-btm">Save Notification</h3></div>
  <form class="form-horizontal"  id="sendnotification"  name="sendnotification"  enctype="multipart/form-data" method="POST">
   <div class="col-md-8">
-    {{ csrf_field() }}
+    <?php echo e(csrf_field()); ?>
+
     <div class="col-md-8 col-xs- 12">
       <div class="mrg-btmm">
         <div class="form-group">
@@ -128,7 +128,7 @@
   $('#notificsubmitbtn').click(function(){
     if ($('#sendnotification').valid()){
       $.ajax({
-       url:"{{URL::to('send-notification-submit')}}" ,  
+       url:"<?php echo e(URL::to('send-notification-submit')); ?>" ,  
        data:new FormData($("#sendnotification")[0]),
        dataType:'json',
        async:false,
@@ -155,4 +155,6 @@
   });
 
 </script>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('include.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

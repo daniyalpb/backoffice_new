@@ -192,7 +192,7 @@
               <td>closed</td>
            @else
           <td>
-            <a style="{{$class}}" href="{{url('crm-followup')}}/{{$val->fbamappin_id}}/{{$val->crm_id}}/{{$val->history_id}}">{{$val->action==="n"?"close":"open"}}</a></td>
+            <a style="{{$class}}" href="{{url('crm-followup')}}/{{$val->fbamappin_id}}/{{$val->disposition_id}}/{{$val->history_id}}">{{$val->action==="n"?"close":"open"}}</a></td>
            @endif
           <!-- <td>{{$val->followup_required}}</td> -->
            <td>{{$val->create_at}}</td>

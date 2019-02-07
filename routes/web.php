@@ -142,7 +142,7 @@ Route::get('offline-request-new','finmart_offline_newrequestController@display_o
 Route::get('getproductdata/{PkId}/{product_name}','finmart_offline_newrequestController@getquotediscriptionnew');
 Route::get('get-health-data','finmart_offline_newrequestController@gethealthdata');
 Route::get('get-life-data','finmart_offline_newrequestController@getlifedata');
-Route::get('get-motor-data','finmart_offline_newrequestController@getmotorcarrierdata');
+Route::get('get-motor-data','finmart_offline_newrequestController@etproductdata/');
 Route::get('offline-status-new/{PkId}','finmart_offline_newrequestController@getnewcurrentstatus');
 Route::get('insert-new-status','finmart_offline_newrequestController@new_updte_offline_amt_date');
 Route::get('new-update-status','finmart_offline_newrequestController@new_insert_offline_status');

@@ -133,8 +133,26 @@ Route::post('upload-doc','finmart_offline_requestController@insertoflinedoc');
 Route::get('view-upload-doc/{id}','finmart_offline_requestController@getdocoffline');
 Route::get('quotestatus/{id}','finmart_offline_requestController@getcurrentstatus');
 Route::get('view-upload-doc-one/{id}','finmart_offline_requestController@getdocofflineone');  
-Route::get('getquotediscription/{id}','finmart_offline_requestController@getquotediscription');
+ Route::get('getquotediscription/{PkId}','finmart_offline_requestController@getquotediscription');
+
+
 // Finmart offline request End
+// Finmart offline request START NEW
+Route::get('offline-request-new','finmart_offline_newrequestController@display_offline_request_new');
+Route::get('getproductdata/{PkId}/{product_name}','finmart_offline_newrequestController@getquotediscriptionnew');
+Route::get('get-health-data','finmart_offline_newrequestController@gethealthdata');
+Route::get('get-life-data','finmart_offline_newrequestController@getlifedata');
+Route::get('get-motor-data','finmart_offline_newrequestController@getmotorcarrierdata');
+Route::get('offline-status-new/{PkId}','finmart_offline_newrequestController@getnewcurrentstatus');
+Route::get('insert-new-status','finmart_offline_newrequestController@new_updte_offline_amt_date');
+Route::get('new-update-status','finmart_offline_newrequestController@new_insert_offline_status');
+Route::post('new-upload-doc','finmart_offline_newrequestController@newinsertoflinedoc');
+Route::get('getnewquotediscription/{PkId}','finmart_offline_newrequestController@getnnewquotediscription');
+
+Route::get('view-upload-doc-one-new/{id}','finmart_offline_newrequestController@getdocofflineonenew');
+Route::get('view-upload-doc-two-new/{id}','finmart_offline_newrequestController@getdocofflinenew');
+
+// Finmart offline request END NEW
 
 //Test state_wise city start
 Route::get('city_wise_state','statewisecityController@get_city'); 
@@ -153,7 +171,6 @@ Route::post('empuidupdate','statecitywiseprofileController@updateuid');
 
 
 // Vikas FBA EXCEPTION MAPPING START
-
   Route::get('fba-crm-exception','fba_crm_exceptionController@show_state_city');
   Route::get('get-fba-exception','fba_crm_exceptionController@getstateexceptionfba');
   Route::get('crm-profile-name/{Profile}','fba_crm_exceptionController@get_profile_uid');

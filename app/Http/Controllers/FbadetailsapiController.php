@@ -66,30 +66,25 @@ class FbadetailsapiController extends ApiController
 			$data1=$this->send_failure_response('No Data Found','failure',$data);
 			return 	$data1;	
 		}
-   }
-   //crm comment
-   public function getcrmcomment(Request $req){
-   		if (isset($req->fbacrmid)){
-		$data=DB::select("call Fba_crm_comment_app($req->fbacrmid)");
-		}else{
-			$data=[];
-            $data1=$this->send_failure_response('No Data Found','failure',$data);
-			return 	$data1;	
-		}
-		if (!empty($data)){
-			$data1=$this->send_success_response('Data Has Been Feachted Successfully','success',$data);	
-			return 	$data1;
-		}else{
-			$data1=$this->send_failure_response('No Data Found','failure',$data);
-			return 	$data1;	
-		}
-   }
-
+   }  
 	public function getcrmfollowup(Request $req)
 	{
        //print_r($req->all());exit();
 		if (isset($req->disposition_id)&&isset($req->remark)){
-		 $data=DB::select('call crm_insert_from_app(?,?,?,?,?,?,?,?,?)',array(
+
+		$assign = DB::table('crm_disposition')->select('followup_internalteam')->where('id', '=', $req->disposition_id)->get();
+		//print_r($assign); exit();	
+		if($assign[0]->followup_internalteam != null && $assign[0]->followup_internalteam != ''){	 
+		    $data=DB::table('fbacrmmapping')->select($assign[0]->followup_internalteam)->where('id','=',$req->fbamappin_id)->get();
+		 	$assign_name=$assign[0]->followup_internalteam;	
+		 	$assign_id=$data[0]->$assign_name;
+		 	$assign_id=$assign_name;
+		 	if ($assign_id=='' && $assign_id=='0'){
+		 		$data=DB::table('crmexception')->select($assign[0]->followup_internalteam)->get();
+		 	$assign_id=$data[0]->$assign_name;
+		  }
+		}
+		 $data=DB::select('call crm_insert_from_app(?,?,?,?,?,?,?,?,?,?)',array(
               $req->disposition_id,
               $req->Uid,
               $req->crm_id,
@@ -98,8 +93,8 @@ class FbadetailsapiController extends ApiController
               $req->remark,
               $req->action,
               $req->ch_id,
-               $req->followup_assign_id
-            
+              $req->followup_assign_id,
+              $req ->callDuration
               ));
 		}else{
 			$data=[];
@@ -108,13 +103,15 @@ class FbadetailsapiController extends ApiController
 		}      
         if (!empty($data)){
 			$data1=$this->send_success_response('Data Has Been Saved Successfully','success',$data);
-				
-			DB::select('call crm_insert_followup_app(?,?,?,?)',array(              
-              $req->Uid,                                   
-              $req->followup_assign_id,
-              $req->fbamappin_id,
-              $data[0]->history_id 
-              ));
+			if ($req->ch_id=='' && $req->ch_id=='0' && isset($data[0]->history_id)){				
+				DB::select('call crm_insert_followup_app(?,?,?,?)',array(              
+					$req->Uid,                                   
+					$assign_id,
+					$req->fbamappin_id,
+					$data[0]->history_id 
+				));
+			}	
+			
 			return 	$data1;
 		}else{
 			$data1=$this->send_failure_response('No Data Found','failure',$data);
@@ -141,6 +138,68 @@ class FbadetailsapiController extends ApiController
 			return 	$data1;	
 		}
 	}
+	 //crm comment
+   public function getcrmcomment(Request $req){
+   		if (isset($req->fbacrmid)){
+		$data=DB::select("call fba_comment_crm('$req->fbacrmid')");
+		//print_r($req->all());exit();
+		}else{
+			$data=[];
+            $data1=$this->send_failure_response('No Data Found','failure',$data);
+			return 	$data1;	
+		}
+		if (!empty($data)){
+			$data1=$this->send_success_response('Data Has Been Feachted Successfully','success',$data);	
+			//print_r($data1);exit();
+			return 	$data1;
+		}else{
+			$data1=$this->send_failure_response('No Data Found','failure',$data);
+			return 	$data1;	
+		}
+   }
+ public function getchildfolloup(Request $req){
+ 	
+ 	if (isset($req->history_id)){
+		$data=DB::select("call crm_get_child_followup('$req->history_id')");
+		//print_r($req->all());exit();
+		}else{
+			$data=[];
+            $data1=$this->send_failure_response('No Data Found','failure',$data);
+			return 	$data1;	
+		}
+		if (!empty($data)){
+			$data1=$this->send_success_response('Data Has Been Feachted Successfully','success',$data);	
+			//print_r($data1);exit();
+			return 	$data1;
+		}else{
+			$data1=$this->send_failure_response('No Data Found','failure',$data);
+			return 	$data1;	
+		}
+ }
+
+ public function checkdisposition(Request $req){
+ 	//print_r($req->all());exit();
+ 	if (isset($req->fbacrmid)&&isset($req->disposition_id)&&isset($req->user_id)){
+ 		$data=DB::select("call crm_check_disposition('$req->fbacrmid','$req->disposition_id','$req->user_id')");
+ 		//print_r($data);exit();		
+ 	}else{
+ 		$data=[];
+ 		$data1=$this->send_failure_response('No Data Found','failure',$data);
+ 		return 	$data1;	
+ 	}
+	if (!empty($data)){
+			if ($data[0]->dispositionexist=='1') {
+				$data1=$this->send_success_response('you have already select this dispostion for same fba','success',$data);
+				return 	$data1;
+			}else{
+				$data1=$this->send_success_response('Continue','success',$data);
+				return 	$data1;
+			}			
+		}else{
+			$data1=$this->send_failure_response('No Data Found','failure',$data);
+			return 	$data1;	
+		}
+ }
 	
  
 }

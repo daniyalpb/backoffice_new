@@ -146,6 +146,7 @@ foreach($viewimgone as $val ){
 
 
         public function getquotediscription($id){
+          //print_r($id); exit();
         $quotedisc= DB::select('call get_quote_description(?)',array($id));
          return json_encode($quotedisc);
            return view('offline-request',['data'=>$data]); 

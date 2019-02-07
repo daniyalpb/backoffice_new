@@ -130,7 +130,8 @@
                <td> <?php echo e($val->MOTOR); ?></td>                           
                <td> <?php echo e($val->TWO_WHEELER); ?></td>
                <td><?php echo e($val->Life); ?></td>
-               <td><?php echo e($val->PL); ?></td>  
+               <td><?php echo e($val->PL); ?></td> 
+               <td><?php echo e($val->RRM_Name); ?></td>   
                <?php else: ?>  
                <td> not found</td>
                  <?php  break; ?>

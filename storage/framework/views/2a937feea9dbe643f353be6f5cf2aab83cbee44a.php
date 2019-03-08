@@ -1,41 +1,55 @@
 <?php $__env->startSection('content'); ?>
 <div class="container-fluid white-bg">
 <div class="col-md-12"><h3 class="mrg-btm">CRM Interaction</h3></div>
-
-<div class="col-md-12">
+<div class="form-group">
+ <div class="col-md-12">
+  <div class="overflow-scroll">
+    <div class="table-responsive" >
  <table class='datatable-responsive table table-striped table-bordered dt-responsive nowrap' id='crmineractiontable'>
- 	<thead>
- 		<tr>
- 			<th>History Id</th>
- 			<th>Disposition</th>
- 			<th>Remark</th>
- 			<th>Followup Date</th>
- 			<th>FBAID</th>
- 			<th>FBA Name</th>
- 			<th>Status</th>
- 		</tr>
- 	</thead>
- 	<tbody>
- 		<?php $__currentLoopData = $crmdata; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
- 		<tr>
- 			<td><?php echo e($val->history_id); ?></td>
- 			<td><?php echo e($val->disposition); ?></td>
- 			<td><textarea readonly><?php echo e($val->remark); ?></textarea></td>
- 			<td><?php echo e($val->followup_date); ?></td>
- 			<td><?php echo e($val->FBAID); ?></td>
- 			<td><?php echo e($val->FullName); ?></td>
- 			<?php if($val->action=='y'): ?>
- 			<td ><p style="color:green">Open</p></td>
- 			<?php else: ?>
- 			<td><p style="color: red">Close</p></td>
- 			<?php endif; ?>
- 		</tr>
- 		<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
- 	</tbody>
+    <thead>
+        <tr>
+            <th>History Id</th>
+            <th>Disposition</th>
+            <th>Remark</th>
+            <th>Followup Date</th>
+            <th>FBAID</th>
+            <th>FBA Name</th>
+            <th>Status</th>
+            <th>source</th>
+            <th>call Duration</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php $__currentLoopData = $crmdata; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <tr>
+            <td><?php echo e($val->history_id); ?></td>
+            <td><?php echo e($val->disposition); ?></td>
+            <td><textarea readonly><?php echo e($val->remark); ?></textarea></td>
+            <td><?php echo e($val->followup_date); ?></td>
+            <td><?php echo e($val->FBAID); ?></td>
+            <td><?php echo e($val->FullName); ?></td>
+            <?php if($val->action=='y'): ?>
+            <td ><p style="color:green">Open</p></td>
+            <?php else: ?>
+            <td><p style="color: red">Close</p></td>
+            <?php endif; ?>
+            <?php if($val->source==''): ?>
+            <td>WEB</td>
+            <?php else: ?>
+            <td>App</td>
+            <?php endif; ?>
+            <td><?php echo e($val->callDuration); ?></td>
+        </tr>
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    </tbody>
  </table>
 </div>
+</div>
+</div>
+</div>
+</div>
 <div>
-	<a href="#" class="btn btn-primary" onclick="fnExcelReport();">Import Excle</a>
+    <a href="#" class="btn btn-primary" onclick="fnExcelReport();">Export Excel</a>
 </div>
 </div>
 <script type="text/javascript">
@@ -58,6 +72,7 @@ function fnExcelReport()
     tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
     tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
     tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+    tab_text= tab_text.replace(/<textarea[^>]*>|<\/textarea>/gi, "");
 
     var ua = window.navigator.userAgent;
     var msie = ua.indexOf("MSIE "); 

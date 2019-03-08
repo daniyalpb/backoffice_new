@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+route::get('Break_in_app_notification/{fbaid}','SendbreakinnotificationController@getinappnotificationdata');
 Route::get('happybirthday1','HappybirthdayController@getbirthday');
 Route::get('happybirthday2','HappybirthdayController@getbirthday1');
 Route::get('happybirthday3','HappybirthdayController@getbirthday2');
@@ -404,6 +405,7 @@ Route::POST('getmotordata','ImportsalesdataController@importExcelmotor');
 Route::get('Crm-report','Crm_reportsController@getcrmreport');
 route::get('get_crm_interaction/{uid}/{fdate}/{tdate}','Crm_reportsController@getcrminteraction');
 Route::get('getcrmreport/{fromdate}/{todate}','Crm_reportsController@crm_report');
+Route::post('crm_export','Crm_reportsController@exportcrm');
 /*route::get('crmexportexcel/{uid}/{fdate}/{tdate}','Crm_reportsController@exportexcel');*/
 
 Route::get('fba-communication','FbacommunicationController@getfbacommunication');
@@ -441,9 +443,11 @@ route::post('get-mis-data-on-product-state','allsalesreportController@getmisrepo
 
 Route::get('ImportMisdata','ImportmisdataController@importmisdata');
 Route::post('Importmisfile','ImportmisdataController@importExcelmis');
-
-
-
+Route::get('web-notification','SendbreakinnotificationController@webnotification');
+route::get('update-is-read/{id}','SendbreakinnotificationController@updateisread');
+Route::get('My-alerts','SendbreakinnotificationController@showmyalerts');
+Route::get('FBA-Business-Report/{Fbaid}/{fromdate}/{todate}','FbabusinessController@showbusiness');
+//Route::get('get-fbabusiness/{fromdate}/{todate}','FbabusinessController@getfbabusiness');
 ///shubham end ///
 //vivek Start//
 
@@ -672,7 +676,7 @@ Route::post('report-followup-history-save','RegionalManagerControllar@report_fol
   /************
 // LEAD MANAGMENT
 ******************/  
-Route::group(['namespace' => 'leadController' ], function() {
+Route::group(['namespace' => 'leadController' ], function(){
 Route::get('lead-up-load','LeaduploadController@lead_up_load');
 Route::post('import-excel','LeaduploadController@importExcel');        
 Route::post('lead-update','LeaduploadController@lead_update');          

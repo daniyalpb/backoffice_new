@@ -34,9 +34,11 @@ Route::post('Crm_comment_insert','FbadetailsapiController@insertcrmcomment');
 Route::post('Crm_child_followup','FbadetailsapiController@getchildfolloup');
 Route::post('Check_disposition','FbadetailsapiController@checkdisposition');
 route::post('My_follow_up','FbadetailsapiController@getmyfollowup');
-
-//shubham end
-
 Route::post('get-crm-role','getcrmroleController@crm_role');
 Route::post('crm_disposition','getcrmroleController@get_crm_disposition');
-
+Route::post('Send_break_in_mail_n_notification','SendbreakinnotificationController@sendnotification');
+Route::post('Break_in_notification','BreakinpolicybossapiController@sendnotification');
+Route::post('Break_In_Notification_Count','FbadetailsapiController@Break_in_notification_count');
+Route::post('Break_in_all_notification','FbadetailsapiController@get_all_notification');
+Route::post('update_is_read','FbadetailsapiController@updateisread');
+//shubham end

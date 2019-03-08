@@ -11,7 +11,8 @@
 <div class="col-md-12"><h3 class="mrg-btm">CRM Report</h3></div>
 
 <div class="col-md-12">
-	<form id="Frmcrmrp">
+	<form id="Frmcrmrp" method="post" action="{{url('crm_export')}}">
+     {{ csrf_field() }}
    <div class="col-md-2">
       <div class="form-group"> 
          <label>From Date</label>
@@ -30,12 +31,15 @@
         </div>
       </div>
   </div>
-</form>
-	<div class="col-md-3">		
-		<button id="btncrmreport" class="btn btn-primary" style="margin-top: 25px;" onclick="getcrmrp();">SHOW</button>
-	</div>
-</div>
 
+	<div class="col-md-1">		
+		<a id="btncrmreport" class="btn btn-primary" style="margin-top: 25px;" onclick="getcrmrp();">SHOW</a>
+	</div>
+  <div class="col-md-3">    
+    <button id="btnexport" class="btn btn-primary" style="margin-top: 25px;">Export</button>
+  </div>
+  </form>
+</div>
    <div class="col-md-12">
       <div class="overflow-scroll">
  <br/>

@@ -65,7 +65,7 @@ label.error{top:34px !important; color:#ff0000 !important;font-size:15px !import
               <input id="isdemo" type="radio" name="isdemo" value="1" >&nbsp;YES</label>
              </td>
              <td width="20%;">
-              <label><input id="" type="radio" name="isdemo" value="0">&nbsp;NO</label>
+              <label><input id="isdemono" type="radio" name="isdemo" value="0">&nbsp;NO</label>
              </td>           
             </tr>
         </table>
@@ -627,6 +627,10 @@ $("#isCOT").prop("checked", true);
           $('#divother').show();
         }else{
            $("#txtother").prop("checked", false);
+        }if (data[0].isdemogiven==1) {
+          $("#isdemo").prop("checked",true);
+        }else{
+          $("#isdemo").prop("checked",false);
         }
         $('#txtotherremark').val(data[0].otherremark);
         $('#txtremark').val(data[0].remark);

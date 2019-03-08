@@ -16,7 +16,7 @@ class usermappingController extends CallApiController {
 
 
 		public function fbauser(){
-		$id=Session::get('fbauserid');
+		$id=Session::get('fbaid');
 
   		$usermaping = DB::select("call usp_load_user_fba_mapping($id)");
 		return view('user_mapping',['usermaping'=>$usermaping]);

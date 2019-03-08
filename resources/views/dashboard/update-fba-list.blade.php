@@ -177,6 +177,96 @@
     </tbody>
   </table>
 </div>
+<br>
+<h3>FBA Call Log Details</h3>
+<hr/>
+<br>
+<div id="divfbacalllogs">
+  <table class="datatable-responsive table table-striped table-bordered dt-responsive nowrap" id="tblfbacalllogs">
+    <thead>
+      <tr>
+        <th>History Id</th>
+        <th>Remark</th>
+        <th>Created Date</th>
+        <th>Followup Date</th>             
+        <th>Employee Name</th>
+        <th>Profile</th>
+        <th>call Duration</th>   
+        <th>Source</th> 
+      </tr>
+    </thead>
+    <tbody>
+      @foreach($calllogs as $val)
+      <tr>
+        <td>{{$val->history_id}}</td>
+        <td><textarea readonly>{{$val->remark}}</textarea></td>
+        <td>{{$val->create_at}}</td>
+        <td>{{$val->followup_date}}</td>        
+        <td>{{$val->EmployeeName}}</td>
+        <td>{{$val->Profile}}</td>
+        <td>{{$val->callDuration}}</td>
+        @if($val->source!='app')
+         <td>WEB</td>
+        @else
+        <td>{{$val->source}}</td>
+        @endif
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
+</div>
+<br>
+<h3>Last Business Done By FBA</h3>
+<div class="col-md-2">
+      <div class="form-group"> 
+         <label>From Date</label>
+         <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
+               <input class="form-control date-range-filter" type="text" placeholder="From Date" name="txtfromdate" id="txtfromdate" readonly>
+          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+         </div>
+      </div>
+   </div>
+   <div class="col-md-2">
+      <div class="form-group">
+        <label>To Date</label>
+        <div id="datepicker1" class="input-group date" data-date-format="yyyy-mm-dd">
+             <input class="form-control date-range-filter" type="text" placeholder="To Date"  name="txttodate"  id="txttodate" readonly >
+          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+        </div>
+      </div>
+  </div>
+<a class="btn btn-primary" style="margin-top: 25px;" id="btnshowbusiness" onclick="passvalue()">See Detail Business</a>
+<br>
+<hr/>
+<br>
+<div id="divBusiness">
+  <table class="datatable-responsive table table-striped table-bordered dt-responsive nowrap" id="tblfbaBusiness">
+    <thead>
+      <tr>
+        <th>Entry No</th>
+        <th>Entry Date</th>
+        <th>Ins Company</th>
+        <th>Product Name</th>             
+        <th>Policy Category</th>
+        <th>POSP Source</th>
+        <th>Premium</th>         
+      </tr>
+    </thead>
+    <tbody>
+      @foreach($lastbuss as $val)
+      <tr>
+        <td>{{$val->EntryNo}}</td>
+        <td>{{$val->EntryDate}}</td>
+        <td>{{$val->InsCompany}}</td>
+        <td>{{$val->ProductName}}</td>        
+        <td>{{$val->PolicyCategory}}</td>
+        <td>{{$val->POSPSource}}</td>
+        <td>{{$val->Premium}}</td>        
+      </tr>
+      @endforeach
+    </tbody>
+  </table>
+</div>
 </div>
 </div>
 </div>
@@ -505,6 +595,8 @@
 <script type="text/javascript">
  $(document).ready(function() {
    $("#tblsubfba").DataTable();
+ /*  $("#tblfbacalllogs").DataTable();
+   $("#tblfbaBusiness").DataTable();*/
    $(document).ready(function() {
   // Bootstrap datepicker
   $('.input-daterange input').each(function() {
@@ -666,6 +758,16 @@ function uploadpaymentgrid(fbaid){
           }
         }
       });
+}
+function passvalue(){
+  var fromdate=$("#txtfromdate").val();
+  var todate=$("#txttodate").val();
+  if (fromdate!=''&&todate!='') {
+$("#btnshowbusiness").attr("href", "{{URL::to('FBA-Business-Report')}}/{{$data->fbaid}}/"+fromdate+"/"+todate);
+$("#btnshowbusiness").attr("target","_blank");
+}else{ 
+  alert("Select Proper Date Rage");  
+}
 }
 </script>
 

@@ -2,41 +2,55 @@
 @section('content')
 <div class="container-fluid white-bg">
 <div class="col-md-12"><h3 class="mrg-btm">CRM Interaction</h3></div>
-
-<div class="col-md-12">
+<div class="form-group">
+ <div class="col-md-12">
+  <div class="overflow-scroll">
+    <div class="table-responsive" >
  <table class='datatable-responsive table table-striped table-bordered dt-responsive nowrap' id='crmineractiontable'>
- 	<thead>
- 		<tr>
- 			<th>History Id</th>
- 			<th>Disposition</th>
- 			<th>Remark</th>
- 			<th>Followup Date</th>
- 			<th>FBAID</th>
- 			<th>FBA Name</th>
- 			<th>Status</th>
- 		</tr>
- 	</thead>
- 	<tbody>
- 		@foreach($crmdata as $val)
- 		<tr>
- 			<td>{{$val->history_id}}</td>
- 			<td>{{$val->disposition}}</td>
- 			<td><textarea readonly>{{$val->remark}}</textarea></td>
- 			<td>{{$val->followup_date}}</td>
- 			<td>{{$val->FBAID}}</td>
- 			<td>{{$val->FullName}}</td>
- 			@if($val->action=='y')
- 			<td ><p style="color:green">Open</p></td>
- 			@else
- 			<td><p style="color: red">Close</p></td>
- 			@Endif
- 		</tr>
- 		@endforeach
- 	</tbody>
+    <thead>
+        <tr>
+            <th>History Id</th>
+            <th>Disposition</th>
+            <th>Remark</th>
+            <th>Followup Date</th>
+            <th>FBAID</th>
+            <th>FBA Name</th>
+            <th>Status</th>
+            <th>source</th>
+            <th>call Duration</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($crmdata as $val)
+        <tr>
+            <td>{{$val->history_id}}</td>
+            <td>{{$val->disposition}}</td>
+            <td><textarea readonly>{{$val->remark}}</textarea></td>
+            <td>{{$val->followup_date}}</td>
+            <td>{{$val->FBAID}}</td>
+            <td>{{$val->FullName}}</td>
+            @if($val->action=='y')
+            <td ><p style="color:green">Open</p></td>
+            @else
+            <td><p style="color: red">Close</p></td>
+            @Endif
+            @if($val->source=='')
+            <td>WEB</td>
+            @else
+            <td>App</td>
+            @endif
+            <td>{{$val->callDuration}}</td>
+        </tr>
+        @endforeach
+    </tbody>
  </table>
 </div>
+</div>
+</div>
+</div>
+</div>
 <div>
-	<a href="#" class="btn btn-primary" onclick="fnExcelReport();">Export Excel</a>
+    <a href="#" class="btn btn-primary" onclick="fnExcelReport();">Export Excel</a>
 </div>
 </div>
 <script type="text/javascript">
@@ -59,6 +73,7 @@ function fnExcelReport()
     tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
     tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
     tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+    tab_text= tab_text.replace(/<textarea[^>]*>|<\/textarea>/gi, "");
 
     var ua = window.navigator.userAgent;
     var msie = ua.indexOf("MSIE "); 

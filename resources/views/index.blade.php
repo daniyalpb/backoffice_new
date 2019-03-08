@@ -47,13 +47,7 @@
 			  <!--  <button type="button" class="btn btn-default submit-btn"  data-target="#pwdModal" data-toggle="modal" value=""/>Forget Password</button> -->
  			 <!--  <a href="forgot-password.php" class="forgot-pass pull-right">Forgot Password</a> -->
 			</form>
-			</div>
-			@if(Session::has('msg'))
-             <div class="alert alert-success alert-dismissible">
-             <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-             <p class="alert alert-success">{{ Session::get('msg') }}</p>
-            </div>
-           @endif
+			</div>			
 			</div>
 		</div>
 		<div class="col-md-4"></div>

@@ -31,16 +31,22 @@ $validator = Validator::make($request->all(), [
   return redirect('/')
   ->withErrors($validator)
  ->withInput();
-   }else{
-          
+   }
+else{
+  $data=DB::select("call check_is_active('$request->email')");
+if ($data[0]->Employee_Status=='Inactive'||$data[0]->IsBlocked=='1'||$data[0]->isactive=='0') {
+  Session::flash('msg', "As You Are Not Active You Can`t Ascess The Finmart Back Office kindly Contact Support !");
+  return redirect('/');
+ // exit();
+}else{         
 $query=DB::select('call sp_user_login(?,?,?)',array($request->email,$request->password,$request->ip()));
   if($query){
   $val=$query[0];
   $request->session()->flush();
   $request->session()->put('emailid',$val->email);
- $request->session()->put('emailid',$val->email);
- $request->session()->put('fbauserid',$val->fbauserid);
- $request->session()->put('fbaid',$val->fbaid);
+  $request->session()->put('emailid',$val->email);
+  $request->session()->put('fbauserid',$val->fbauserid);
+  $request->session()->put('fbaid',$val->fbaid); 
                     $request->session()->put('username',$val->username);
                     $request->session()->put('loginame',$val->loginame);
                     $request->session()->put('uid',$val->uid);
@@ -49,8 +55,6 @@ $query=DB::select('call sp_user_login(?,?,?)',array($request->email,$request->pa
                     $request->session()->put('usergroup',$val->usergroup);
                     $request->session()->put('companyid',$val->companyid);
                     $request->session()->put('last_login',$val->last_login);
-
-
 $qu=DB::table('finmartemployeemaster')->select('fba_id','UId','Profile')
        ->where('fba_id','=',$val->fbaid)->first();
  
@@ -78,6 +82,7 @@ $qu=DB::table('finmartemployeemaster')->select('fba_id','UId','Profile')
   return Redirect::back();              
  }
  }
+}
  }
  // start insert
         public function registerinsert (Request $req){ 
@@ -273,5 +278,5 @@ public function went_wrong(Request $req){
 
             return view('500');
 }
-
+ 
 }

@@ -16,8 +16,7 @@ use Excel;
 
           public function nonfbalist(){
              $fbaid=Session::get('fbaid');
-
-          $query = DB::select("call new_fba_fbaList($fbaid)"); 
+             $query = DB::select("call new_fba_fbaList($fbaid)"); 
              //return view('dashboard.non_fba_list',["data"=>$query]);    
            return json_encode(["data"=>$query]);
 
@@ -46,10 +45,12 @@ use Excel;
                  //$fbid=Session::get('fbaid');
                  //print_r($pwd);exit();
                 //echo "call update_new_fba_fbaList($fbaid)";
+                 $lastbuss = DB::select("call Last_business_done_by_fba($fbaid)");
+                 $calllogs = DB::select("call fba_call_logs($fbaid)");     
                  $subfba = DB::select("call parrent_fba_data($fbaid)");
                  $update = DB::select("call update_new_fba_fbaList($fbaid)");
                 if(count($update) > 0){
-                      return view('dashboard.update-fba-list',['data'=>$update[0],'subfba'=>$subfba]);
+                      return view('dashboard.update-fba-list',['data'=>$update[0],'subfba'=>$subfba,'calllogs'=>$calllogs,'lastbuss'=>$lastbuss]);
                     }
            else{
 
@@ -140,6 +141,7 @@ public  function fileupload_fn($image)
     $data = DB::select("call payment_grid_doc_path($fbaid)"); 
     return json_encode($data);
   }
+ 
 }
 
 

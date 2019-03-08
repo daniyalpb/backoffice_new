@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Search By Crn / Vehicle No.</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <style>    
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 450px}    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {   
+      .row.content {height:auto;} 
+    }
+  </style>
+  <script type="text/javascript">
+
+function valueChanged()
+{
+    if($('.btnvehical').is(":checked")) {
+    	$("#divcrn").show();
+    	$("#txtcrnno").attr("placeholder", "Please Enter Vehical No. :Ex.MH43AB6262");
+    }        
+    else if($('.btncrnradio').is(":checked")){
+        $("#divcrn").show();
+        $("#txtcrnno").attr("placeholder", "Please Enter CRN No.");
+    }else{
+    	$("#divcrn").hide();
+    }
+}
+</script>
+</head>
+<body>  
+<div class="container-fluid text-center">    
+  <div class="row content"> 
+    <div class="col-sm-8 text-left"> 
+      <h3>Search By CRN No/ Vehicle No</h3>   
+       <label>CRN No:</label>
+       <input type="radio" name="btncrnradio" class="btncrnradio" id="btncrnradio" onchange="valueChanged()" checked>
+       <label>Vehicle No:</label>  
+       <input type="radio" name="btncrnradio" class="btnvehical" id="btncrnradio" onchange="valueChanged()">  
+       <div id="divcrn">
+       <br/>  
+       <input class="form-control" type="text" name="txtcrnno" id="txtcrnno" placeholder="Please Enter CRN No.">
+       <br/>
+       <button id="search" class="btn btn-primary">Search</button>
+       </div>       
+    </div>  
+  </div>
+</div>
+</body>
+</html>

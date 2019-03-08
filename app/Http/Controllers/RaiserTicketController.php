@@ -11,37 +11,37 @@ use Mail;
 class RaiserTicketController extends Controller
 {
  public function getraiserticket(){
- $cat = DB::select("call Usp_getraisertktcat()");
- return view('dashboard.RaiserTicket',['cat'=>$cat]);
+   $cat = DB::select("call Usp_getraisertktcat()");
+   return view('dashboard.RaiserTicket',['cat'=>$cat]);
  }
  public function getsubcat($CateCode){
- $subcat = DB::select("call Usp_getraisertktsubcat($CateCode)");
- return json_encode($subcat);
+   $subcat = DB::select("call Usp_getraisertktsubcat($CateCode)");
+   return json_encode($subcat);
  }
  public function getclassi($QuerID){
- $classi = DB::select("call Usp_getraiseClassification($QuerID)");
- return json_encode($classi);
+   $classi = DB::select("call Usp_getraiseClassification($QuerID)");
+   return json_encode($classi);
  }
  public function inserraisertkt(Request $req){
 
   //print_r($req->all());exit();
- $id=Session::get('fbaid');
-$validator =Validator::make($req->all(), [
-'txtraisermessage' =>'required',
- ]);
- if ($validator->fails()) {
- return redirect('RaiseaTicket')
- ->withErrors($validator)
- ->withInput();
-  }else{
-  $image = $req->file('pathimgraiser');
-  $name ="";
-  if($image){
-  $name = time().'.'.$image->getClientOriginalName();
+   $id=Session::get('fbaid');
+   $validator =Validator::make($req->all(), [
+    'txtraisermessage' =>'required',
+  ]);
+   if ($validator->fails()) {
+     return redirect('RaiseaTicket')
+     ->withErrors($validator)
+     ->withInput();
+   }else{
+    $image = $req->file('pathimgraiser');
+    $name ="";
+    if($image){
+      $name = time().'.'.$image->getClientOriginalName();
    $destinationPath = public_path('upload/Raiserticket/'); //->save image folder 
    $image->move($destinationPath, $name);
-  }
-  $lastid=DB::select('call Usp_inserraisertkt(?,?,?,?,?,?,?,?,?,?)',array(
+ }
+ $lastid=DB::select('call Usp_inserraisertkt(?,?,?,?,?,?,?,?,?,?)',array(
   $req->ddlCategory,
   $req->ddlsubcat,
   $req->ddlClassification,
@@ -51,10 +51,10 @@ $validator =Validator::make($req->all(), [
   $req->txttoemailid,
   $req->txtccemailid,
   "BO",
-   $id
-   ));
-   Session::flash('message', 'Ticket created successfully. Your ticket no is '.$lastid[0]->TicketRequestId); 
-   return redirect('RaiseaTicket');
-    }
-    }
-    }
+  $id
+));
+ Session::flash('message', 'Ticket created successfully. Your ticket no is '.$lastid[0]->TicketRequestId); 
+ return redirect('RaiseaTicket');
+}
+}
+}

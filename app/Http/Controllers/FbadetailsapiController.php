@@ -219,6 +219,57 @@ class FbadetailsapiController extends ApiController
 		}	
     
 	}
+	public function Break_in_notification_count(Request $req){
+       if (isset($req->Fbaid)){
+		$data=DB::select("call break_in_notification_count($req->Fbaid)");
+		}else{
+			$data=[];
+            $data1=$this->send_failure_response('No Data Found','failure',$data);
+			return 	$data1;	
+		}		
+	   if (!empty($data)){
+			$data1=$this->send_success_response('Data Has Been Feachted Successfully','success',$data);	
+			return 	$data1;
+		}else{
+			$data1=$this->send_failure_response('No Data Found','failure',$data);
+			return 	$data1;	
+		}	
+    
+	}
+	public function get_all_notification(Request $req){
+       if (isset($req->Fbaid)){
+		$data=DB::select("call breakin_notification_all_data_app($req->Fbaid,$req->p_count)");
+		}else{
+			$data=[];
+            $data1=$this->send_failure_response('No Data Found','failure',$data);
+			return 	$data1;	
+		}		
+	   if (!empty($data)){
+			$data1=$this->send_success_response('Data Has Been Feachted Successfully','success',$data);	
+			return 	$data1;
+		}else{
+			$data1=$this->send_failure_response('No Data Found','failure',$data);
+			return 	$data1;	
+		}	
+    
+	}
+	public function updateisread(Request $req){
+       if (isset($req->Notification_id)){
+		$data=DB::select("call break_in_update_isread($req->Notification_id)");
+		}else{
+			$data=[];
+            $data1=$this->send_failure_response('No Data Found','failure',$data);
+			return 	$data1;	
+		}		
+	   if (!empty($data)){
+			$data1=$this->send_success_response('Status Has been Updated','success',$data);	
+			return 	$data1;
+		}else{
+			$data1=$this->send_failure_response('No Data Found','failure',$data);
+			return 	$data1;	
+		}	
+    
+	}
  
 }
 

@@ -4,13 +4,8 @@
 
 
  <div class="container-fluid white-bg">
-     
-
-
-
       <div class="col-md-2">
-      <div class="form-group">  
-
+      <div class="form-group"> 
     <p>From Date</p>
          <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
                <input class="form-control date-range-filter" type="text" placeholder="From Date" name="fdate" id="min"/>
@@ -27,7 +22,6 @@
          </div>
       </div>
   </div>
-
       <div class="form-group"> <input type="submit" name="btndate" id="btndate"  class="mrg-top common-btn pull-left" value="SHOW">
          <div class="col-md-12"><h3 class="mrg-btm">System MIS</h3></div> 
     <div class="col-md-12"><h3 class="mrg-btm">Insurance</h3></div>

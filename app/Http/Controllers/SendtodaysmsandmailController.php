@@ -42,7 +42,7 @@ class SendtodaysmsandmailController extends CallApiController
             $newsms=urlencode('Dear '.$val->FullName.', please register to POPS.');
           }else{
         	 $newsms=urlencode($val->message);
-          }
+          } 
         	//$mono=$val->MobiNumb1;
         	//print_r($mono);exit();
         	$post_data="";

@@ -12,8 +12,4 @@
 	<p>Warm Regards,</p>
 	<p>Magic Finmart Team</p>
 
-
-
-
-
 </html>

@@ -16,7 +16,9 @@
 </style>
 <script type="text/javascript">
  $(document).ready(function() {
+  checkusersat();
   getnotification();
+  
 });
   function getnotification() {
      $.ajax({
@@ -30,7 +32,7 @@
               $("#divcnt").empty();
               var count=ndata.length;
               if (count=='0') {
-                $("#notify").append("<li style='padding-left:20px;'>There Is No Alerts Avaliable For You</li>");
+                $("#notify").append("<li style='padding-left:20px;'>There Is No Alerts Avaliable For You</li><li style='padding-left:20px;'><a href='{{url('My-alerts')}}'>View All</a></li>");
               }
               $("#divcnt").append('('+count+')');
               for (var i = 0; i < ndata.length; i++) 
@@ -48,6 +50,17 @@ function updateisread(notid){
              success:function(data) 
              {     
               window.location='{{url('My-alerts')}}';
+             }
+         });
+}
+
+function checkusersat() {
+  $.ajax({
+             url: '{{url('Check-user-sat')}}',
+             type: "GET",             
+             success:function(data) 
+             {     
+              //alert('test');
              }
          });
 }

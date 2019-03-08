@@ -447,7 +447,8 @@ Route::get('web-notification','SendbreakinnotificationController@webnotification
 route::get('update-is-read/{id}','SendbreakinnotificationController@updateisread');
 Route::get('My-alerts','SendbreakinnotificationController@showmyalerts');
 Route::get('FBA-Business-Report/{Fbaid}/{fromdate}/{todate}','FbabusinessController@showbusiness');
-//Route::get('get-fbabusiness/{fromdate}/{todate}','FbabusinessController@getfbabusiness');
+Route::get('Dash-board-data','DashboardController@getdata');
+route::get('Check-user-sat','DashboardController@checkisactive');
 ///shubham end ///
 //vivek Start//
 

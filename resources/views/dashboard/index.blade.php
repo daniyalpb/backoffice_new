@@ -218,7 +218,7 @@ html {
 
 </style>          
 <div class="container-fluid white-bg">
-    @if(Session::get('usergroup')!='50')
+    @if(Session::get('usergroup')!='50'&&Session::get('usergroup')!='51')
    <div class="col-md-12"><h3 class="mrg-btm text-center"><span class="glyphicon glyphicon-user"></span> My Information</h3></div>
      <div class="col-md-12">
        <div class="overflow-scroll">
@@ -299,6 +299,15 @@ html {
 				</div>
 		</div>
 @else
+<div class="col-md-3">
+      <select id="ddlCampaign" class="form-control" onchange="getdashboarddata();">
+        @foreach($Campaigndata as $val)
+        <option value="{{$val->ID}}">{{$val->Source_name}}</option>
+        @endforeach
+      </select>
+    </div>
+    <br/>
+    <br/>
         <div id="divinfo">
             <br>
             <br>
@@ -333,7 +342,7 @@ html {
 });
   function getdashboarddata() {
      $.ajax({
-             url: '{{url('Dash-board-data')}}',
+             url: 'Dash-board-data/'+$('#ddlCampaign').val(),
              type: "GET",             
              success:function(data) 
              {      

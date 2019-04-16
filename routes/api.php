@@ -42,3 +42,15 @@ Route::post('Break_In_Notification_Count','FbadetailsapiController@Break_in_noti
 Route::post('Break_in_all_notification','FbadetailsapiController@get_all_notification');
 Route::post('update_is_read','FbadetailsapiController@updateisread');
 //shubham end
+//---------------------Nitin start--------------------------
+Route::post('search-lead-assign-to-employee','Api\SearchLeadAssignToEmployeeController@searchleadassigntoemployee');
+Route::post('save-Lead-crm-history','Api\SearchLeadAssignToEmployeeController@saveLeadcrmhistory');
+Route::post('save-lead-crm-follow-up','Api\SearchLeadAssignToEmployeeController@saveleadcrmfollowup');
+Route::post('get-lead-crm-disposition','Api\SearchLeadAssignToEmployeeController@getleadcrmdisposition');
+Route::post('update-twenty-four-vehicle-request','Api\UpdateTwentyFourVehicleRequestController@UpdateTwentyFourVehicleRequest');
+Route::post('save-lead-crm-type-history','Api\SearchLeadAssignToEmployeeController@saveleadcrmtypehistory');
+
+Route::post('get-followup-lead-crm','Api\SearchLeadAssignToEmployeeController@getfollowupleadcrm');
+
+Route::post('get-followup-close-lead-crm','Api\SearchLeadAssignToEmployeeController@getfollowupcloseleadcrm');
+//---------------------Nitin end--------------------------

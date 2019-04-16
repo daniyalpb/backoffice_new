@@ -1479,7 +1479,7 @@ function getcustomerid(text,fbaid){
  <!-- End shubham raise a ticket -->
  <!-- Loader Script -->
 <script>
-     var $loading = $('#loading').hide();
+     var $loading = $('#loading');
      //Attach the event handler to any element
      $(document)
        .ajaxStart(function () {

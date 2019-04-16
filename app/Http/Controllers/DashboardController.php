@@ -24,12 +24,14 @@ class DashboardController extends InitialController
           }else{
       	 $fbaid=Session::get('fbaid');
              $basicinfo=DB::select("call login_basic_info($fbaid)");   
-      }	      return view('dashboard.index',['basicinfo'=>$basicinfo]);
+  $Campaigndata=DB::select("call Campaign_info()"); 
+  return view('dashboard.index',['basicinfo'=>$basicinfo,'Campaigndata'=>$Campaigndata]);
+      }	      
       }
-      public function getdata()
+       public function getdata($Camp_id)
       { 
                
-                $data=DB::select("call getDashboardDataForAdmin()");
+                $data=DB::select("call getDashboardDataForAdmin($Camp_id)");
                 return json_encode($data);
           
       	

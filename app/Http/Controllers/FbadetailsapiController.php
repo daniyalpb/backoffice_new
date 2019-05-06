@@ -16,7 +16,7 @@ class FbadetailsapiController extends ApiController
 	{ 
 		//print_r($req->search_parameter);exit();
 		if (isset($req->Fbaid)){
-		$data=DB::select("call c($req->Fbaid,$req->count,'$req->search_parameter')");
+		$data=DB::select("call fbaListapp($req->Fbaid,$req->count,'$req->search_parameter')");
 		}else{
 			$data=[];
             $data1=$this->send_failure_response('No Data Found','failure',$data);
@@ -81,7 +81,7 @@ class FbadetailsapiController extends ApiController
 		 	$assign_id=$data[0]->$assign_name;
 		 	//$assign_id=$assign_name;
 		 	if ($assign_id=='' || $assign_id=='0' && $assign[0]->followup_internalteam!=''){
-		 		$dataex=DB::table('crmexception')->select($assign[0]->followup_internalteam)->get();
+		 		$dataex=DB::table('crmexceptionnew')->select($assign[0]->followup_internalteam)->get();
 		 	    $assign_id=$dataex[0]->$assign_name;
 		  }
 		 // print_r($data[0]->$assign_name);exit();
@@ -202,7 +202,8 @@ class FbadetailsapiController extends ApiController
 			return 	$data1;	
 		}
  }
-	public function getmyfollowup(Request $req){
+
+public function getmyfollowup(Request $req){
        if (isset($req->Uid)){
 		$data=DB::select("call crm_my_open_followup_data($req->Uid,$req->p_count)");
 		}else{
@@ -219,7 +220,7 @@ class FbadetailsapiController extends ApiController
 		}	
     
 	}
-	public function Break_in_notification_count(Request $req){
+public function Break_in_notification_count(Request $req){
        if (isset($req->Fbaid)){
 		$data=DB::select("call break_in_notification_count($req->Fbaid)");
 		}else{
@@ -269,6 +270,58 @@ class FbadetailsapiController extends ApiController
 			return 	$data1;	
 		}	
     
+	}
+
+
+	public function getfbadata_optimised(Request $req)
+	{ 
+		//print_r($req->search_parameter);exit();
+		if (isset($req->Fbaid)){
+		$data=DB::select("call fbaListapp_temp($req->Fbaid,$req->count,'$req->search_parameter')");
+		}else{
+			$data=[];
+            $data1=$this->send_failure_response('No Data Found','failure',$data);
+			return 	$data1;	
+		}		
+	   if (!empty($data)){
+			$data1=$this->send_success_response('Data Has Been Feachted Successfully','success',$data);	
+			return 	$data1;
+		}else{
+			$data1=$this->send_failure_response('No Data Found','failure',$data);
+			return 	$data1;	
+		}	
+		
+	}
+	public function addalternateno(Request $req)
+	{
+		 if ($req->fbaid!='') {
+		 	 $data=DB::select('call alternate_mono_update(?,?)',[$req->fbaid,$req->mobile_no]);
+		 	 
+		 }else{
+		 	$data=[];
+		 	$data1=$this->send_failure_response('No Data Found','failure',$data);
+			return 	$data1;	
+		 }
+		if (!empty($data)){
+		 	 $data1=$this->send_success_response('Alternate Mobile No Has Been Added For '.$data[0]->FullName,'success',$data);	
+			  return 	$data1;
+		 	 }else{
+			$data1=$this->send_failure_response('No Data Found','failure',$data);
+			return 	$data1;	
+		}
+	}
+
+	public function connectionresult()
+	{
+		 $data=DB::select('call crm_Connection_result()');
+		 if (!empty($data)){
+		 	 $data1=$this->send_success_response('Data Has Been Feachted Successfully','success',$data);	
+			  return $data1;
+		 }else{
+		 	$data=[];
+			$data1=$this->send_failure_response('No Data Found','failure',$data);
+			return 	$data1;	
+		}
 	}
  
 }

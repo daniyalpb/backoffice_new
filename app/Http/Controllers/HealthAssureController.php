@@ -8,7 +8,7 @@ class HealthAssureController extends CallApiController
 {
    public function gethealthassure(){
 try{
-   	$data=array("pack_param"=> array("username"=>"Datacomp","pass"=>"Health@1234","packcode"=>71));
+   	$data=array("RegistrationNumber"=>$req->RegistrationNumber);
  
    	 $post_data=json_encode($data);
    	// print_r($post_data); exit();

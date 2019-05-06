@@ -220,8 +220,8 @@
 <div class="col-md-2">
       <div class="form-group"> 
          <label>From Date</label>
-         <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
-               <input class="form-control date-range-filter" type="text" placeholder="From Date" name="txtfromdate" id="txtfromdate" readonly>
+            <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
+               <input class="form-control" type="text" placeholder="From Date" name="txtfromdate" id="txtfromdate" required>
           <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
          </div>
       </div>
@@ -229,8 +229,8 @@
    <div class="col-md-2">
       <div class="form-group">
         <label>To Date</label>
-        <div id="datepicker1" class="input-group date" data-date-format="yyyy-mm-dd">
-             <input class="form-control date-range-filter" type="text" placeholder="To Date"  name="txttodate"  id="txttodate" readonly >
+         <div id="datepicker1" class="input-group date" data-date-format="yyyy-mm-dd">
+             <input class="form-control" type="text" placeholder="To Date"  name="txttodate"  id="txttodate" required>
           <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
         </div>
       </div>
@@ -762,6 +762,7 @@ function uploadpaymentgrid(fbaid){
 function passvalue(){
   var fromdate=$("#txtfromdate").val();
   var todate=$("#txttodate").val();
+
   if (fromdate!=''&&todate!='') {
 $("#btnshowbusiness").attr("href", "{{URL::to('FBA-Business-Report')}}/{{$data->fbaid}}/"+fromdate+"/"+todate);
 $("#btnshowbusiness").attr("target","_blank");

@@ -13,46 +13,46 @@ use Exception;
 //use Illuminate\Support\Facades\Validator;
 class TicketController extends ApiController
 {
-  public function ticket_request(Request $req){
+public function ticket_request(Request $req){
   //print_r($req->TicketRequestId);exit();
-    $data =$req->TicketRequestId;
-    $data=str_replace('{', '', $data);
-    $data=str_replace('}', '', $data);
+  $data =$req->TicketRequestId;
+ $data=str_replace('{', '', $data);
+ $data=str_replace('}', '', $data);
 //print_r($data);exit();
-    if(isset($req->TicketRequestId)){
-      $comment=DB::select('call sp_ticket_comment_list('.$data.')');
-      return  $comment;
-    }
-    $query=DB::select('call sp_ticket_request_list()');
-    $users=DB::select('call sp_assign_list()');
-    return view('ticket.ticket_request',['query'=>$query,'users'=>$users]);
-  }
-  public function ticket_request_save(Request $req){   
+if(isset($req->TicketRequestId)){
+$comment=DB::select('call sp_ticket_comment_list('.$data.')');
+return  $comment;
+}
+$query=DB::select('call sp_ticket_request_list()');
+$users=DB::select('call sp_assign_list()');
+return view('ticket.ticket_request',['query'=>$query,'users'=>$users]);
+}
+public function ticket_request_save(Request $req){   
    
 
 
-    $error=''; 
+$error=''; 
 //try{
-    if(isset($req->toemailid)){
+ if(isset($req->toemailid)){
 
 
-     if(isset($req->ccemailid)){
+ if(isset($req->ccemailid)){
 
-       $resu=$this->mail_fn($req->toemailid,explode(',',$req->ccemailid),$req->TicketRequestId); 
+ $resu=$this->mail_fn($req->toemailid,explode(',',$req->ccemailid),$req->TicketRequestId); 
 
-     }
-     else
-     {
-      $resu=$this->mail_fn($req->toemailid,[],$req->TicketRequestId); 
-    }
+  }
+ else
+  {
+  $resu=$this->mail_fn($req->toemailid,[],$req->TicketRequestId); 
+  }
 
     DB::table('TicketRequest')->where('TicketRequestId','=',$req->TicketRequestId)->update(['user_fba_id'=>$req->FBAUserId,'assigned_date'=>now()]);
     $error=1;
-  }
+    }
     //}catch (Exception $e){
-  $error=0;  
+   $error=0;  
    //}
-  return $error;
+   return $error;
 
 
 
@@ -63,9 +63,9 @@ class TicketController extends ApiController
 
 
 
-  try{
+try{
 
-   
+ 
 // Ticket ID:10 
 // Category:Product 
 // SubCategory:Home Loan 
@@ -73,40 +73,40 @@ class TicketController extends ApiController
 // danial 
 // Attachment:If any;
 
-    $fbadata=DB::select('call usp_get_ticket_mail_data(?)',array($req->TicketRequestId));
+  $fbadata=DB::select('call usp_get_ticket_mail_data(?)',array($req->TicketRequestId));
 
 // $view = View::make('ticket/ricket_mail_view', ['data' => $fbadata]);
 // $contents = (string) $view;
 // // or
 // $contents = $view->render();
 
-    print_r($fbadata);
-    
-    $message = '<html><body>';
-    $message .= '<p>Dear [Developer], <br>A Ticket has been assigned to you,Kindly find the details below.</p>';
-    $message .= '<p>FBAID :'.$fbadata[0]->FBAID.'</p>';
-    $message .= '<p> Ticket ID :'.$fbadata[0]->TicketRequestId.'</p>';
-    $message .= '<p> Category :'.$fbadata[0]->CateName.'</p>';
-    $message .= '<p> SubCategory:'.$fbadata[0]->QuerType.'</p><br>Ticket Summary<br><br>Attachment:If any';
-    $message .= '</body></html>';
+ print_r($fbadata);
+ 
+$message = '<html><body>';
+$message .= '<p>Dear [Developer], <br>A Ticket has been assigned to you,Kindly find the details below.</p>';
+$message .= '<p>FBAID :'.$fbadata[0]->FBAID.'</p>';
+$message .= '<p> Ticket ID :'.$fbadata[0]->TicketRequestId.'</p>';
+$message .= '<p> Category :'.$fbadata[0]->CateName.'</p>';
+$message .= '<p> SubCategory:'.$fbadata[0]->QuerType.'</p><br>Ticket Summary<br><br>Attachment:If any';
+$message .= '</body></html>';
 
 
-    $data=array("from"=>"avipole1994@gmail.com","to"=>$req->toemailid,"cc"=>$req->ccemailid,"bcc"=>"","content"=>$message ,"sub"=>"Ticket Request");
-    
+  $data=array("from"=>"avipole1994@gmail.com","to"=>$req->toemailid,"cc"=>$req->ccemailid,"bcc"=>"","content"=>$message ,"sub"=>"Ticket Request");
+     
 
-    $res = DB::table('TicketRequest')->where('TicketRequestId','=',$req->TicketRequestId)->update(['user_fba_id'=>$req->FBAUserId,'assigned_date'=>  date('Y-m-d H:i:s')]);
+   $res = DB::table('TicketRequest')->where('TicketRequestId','=',$req->TicketRequestId)->update(['user_fba_id'=>$req->FBAUserId,'assigned_date'=>  date('Y-m-d H:i:s')]);
 
-    $post_data=json_encode($data);
+     $post_data=json_encode($data);
       //print_r($post_data); exit();
-    $result=$this->call_json_data_api('http://horizon.policyboss.com:5000/quote/emailsendgrid',$post_data);
+      $result=$this->call_json_data_api('http://horizon.policyboss.com:5000/quote/emailsendgrid',$post_data);
       //print_r($result);exit();
-    $http_result=$result['http_result'];
-    $error=$result['error'];
-    $st=str_replace('"{', "{", $http_result);
-    $s=str_replace('}"', "}", $st);
-    $m=$s=str_replace('\\', "", $s);
-    $update_user='';
-    $obj = json_decode($m);
+      $http_result=$result['http_result'];
+      $error=$result['error'];
+        $st=str_replace('"{', "{", $http_result);
+        $s=str_replace('}"', "}", $st);
+        $m=$s=str_replace('\\', "", $s);
+        $update_user='';
+        $obj = json_decode($m);
 
         // if($obj->d->status='Success'){
         //  $respon=($obj->d->lstPackParameter);
@@ -114,101 +114,109 @@ class TicketController extends ApiController
         // $respon=0;
         // }
         // print_r($m); exit();
-  }
-  catch (Exception $e){
-   print_r($e);
-   return $e;    
+        }
+        catch (Exception $e){
+       print_r($e);
+        return $e;    
 
-   
- }    
+ 
+                   }    
 
 
  $error=''; 
- try{
-   if(isset($req->toemailid)){
-     if(isset($req->ccemailid)){
-       $this->mail_fn($req->toemailid,explode(',',$req->ccemailid),$req->TicketRequestId); 
-     }
-     else
-     {
-      $this->mail_fn($req->toemailid,[],$req->TicketRequestId); 
-    }
+try{
+ if(isset($req->toemailid)){
+ if(isset($req->ccemailid)){
+ $this->mail_fn($req->toemailid,explode(',',$req->ccemailid),$req->TicketRequestId); 
+  }
+ else
+  {
+  $this->mail_fn($req->toemailid,[],$req->TicketRequestId); 
+  }
   //date_default_timezone_set("Asia/Kolkata");  
   //$cuedate=date('Y-m-d H:i:s');
 
   //print_r($cuedate); exit();
-    DB::table('TicketRequest')->where('TicketRequestId','=',$req->TicketRequestId)->update(['user_fba_id'=>$req->FBAUserId,'assigned_date'=>now()]);
+   DB::table('TicketRequest')->where('TicketRequestId','=',$req->TicketRequestId)->update(['user_fba_id'=>$req->FBAUserId,'assigned_date'=>date('Y-m-d h:i:s')]);
     $error=1;
-  }
-}catch (Exception $e){
- $error=0;  
-}
-return $error;
+    }
+    }catch (Exception $e){
+   $error=0;  
+   }
+   return $error;
 
 
-}
+ }
 
 
-
+ 
 
           // 
      //  print_r($post_data);exit();
 
 public  function ticket_request_userlist(Request $req){   
-  $query=DB::select('call sp_ticket_request_assign(?)',[Session::get('fbauserid')]);
+$query=DB::select('call sp_ticket_request_assign(?)',[Session::get('fbauserid')]);
 // $query=DB::select('call sp_ticket_request_assign()');
-  $status=DB::select('call sp_TicketStatus()');
-  return view('ticket.ticket_request_userlist',['query'=>$query,'status'=>$status]);
+$status=DB::select('call sp_TicketStatus()');
+return view('ticket.ticket_request_userlist',['query'=>$query,'status'=>$status]);
 }
 public function ticket_user_comment(Request $req){   
  // print_r($req->all());exit();
-  $error=''; 
-  try{
-    DB::table('Ticket_comment')->insert(['ticket_req_id'=>$req->TicketRequestId,'ticket_status_id'=>$req->status,'comment'=>$req->comment]);
-    $error=0; 
-  }catch (Exception $e)
-  {  $error=1;  }
-  return $error;
+$error=''; 
+try{
+DB::table('Ticket_comment')->insert(['ticket_req_id'=>$req->TicketRequestId,'ticket_status_id'=>$req->status,'comment'=>$req->comment]);
+$error=0; 
+}catch (Exception $e)
+{  $error=1;  }
+return $error;
 } 
 public function mail_fn($email,$arrcc,$TicketRequestId){
 
 
+//print_r($TicketRequestId);exit();
+ 
+$data=DB::select("call usp_get_ticket_mail_data('$TicketRequestId')"); 
+
+ $mail = Mail::send('ticket/ricket_mail_view',['data' => $data], function($message) use($email,$arrcc) {
+
+
+                $message->from('OfflineCS@magicfinmart.com', 'FinMart');
+                $message->to($email);
+
+                        if(isset($arrcc)){
+                              foreach ($arrcc as $key => $cc) {
+                                    $message->cc($cc);
+                        }
+                        }
+                        
+                 $message->subject('Ticket Request');  
+
+                });
+                     
+ 
+          if(Mail::failures()){
+
+
+                            return "false";
+                    }else{
+                            return "true";
+
+                    }
 
  
-  $data=DB::select('call usp_get_ticket_mail_data(10)')[0]; 
-
-  $mail = Mail::send('ticket/ricket_mail_view',['data' => $data], function($message) use($email,$arrcc) {
-
-
-    $message->from('OfflineCS@magicfinmart.com', 'FinMart');
-    $message->to($email);
-
-    if(isset($arrcc)){
-      foreach ($arrcc as $key => $cc) {
-        $message->cc($cc);
-      }
-    }
-    
-    $message->subject('Ticket Request');  
-
-  });
-  
-  
-  if(Mail::failures()){
-
-
-    return "false";
-  }else{
-    return "true";
-
-  }
-
-  
 
 }
 public function getticketdetails(){ 
-  $ticketdetails=DB::select("call (usp_load_ticket_details)");
-  return view ('dashboard.ticket-module',['ticketdetails'=>$ticketdetails]);
+$ticketdetails=DB::select("call (usp_load_ticket_details)");
+return view ('dashboard.ticket-module',['ticketdetails'=>$ticketdetails]);
 }
+public function add_comments(Request $req){
+
+  $AddComments=DB::insert('call sp_add_comment(?,?,?)',array($req->addcomments,$req->Closed,$req->TicketRequestClosed));
+}
+public function commentreopen(Request $req){
+ $reopen=DB::insert('call sp_insert_reopen(?,?,?,?)',array($req->commentsss,$req->Status,$req->TicketRequestOpen,$req->ticket_status_id));
+}
+
 }
 

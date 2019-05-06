@@ -24,10 +24,11 @@ class getcrmidController extends CallApiController
              $crmid= $value->id;
            //print_r($crmid);
            }
-          if ($crmid!==''){
+          if (!empty($crm_id)){
           return Redirect('crm-disposition/'.$crmid);
           }else{
-          	 return Redirect('fba-list');
+            Session::flash('msg', 'There is no CRM Mapping Exists for this FBA kindly contact support');  
+          	 return Redirect('new-fba-list');
           }
           
           

@@ -41,4 +41,15 @@ Route::post('Break_in_notification','BreakinpolicybossapiController@sendnotifica
 Route::post('Break_In_Notification_Count','FbadetailsapiController@Break_in_notification_count');
 Route::post('Break_in_all_notification','FbadetailsapiController@get_all_notification');
 Route::post('update_is_read','FbadetailsapiController@updateisread');
+//Route::post('Add_alternate_no','FbadetailsapiController@addalternateno');
+//Route::get('connection_result','FbadetailsapiController@connectionresult');
+
+//modification
+Route::post('newFbadetails','v3FbadetailsapiController@getfbadata');
+Route::post('newCrmfollowup','v3FbadetailsapiController@getcrmfollowup');
+Route::post('newcrm_disposition','v3FbadetailsapiController@get_crm_disposition');
+//new api
+Route::post('Add_alternate_no','v3FbadetailsapiController@addalternateno');
+Route::get('connection_result','v3FbadetailsapiController@connectionresult');
+
 //shubham end

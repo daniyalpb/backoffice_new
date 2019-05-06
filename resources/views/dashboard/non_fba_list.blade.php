@@ -1,5 +1,12 @@
 ﻿@extends('include.master')
 @section('content')
+@if(Session::has('msg'))
+<div class="alert alert-success alert-dismissible">
+<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+<p class="alert alert-success">{{ Session::get('msg') }}</p>
+</div>
+@endif
+
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 <style type="text/css">

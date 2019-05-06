@@ -10,6 +10,8 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+route::get('POSC-Demo','PoscdemoController@getposc');
+route::post('Log-in','PoscdemoController@login');
 route::get('Break_in_app_notification/{fbaid}','SendbreakinnotificationController@getinappnotificationdata');
 Route::get('happybirthday1','HappybirthdayController@getbirthday');
 Route::get('happybirthday2','HappybirthdayController@getbirthday1');
@@ -447,8 +449,14 @@ Route::get('web-notification','SendbreakinnotificationController@webnotification
 route::get('update-is-read/{id}','SendbreakinnotificationController@updateisread');
 Route::get('My-alerts','SendbreakinnotificationController@showmyalerts');
 Route::get('FBA-Business-Report/{Fbaid}/{fromdate}/{todate}','FbabusinessController@showbusiness');
-Route::get('Dash-board-data','DashboardController@getdata');
+Route::get('Dash-board-data/{Camp_id}','DashboardController@getdata');
+Route::get('Dash-board-emp-data/{Camp_id}','DashboardController@getempdata');
 route::get('Check-user-sat','DashboardController@checkisactive');
+Route::get('Lead-data-import','CaptureleaddataController@getleaddata');
+Route::post('import-lead-data','CaptureleaddataController@importleaddata');
+Route::get('Vintage-Report','vintagereportController@getvintagedata');
+Route::get('Renewal_Report','RenewalreportController@getrenewalrp');
+Route::get('get_renewal_details/{fbaid}','RenewalreportController@getmoredetails');
 ///shubham end ///
 //vivek Start//
 
@@ -702,6 +710,7 @@ Route::get('lead-assgin-list-get','LeadstatusController@lead_assgin_list_get');
 //  CRM
 ******************/
 Route::group(['namespace'=>'crm'],function(){
+Route::Post('save-alernate-no','CrmController@savealternateno');
 Route::get('user-role','CrmController@user_role');
 Route::get('crm-view-history','CrmController@crm_view_history'); 
 Route::get('crm-disposition/{id}','CrmController@crm_disposition_fn'); 

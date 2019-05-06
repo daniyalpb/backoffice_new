@@ -11,8 +11,7 @@
 </style>
 
 <form name="mis_system_update" id="mis_system_update" enctype="multipart/form-data" method="POST">  
-{{ csrf_field() }}  
-     
+{{ csrf_field() }}       
 <div class="container-fluid">
     <div class="col-lg-12">
 		<div class="panel panel-primary">

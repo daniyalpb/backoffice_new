@@ -160,8 +160,8 @@
                      <th>ID</th>
                      <th>Employee Category</th>
                      <th>Call Type</th>
-                     <th>Connect Result</th>
-                     <th>Outcome</th>
+                    <!--  <th>Connect Result</th>
+                     <th>Outcome</th> -->
                      <th>Disposition</th>
                      <th>Sub Disposition</th>
                      <th>Followup Date</th>
@@ -180,8 +180,8 @@
         <td>{{$val->history_id}} <i class="glyphicon glyphicon-plus" style="font-size: 20px; cursor: pointer;"></i></td>
          <td>{{$val->emp_category}}</td>
          <td>{{$val->calltype}}</td>
-         <td>{{$val->connect_result}}</td>
-         <td>{{$val->outcome}}</td>
+     <!--     <td>{{$val->connect_result}}</td>
+         <td>{{$val->outcome}}</td> -->
          <td>{{$val->disposition}}</td>
          <td>{{$val->sub_disposition}}</td>
           <td>{{$val->followup_date}}</td>
@@ -211,8 +211,8 @@
                 echo "<td>".$val->ch_id."</td>";
                 echo "<td>".$val->emp_category."</td>";
                 echo "<td>".$val->calltype."</td>";
-                echo "<td>".$val->connect_result."</td>";
-                echo "<td>".$val->outcome."</td>";
+                /*echo "<td>".$val->connect_result."</td>";
+                echo "<td>".$val->outcome."</td>";*/
                 echo "<td>".$val->disposition."</td>";
                 echo "<td>".$val->sub_disposition."</td>";
                 echo "<td>".$val->followup_date."</td>";
@@ -223,7 +223,7 @@
                 $action="open";
                 }
                 echo "<td >".$action."</td>";
-                echo "<td>".$val->followup_required."</td>";
+                echo "<td>".$val->create_at."</td>";
                 echo "</tr>";                
            }
           
@@ -263,8 +263,8 @@
       <th>Created By</th>
       <th>Created Date</th>
       <th>Call Type</th>
-      <th>Connect Result</th>
-      <th>Outcome</th>
+    <!--   <th>Connect Result</th>
+      <th>Outcome</th> -->
       <th>Disposition</th>
       <th>Sub Disposition</th>
       <th>Followup Date</th>
@@ -280,8 +280,8 @@
        <td>{{$val->emp_category}}</td>
        <td>{{$val->EmployeeName}}</td>
        <td>{{$val->create_at}}</td>
-       <td>{{$val->calltype}}</td>
-       <td>{{$val->connect_result}}</td>
+     <!--   <td>{{$val->calltype}}</td>
+       <td>{{$val->connect_result}}</td> -->
        <td>{{$val->outcome}}</td>
        <td>{{$val->disposition}}</td>
        <td>{{$val->sub_disposition}}</td>

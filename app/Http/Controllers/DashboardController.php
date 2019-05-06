@@ -23,16 +23,27 @@ class DashboardController extends InitialController
                 return redirect('/');
           }else{
       	 $fbaid=Session::get('fbaid');
-             $basicinfo=DB::select("call login_basic_info($fbaid)");   
-      }	      return view('dashboard.index',['basicinfo'=>$basicinfo]);
-      }
-      public function getdata()
-      { 
+             $basicinfo=DB::select("call login_basic_info($fbaid)"); 
+             $Campaigndata=DB::select("call Campaign_info()"); 
+  return view('dashboard.index',['basicinfo'=>$basicinfo,'Campaigndata'=>$Campaigndata]);
                
-                $data=DB::select("call getDashboardDataForAdmin()");
+      }	     
+      }
+      public function getdata($Camp_id)
+      { 
+              
+                $data=DB::select("call getDashboardDataForAdmin($Camp_id)");
                 return json_encode($data);
           
       	
+      }
+      public function getempdata($Camp_id)
+      { 
+                $UId=Session::get('UId');
+                $data=DB::select("call Employe_dashboard_info($UId,$Camp_id)");
+                return json_encode($data);
+          
+        
       }
       public function checkisactive()
       {

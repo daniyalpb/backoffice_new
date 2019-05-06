@@ -218,87 +218,36 @@ html {
 
 </style>          
 <div class="container-fluid white-bg">
-    @if(Session::get('usergroup')!='50')
-   <div class="col-md-12"><h3 class="mrg-btm text-center"><span class="glyphicon glyphicon-user"></span> My Information</h3></div>
-     <div class="col-md-12">
-       <div class="overflow-scroll">
-           <div class="table-responsive" >
-						<!-- <div class="brdr text-center white-bg">
-						<img src="images/registration.png" class="img-responsive center-img img-circle-cs" />
-						<h4>FSM Details</h4>
-						<br/>
-						<a href="{{'Fsm-Details'}}"><button class="common-btn center-obj">View More</button></a>
-						</div>
-						</div>
-						<div class="col-md-3 col-xs-12">
-						<div class="brdr text-center white-bg">
-						<img src="images/leader-detail.png" class="img-responsive center-img img-circle-cs" />
-						<h4>Lead Details</h4>
-						<br/>
-						<a href="{{'lead-up-load'}}"><button class="common-btn center-obj">View More</button></a>
-						</div>
-						</div>
-						<div class="col-md-3 col-xs-12">
-						<div class="brdr text-center white-bg">
-						<img src="images/query.png" class="img-responsive center-img img-circle-cs" />
-						<h4>User Query</h4>
-						<br/>
-						<a href="{{'queries'}}"><button class="common-btn center-obj">View More</button></a>
-						</div>
-						</div>
-						<div class="col-md-3 col-xs-12">
-						<div class="brdr text-center white-bg">
-						<img src="images/register-fba-img.png" class="img-responsive center-img img-circle-cs" />
-						<h4>FBA Registration</h4>
-						<br/>
-						<a href="{{'fba-list'}}"><button class="common-btn center-obj">View More</button></a>
-						</div> -->
+    @if(Session::get('usergroup')!='50'&&Session::get('usergroup')!='51')    
+   <!-- <div class="col-md-12"><h3 class="mrg-btm text-center"><span class="glyphicon glyphicon-user"></span> My Information</h3></div> -->
 
-                        <table class="table-bordered col-md-6 col-md-offset-3">
-                        	 @foreach($basicinfo as $val)                        
-                        	<tr>
-                        		<th>FBAID</th>
-                        		<td>{{$val->FBAID}}</td>
-                        	</tr>
-                            <tr>
-                                <th>UID</th>
-                                <td>{{$val->UID}}</td>
-                            </tr>
-                        	<tr>
-                        		<th>Profile</th>
-                        		<td><p style="color: #39FF14"><b>{{$val->profile}}</b></p></td>
-                        	</tr>
-                        	<tr>
-                        		<th>User Type</th>
-                        		<td>{{$val->usertype}}</td>
-                        	</tr>
-                        	<tr>
-                        		<th>Name</th>
-                        		<td>{{$val->FullName}}</td>
-                        	</tr>
-                        	<tr>
-                        		<th>Mobile Number</th>
-                        		<td>{{$val->MobiNumb1}}</td>
-                        	</tr>
-                        	<tr>
-                        		<th>Email ID</th>
-                        		<td>{{$val->EmailID}}</td>
-                        	</tr>                        	
-                        	<tr>
-                        		<th>DOB</th>
-                        		<td>{{$val->DOB}}</td>
-                        	</tr> 
-                            <tr>
-                                <th>Access</th>
-                                <td>{{$val->Location}}</td>
-                            </tr>                       	
-                        	@endforeach
-                        </table>              
-						</div>
-                         <br/>                   
-				</div>
-		</div>
+ <div class="col-md-12">
+          <div class="col-md-3">
+            <select id="ddlCampaign" class="form-control" onchange="getempdashboarddata();">
+              @foreach($Campaigndata as $val)
+              <option value="{{$val->ID}}">{{$val->Source_name}}</option>
+              @endforeach
+            </select>
+          </div>
+</div>          
+         <br>
+          <br>
+           <div id="divempinfo">
+            <br>
+            <br>            
+          </div>
+          <br/>
+ 
 @else
+<div class="col-md-3">
+      <select id="ddlCampaign" class="form-control" onchange="getdashboarddata();">
+        @foreach($Campaigndata as $val)
+        <option value="{{$val->ID}}">{{$val->Source_name}}</option>
+        @endforeach
+      </select>
+    </div>
+    <br/>
+    <br/>
         <div id="divinfo">
             <br>
             <br>
@@ -328,12 +277,16 @@ html {
 <script type="text/javascript">
  $(document).ready(function() {
     checkusersat();
+  //  var camp_id=$("$ddlCampaign").val();
   getdashboarddata();  
+  getempdashboarddata()
    animation();
+
 });
   function getdashboarddata() {
+    //alert($('#ddlCampaign').val());
      $.ajax({
-             url: '{{url('Dash-board-data')}}',
+             url: 'Dash-board-data/'+$('#ddlCampaign').val(),
              type: "GET",             
              success:function(data) 
              {      
@@ -377,8 +330,72 @@ html {
              }
          });
 }
+
+function getempdashboarddata() {
+    //alert($('#ddlCampaign').val());
+     $.ajax({
+             url: 'Dash-board-emp-data/'+$('#ddlCampaign').val(),
+             type: "GET",             
+             success:function(data) 
+             {      
+              var ndata = JSON.parse(data); 
+             // alert(ndata) 
+              $("#divempinfo").empty();             
+              for (var i = 0; i < ndata.length; i++) 
+              {
+                if (ndata[i].Type=='int') {
+                    Value="<span class='count'>"+ndata[i].Value+"</span>";
+                }else{
+                    Value=ndata[i].Value;
+                }
+                $("#divempinfo").append("<div class='col-xl-3 col-lg-3 col-md-8 col-sm-6 grid-margin stretch-card'><div class='card card-statistics'><div class='card-body'><div class='clearfix'><div class='float-left'><i class='mdi mdi-cube text-danger'></i></div><div class='float-right'><p class='mb-0 text-right'>"+ndata[i].Title+"</p><div class='fluid-container'><h3 class='font-weight-medium text-right mb-0'>"+Value+"</h3></div></div></div></div></div></div>");    
+
+             }
+             //animation();
+           }
+         });
+      }
 </script>
 
 @endsection		
 
-   
+   <!-- <table class="table-bordered col-md-6 col-md-offset-3">
+                           @foreach($basicinfo as $val)                        
+                          <tr>
+                            <th>FBAID</th>
+                            <td>{{$val->FBAID}}</td>
+                          </tr>
+                            <tr>
+                                <th>UID</th>
+                                <td>{{$val->UID}}</td>
+                            </tr>
+                          <tr>
+                            <th>Profile</th>
+                            <td><p style="color: #39FF14"><b>{{$val->profile}}</b></p></td>
+                          </tr>
+                          <tr>
+                            <th>User Type</th>
+                            <td>{{$val->usertype}}</td>
+                          </tr>
+                          <tr>
+                            <th>Name</th>
+                            <td>{{$val->FullName}}</td>
+                          </tr>
+                          <tr>
+                            <th>Mobile Number</th>
+                            <td>{{$val->MobiNumb1}}</td>
+                          </tr>
+                          <tr>
+                            <th>Email ID</th>
+                            <td>{{$val->EmailID}}</td>
+                          </tr>                         
+                          <tr>
+                            <th>DOB</th>
+                            <td>{{$val->DOB}}</td>
+                          </tr> 
+                            <tr>
+                                <th>Access</th>
+                                <td>{{$val->Location}}</td>
+                            </tr>                         
+                          @endforeach
+                        </table>        -->  

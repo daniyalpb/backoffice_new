@@ -667,5 +667,40 @@ function getmisrepowithstatenproduct(){
 });
   }
 }
+
+function getfbalist() {
+ var v_token = "{{csrf_token()}}";
+        $.ajax({
+         url:"{{URL::to('get-all-india-fbalist')}}",
+         dataType : 'json', 
+         type: "POST", 
+         data:{"_token":v_token,"startdate":startdate,"enddate":enddate,"Uids":uid},        
+         success:function(msg) 
+         {  
+    //$('#misreportf').empty();
+    $('#misreport').empty();
+    if(msg!='' && msg!=null){     
+
+     arr=Array();
+     $.each(msg, function( index, val ){ 
+
+       arr.push("<tr><td>" + val.ProductName+"</td><td>" + val.POSPSource +"</td><td>" + val.Premium +"</td><td>" + val.Policy + "</td><td>" + val.ActivePOSP +"</td><td>" + val.TotalGWP +"</td><td>" + val.Total_OD +"</td><td>" + val.AvgNOP +"</td><td>" + val.AvgTicket +"</td><td>" + val.AvgProduct +"</td></tr>");
+     });
+     $("#Areamodal").modal('hide');
+     $('#misreport').append(arr); 
+      $('#tblreport').dataTable({
+        "ordering": false,
+         "paging": false
+       });  
+     //$('#misreport tr:last').css({'background-color':'#8cc9e2 ','font-size':'20px'});
+    // $('#misreport tr:last').prev().find("tr").css({'background-color':'#8cc9e2 ','font-size':'20px'});
+
+  }else{
+   $('#misreport>tbody').empty()
+   $('#misreport').append("<tr><td colspan=10>Record not found</td></tr>")
+ }
+}
+});
+}
 </script>
 @endsection

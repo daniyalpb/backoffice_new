@@ -6,7 +6,6 @@
 <p class="alert alert-success">{{ Session::get('msg') }}</p>
 </div>
 @endif
-
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 <style type="text/css">
@@ -68,13 +67,29 @@
    <option value="FBAID">FBA ID</option>
    <option value="POSPNO" class="hidden">POSP Number</option>
    <option value="state" class="hidden">FBA STATE</option>
-   <option value="zone">FBA ZONE</option>
+   <option value="zone" class="hidden"> FBA ZONE</option>
    <option value="fbaname">FBA NAME</option>
    <option value="fbacity">FBA City</option>
    <option value="pospname">POSP Name</option>
+   <option value="AppSource"> App Source</option>
+
+   
+   </select>
+     <select id="sourceapp" class="form-control" style="width:32%;margin: 10px;
+    margin-left: 350px;margin-top:-41px;display:none;" name="sourceapp" onchange="appsource(this.value)" >
+   <option value="0" selected="selected">App Source All</option>
+   <option value="1">Fin-Mart</option>
+   <option value="2">Campaign sm</option>
+   <option value="3">Campaign Nochiket</option>
+   <option value="7">Campaign - RB</option>
+   <option value="4">Campaign-Sagar</option>
+   
+
+
+   
    </select>
 
-<input type="text" class="form-control" id="txtfbasearch"  name="txtfbasearch" placeholder="Search" onkeyup="searchdata()" style="display:none; display:margin-top:2px; width:32%;margin-right: 70px;float:right;"/>
+<input type="text" class="form-control" id="txtfbasearch"  name="txtfbasearch" placeholder="Search" onkeyup="searchdata()" value="" style="display:none; display:margin-top:2px; width:32%;margin-right: 70px;float:right;"/>
  
  </form>
   </div> 
@@ -95,11 +110,14 @@
                                        <th>Created Date</th>
                                        <th>Mobile No</th>                                   
                                        <th>Email ID</th>
-                                   
                                        <th>City</th>
-                                       <th>Zone</th>
+                                       <th>State</th>
+                                       <!-- <th>Zone</th> -->
+                                       <!-- <th>Pin Code</th> -->
                                        <th>Posp Name</th> 
                                        <th>ERP ID</th> 
+                                        <th>App Source</th>
+                                        <th>User Type</th> 
                                        <th>Created Date1</th>
                           
                                 </thead>
@@ -502,10 +520,18 @@
 <script type="text/javascript">
 
   $(document).ready(function() {
-
-    $('#fba-list-table').DataTable({
-
-      "createdRow": function(row, data, dataIndex ) {
+    $('#fba-list-table').DataTable({    
+       dom: 'Blfrtip',
+        buttons: [      
+       {
+           extend: 'excel',
+           footer: true,
+           exportOptions: {
+                columns: [1,2,3,4,5,6,7,8,9,10,11]
+            }
+       }         
+    ],  
+      "createdRow": function(row, data, dataIndex,td,tr,column,demo) {
       if ( data.PayStat=="S" ) 
       {
         $(row).css({backgroundColor: 'LightGreen'});
@@ -518,18 +544,37 @@
       {
         $(row).css({backgroundColor: '#FFA617'});
       }
-    },
+if( data.AppSource=="Campaign - RB")
+      {
+        $(row).css({backgroundColor: 'yellow'});
+      }
+
+ if ( data.AppSource=="Campaign-Sagar" ) 
+      {
+        $(row).css({backgroundColor: '#87CEFA'});
+      }
+
+
+      if(data.isdemogiven=="1"){
+       $('.demo').css('color', 'darkgreen ');
+      }else
+          $('.demo').css('background-color', 'red');
+
+},
         "order": [[ 1, "desc" ]],
+        "pageLength": 100,
          "ajax": "{{ URL::to('load-non-fba-list')}}",
         "columns": [
 
             {"data":"MobiNumb1" ,
-             "render": function ( data, type, row, meta ) {
-              return'<a target="_blank" href="load-update-fba-list/'+row.fbaid+'"><span class="glyphicon glyphicon-edit" title="FBA Details Update"></span></a><a target="_blank" href="getcrmid/'+row.fbaid+'"><span class="glyphicon glyphicon-earphone" title="CRM ID " ></span></a><a target="_blank" href="Fba-profile/'+row.fbaid+' "><span class="glyphicon glyphicon-user"  title="FBA Profile"></span></a></span></a> <a href="#" data-toggle="modal" data-target="#sms_sent_id" onclick="SMS_FN(1,'+data+')"><span class="glyphicon glyphicon-envelope"title="Send SMS"></span></a>';
+             "render": function ( data, type, row, meta) { v=row.isdemogiven==1?'color:darkgreen':'color:red'
+                p=row.isProfileDone==1?'color:darkgreen':'color:red';
+
+              return'<a target="_blank" href="load-update-fba-list/'+row.fbaid+'"><span class="glyphicon glyphicon-edit" title="FBA Details Update"></span></a><a target="_blank" href="getcrmid/'+row.fbaid+'"><span class="glyphicon glyphicon-earphone" title="CRM ID " ></span></a><a target="_blank" href="Fba-profile/'+row.fbaid+ ' "><span style='+p+' class="glyphicon glyphicon-user"  title="FBA Profile"></span></a></span></a> <a href="#" data-toggle="modal" data-target="#sms_sent_id" onclick="SMS_FN(1,'+data+')"><span class="glyphicon glyphicon-envelope"title="Send SMS"></span></a><td<span"<p style='+v+' class="demo">&#9673;</p></span></td';
               }
             },
 
-
+  
 
                { "data": "fbaid",
              // "render": function ( data, type, row, meta ) {
@@ -544,8 +589,8 @@
           },
 
             { "data": "createdate" },            
-            {"data":"MobiNumb1" },
-            { "data": "EMaiID"   
+            {"data":"MobiNumb1_web" },
+            { "data": "EMaiID_web"   
 
              // "render": function ( data, type, row, meta ) {
              //  return '<span>'+data+'</span></a> <a href="#" data-toggle="modal" data-target="#sms_sent_id" onclick="SMS_FN(1,'+data+')"><span class="glyphicon glyphicon-envelope"></span></a>';
@@ -569,9 +614,9 @@
        // },   
 
             {"data":"City"},
-            // {"data":"statename"},
-            {"data":"Zone"},  
-            // {"data":"Pincode"},
+             {"data":"statename"},
+            // {"data":"Zone"},  
+             // {"data":"Pincode"},
             // {"data":"POSPNo"  ,
             //  "render": function ( data, type, row, meta ) {
             //   return data==""?('<a id="posp_'+row.fbaid+'" class="checkPosp" data-toggle="modal" data-target="#updatePosp" onclick="updateposp('+row.fbaid+')">update</a>'):data;
@@ -588,7 +633,8 @@
             
              {"data":"pospname"},
               {"data":"erpid"},
-               // {"data":"AppSource"}, 
+                {"data":"AppSource"}, 
+                {"data":"usertype"},
              // {"data":"pospstatus"},  
              // {"data":"bankaccount"}, 
             //  {"data":null ,
@@ -668,7 +714,7 @@ getcount();
     var min = $('#min').val();
     var max = $('#max').val();
    // console.log(max);
-    var createdAt = data[10] || 10; // Our date column in the table
+    var createdAt = data[12] || 12; // Our date column in the table
    
     if (
       (min == "" || max == "") ||
@@ -797,7 +843,7 @@ function refreshdata(){
   //var fbaid=table.rows(rows.count()-1).data()[0].fbaid; 
 
         $.ajax({
-        url: 'refresh-data/'+fbaid,
+        url: 'refresh-data-new/'+fbaid,
         type: "GET",                  
         success:function(data) {
         var tdata = JSON.parse(data);
@@ -825,7 +871,7 @@ function refreshdata(){
 
      // var fbaid=table.rows(rows.count()-1).data()[0].fbaid; 
         $.ajax({ 
-        url: 'fba-count/'+fbaid,
+        url: 'fba-count-new/'+fbaid,
         method:"GET",
         success: function(data){
           //console.log(data[0].count);
@@ -855,16 +901,25 @@ function refreshdata(){
     colsearch(6);
   }
   else if(index == 'FBAID')
+
   {
-    colsearch(1);
+ colsearch(1);
+
   }
   else if(index == 'POSPNO')
   {
     colsearch(11);
   } //else if(index=='state'){colsearch(8);}
-  else if(index == 'zone'){colsearch(7);}
+  //else if(index == 'zone'){colsearch(8);}
   else if(index == 'fbaname'){colsearch(2);}
   else if(index == 'pospname'){colsearch(8);}
+   else if(index == 'AppSource'){colsearch(10);}
+    // {
+    //   $('#sourceapp').show();
+    //   colsearch(12);
+    // }
+
+ 
 }
 function colsearch(index)
 {
@@ -877,36 +932,92 @@ function colsearch(index)
 }
 
 function selectIndex(dd) {
-
-  
-  if (dd.selectedIndex>=4){
+document.getElementById('txtfbasearch').value = "";
+if (dd.selectedIndex>=4){
      dd.form['txtfbasearch'].style.display='block';
+     dd.form['sourceapp'].style.display='block';
   }else{
     dd.form['txtfbasearch'].style.display='none';
+     
+
   }  
-var table = $('#fba-list-table').DataTable(); 
-  table.draw();
+    var table = $('#fba-list-table').DataTable(); 
+    table.draw();
+    
 }
-
-
-  </script>
-
+</script>
 
 
 
+<script type="text/javascript">
+function appsource(AppSource){
+ //alert(AppSource);
+ if (AppSource==1) 
+ {
+  $result="Fin-Mart";
+  $('#txtfbasearch').val($result);
+    colsearch(10);
+
+ }else if (AppSource==2) 
+ {
+  $result="Campaign sm";
+  $('#txtfbasearch').val($result);
+
+    
+  colsearch(10);
+}else if (AppSource==3) 
+ {
+  $result="Campaign Nochiket";
+  $('#txtfbasearch').val($result);
+
+  colsearch(10);
+}else if (AppSource==7) 
+ {
+  $result="Campaign - RB";
+  $('#txtfbasearch').val($result);
+
+  colsearch(10);
+
+}else if (AppSource==4) 
+ {
+  $result="Campaign-Sagar";
+  $('#txtfbasearch').val($result);
+
+  colsearch(10);
+
+
+}else if (AppSource==0) 
+ {
+     $result="";
+     $('#txtfbasearch').val($result);
+     colsearch(10);
+    var table = $('#fba-list-table').DataTable(); 
+    table.fnFilterClear();
+    
+    table.draw();
+}
+  
+
+
+     //  $.ajax({ 
+     //    url: 'get-app-source/'+AppSource,
+     //    method:"GET",
+     //    success: function(data){
+     //     //console.log(data);
+     //    var json = JSON.parse(data);
+     //    //console.log(json);
+       
+     //    }
+     // })
+   
 
 
 
 
 
 
+           };
 
 
+</script>
 
-
-
-
-
-
-
- 

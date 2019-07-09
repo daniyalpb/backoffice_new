@@ -9,4 +9,4 @@
   <script src="{{url('stylesheets/table/vendor/datatables-plugins/dataTables.bootstrap.min.js')}}"></script>
   <script src="{{url('stylesheets/table/vendor/datatables-responsive/dataTables.responsive.js')}}"></script>
   <script type="text/javascript" src="javascripts/moment.min.js"></script>
-    
+

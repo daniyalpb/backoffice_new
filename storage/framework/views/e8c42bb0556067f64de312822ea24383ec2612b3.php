@@ -36,8 +36,11 @@
 	<div class="col-md-1">		
 		<a id="btncrmreport" class="btn btn-primary" style="margin-top: 25px;" onclick="getcrmrp();">SHOW</a>
 	</div>
+  <div class="col-md-2">    
+    <button id="btnexport" class="btn btn-primary" style="margin-top: 25px;">Export Only Connected</button>
+  </div>
   <div class="col-md-3">    
-    <button id="btnexport" class="btn btn-primary" style="margin-top: 25px;">Export</button>
+    <button onclick="getallexp();" id="btnexportall" class="btn btn-primary" style="margin-top: 25px;">Export All</button>
   </div>
   </form>
 </div>
@@ -113,6 +116,10 @@ $.ajax({
 });
 
 }*/
+
+function getallexp() {
+ $("#Frmcrmrp").attr('action','<?php echo e(url('crm_export_all')); ?>');
+}
 </script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('include.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

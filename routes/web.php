@@ -86,7 +86,8 @@ Route::get('getloanid/{fbaid}','FbaController@getupdateloanid');
   Route::post('quickleadcity','quickleadController@quickleadcity');
   Route::get('quickleadcity/{id}',array('as'=>'leadquick.ajax','uses'=>'quickleadController@quickleadcity'));
   Route::post('fbaquickleadcity','quickleadController@statecityfba'); 
-  Route::post('fbaquickleadcitysave','quickleadController@Insertquicklead');  
+  Route::post('fbaquickleadcitysave','quickleadController@Insertquicklead'); 
+  Route::get('fba-transection-history/{fbaid}','newfbaController@fba_transaction_history'); 
 
   // Route::get('fba-list-posp-update/{fbaid}','FbaController@updatepospthroapi');
 
@@ -112,7 +113,8 @@ Route::get('export-excel','newfbaController@nonfbaexportexcel');
 
 route::post('upload-paygrid','newfbaController@uploadpaygrid');
 route::get('get-paygrid-doc/{fbaid}','newfbaController@getpaygriddoc');
-Route::get('load-update-fba-list/{fbaid}','newfbaController@update_fba_list'); 
+Route::get('load-update-fba-list/{fbaid}','newfbaController@update_fba_list');
+Route::post('update-profile','newfbaController@updateHierarchyprofile'); 
 Route::get('load-update-pospnew/{id}','newfbaController@UpdatePospnonew');
 Route::post('get-type','newfbaController@update_type'); 
 
@@ -127,17 +129,22 @@ Route::get('ncd-update-status','ncdcampaignController@insert_ncd_status');
 Route::get('ncdstatuscurrent/{id}','ncdcampaignController@getncdstatus');
 
 
-//User_mapping vikas End
-// Finmart offline request start
-Route::get('offline-request','finmart_offline_requestController@display_offline_request');
-Route::get('update-status','finmart_offline_requestController@insert_offline_status');
-Route::get('update-amount-date','finmart_offline_requestController@updte_offline_amt_date');
-Route::post('upload-doc','finmart_offline_requestController@insertoflinedoc');
-Route::get('view-upload-doc/{id}','finmart_offline_requestController@getdocoffline');
-Route::get('quotestatus/{id}','finmart_offline_requestController@getcurrentstatus');
-Route::get('view-upload-doc-one/{id}','finmart_offline_requestController@getdocofflineone');  
-Route::get('getquotediscription/{id}','finmart_offline_requestController@getquotediscription');
-// Finmart offline request End
+// Finmart offline request START NEW
+Route::get('offline-request-new','finmart_offline_newrequestController@display_offline_request_new');
+Route::get('getproductdata/{PkId}/{product_name}','finmart_offline_newrequestController@getquotediscriptionnew');
+Route::get('get-health-data','finmart_offline_newrequestController@gethealthdata');
+Route::get('get-life-data','finmart_offline_newrequestController@getlifedata');
+Route::get('get-motor-data','finmart_offline_newrequestController@getmotorcarrierdata');
+Route::get('offline-status-new/{PkId}','finmart_offline_newrequestController@getnewcurrentstatus');
+Route::get('insert-new-status','finmart_offline_newrequestController@new_updte_offline_amt_date');
+Route::get('new-update-status','finmart_offline_newrequestController@new_insert_offline_status');
+Route::post('new-upload-doc','finmart_offline_newrequestController@newinsertoflinedoc');
+Route::get('getnewquotediscription/{PkId}','finmart_offline_newrequestController@getnnewquotediscription');
+
+Route::get('view-upload-doc-one-new/{id}','finmart_offline_newrequestController@getdocofflineonenew');
+Route::get('view-upload-doc-two-new/{id}','finmart_offline_newrequestController@getdocofflinenew');
+// Finmart offline request END NEW
+
 
 //Test state_wise city start
 Route::get('city_wise_state','statewisecityController@get_city'); 
@@ -408,6 +415,7 @@ Route::get('Crm-report','Crm_reportsController@getcrmreport');
 route::get('get_crm_interaction/{uid}/{fdate}/{tdate}','Crm_reportsController@getcrminteraction');
 Route::get('getcrmreport/{fromdate}/{todate}','Crm_reportsController@crm_report');
 Route::post('crm_export','Crm_reportsController@exportcrm');
+Route::post('crm_export_all','Crm_reportsController@exportcrmall');
 /*route::get('crmexportexcel/{uid}/{fdate}/{tdate}','Crm_reportsController@exportexcel');*/
 
 Route::get('fba-communication','FbacommunicationController@getfbacommunication');
@@ -456,8 +464,43 @@ Route::get('Lead-data-import','CaptureleaddataController@getleaddata');
 Route::post('import-lead-data','CaptureleaddataController@importleaddata');
 Route::get('Vintage-Report','vintagereportController@getvintagedata');
 Route::get('Renewal_Report','RenewalreportController@getrenewalrp');
-Route::get('get_renewal_details/{fbaid}','RenewalreportController@getmoredetails');
+Route::get('get_renewal_details/{fbaid}/{fromdate}/{todate}','RenewalreportController@getmoredetails');
+Route::get('Lead-history','Crm_lead_history_exportController@getleaddata');
+Route::get('Lead-export','Crm_lead_history_exportController@exportcrmleadcallig');
+Route::get('fba-crn-detail-view','fba_crn_details_Controller@fba_crn_view');
+Route::get('fba-crn-detail','fba_crn_details_Controller@fba_crn_details_view');
+Route::get('Export-fbacrnreport','fba_crn_details_Controller@exportcrnreport');
+//renewal new
+Route::post('Renewal-report','RenewalreportController@getrenwaldata');
+Route::get('paymenthistorydb','PaymentHistoryController@payment_history_DB');
+Route::get('Payment-History-new','PaymentHistoryController@getpaymenthistorynew');
+Route::get('All-india-fbalist','AllindafbalistController@getallindafbalit');
+Route::post('get-all-india-fbalist','AllindafbalistController@getallindafbalist');
+Route::post('update-status-offline-quotes','finmart_offline_newrequestController@updatestatusofflinequotes');
+Route::get('upload_sales_data_horizon','Online_Sales_Report_HorizonController@get_Online_Sales_data');
+Route::post('gethorizonsalesdata','Online_Sales_Report_HorizonController@importsalesdata');
+Route::get('data-table-rnd','RndController@datatablernd');
+Route::get('Mis-data-upload','MisdatauploadController@get_mid_data_view');
+Route::Post('upload-mis-data','MisdatauploadController@uploadmisdata');
+Route::get('update_state_is_fbaid','MisdatauploadController@updatestatidfbaid');
+Route::get('otp-details','OtpDetailsController@otp_details');
+Route::get('otp-info/{fromdate}/{todate}','OtpDetailsController@getotpdetails');
+Route::get('check-Employee','CheckactiveemployeeController@checkemployeelist');
+
 ///shubham end ///
+
+//online sales//
+
+Route::get('online-sale-report','OnlineSaleReportController@onlinesalereport');
+Route::post('save-online-sale-report','OnlineSaleReportController@saveonlinesalereport');
+Route::get('view-online-sale-report','OnlineSaleReportController@viewonlinesalereport');
+Route::get('delete-online-sale-report/{id}','OnlineSaleReportController@deleteonlinesalereport');
+Route::get('edit-online-sale-report/{id}','OnlineSaleReportController@editonlinesalereport');
+Route::post('edit-save-online-sale-report','OnlineSaleReportController@editsaveonlinesalereport');
+Route::get('export-online-sales-reports','OnlineSaleReportController@exportonlinesalesreports');
+Route::get('check-crn-online-sales-reports/{crnno}','OnlineSaleReportController@checkcrnonlinesalesreports');
+Route::get('check-cs-online-sales-reports/{csno}','OnlineSaleReportController@checkcsonlinesalesreports');
+//online sales end//
 //vivek Start//
 
 
@@ -632,7 +675,7 @@ Route::get('send-sms','SendSMSController@ViewSendSMSDetails');
  
 Route::get('send-notification','SendNotificationController@sendnotification');
  //Otp Detail
-Route::get('otp-details','OtpDetailsController@otp_details');
+
 Route::get('log-out','LoginController@logout');
 //genrate lead
 Route::get('genrate-lead','genrateleadController@getlead');

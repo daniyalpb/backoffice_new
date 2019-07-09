@@ -29,11 +29,13 @@
   <div class="overflow-scroll">
     <table id="fba-list-table" class="table" style="border:1px solid #8cc9e2" width="100%">
      <thead>
-       <tr>
+        <tr>
          <th>FBA ID</th> 
          <th>Full Name</th> 
          <th>Email ID</th>
+         <th>Mobile No</th>
          <th>Payment Link</th>
+         
        </tr>
      </thead>
      <tbody> 
@@ -41,24 +43,45 @@
          <td>{{$data->fbaid}}</td>
          <td>{{$data->FullName}}</td>
          <td>{{$data->EMaiID}}</td>
+          <td>{{$data->MobiNumb1}}</td>
+        <!--  <td>
+          @if($data->MobiNumb2=='')
+
+      <a href="" data-toggle="modal"  data-target="#mobilenotwo" onclick="get_alternat_mobi_fbid('{{$data->fbaid}}')" >Update Alternate Mobile</a>
+      @else
+     <a href="" data-toggle="modal"  data-target="#mobilenotwo" onclick="get_alternat_mobi_fbid('{{$data->fbaid}}','{{$data->MobiNumb2}}')">{{$data->MobiNumb2}}</a>
+      @endif
+    </td> -->
+
          <td> @if($data->PayStat=="S")
+
            <span class="glyphicon glyphicon-blank"></span> 
            @else                    
            <a onclick="getpaymentlink({{$data->fbaid}},{{$data->MobiNumb1}})" id="btnviewhistory" data-toggle="modal" data-target="#paylink_payment" onclick="getpaylinknew('{{$data->fbaid}}','{{$data->MobiNumb1}}')">Payment link</a>
            @endif
            <!--   <span class="glyphicon glyphicon-envelope"></span> -->
          </td>
+
+      
        </tr>
        <tr>
         <th>Password</th>
-        <th>Pincode</th>
+        <th>Alternate Mobile</th>
         <th>POSP No(SSID)</th>
         <th>Loan ID</th> 
+        <th>Posp Status</th> 
       </tr>
       <tr>
         <td><a id="btnshowpassword" data-toggle="modal" data-target="#spassword" onclick="getpassword('{{$data->pwd}}')">*****</a>
         </td>
-        <td>{{$data->Pincode}}</td>
+        <td>
+          @if($data->MobiNumb2=='')
+
+      <a href="" data-toggle="modal"  data-target="#mobilenotwo" onclick="get_alternat_mobi_fbid('{{$data->fbaid}}')" >Update Alternate Mobile</a>
+      @else
+     <a href="" data-toggle="modal"  data-target="#mobilenotwo" onclick="get_alternat_mobi_fbid('{{$data->fbaid}}','{{$data->MobiNumb2}}')">{{$data->MobiNumb2}}</a>
+      @endif
+    </td>
         <td>
          @if($data->POSPNo=='')
          <a id="posp_{{$data->fbaid}}" class="checkPosp" data-toggle="modal" data-target="#updatePosp" onclick="updateposp('{{$data->fbaid}}')">update</a>
@@ -74,27 +97,28 @@
         <span id="btnviewid{{$data->fbaid}}">{{$data->LoanID}}</span>
         @endif
       </td>
+      <td>{{$data->pospstatus}}</td>  
     </tr>
     <tr>
-      <th>Posp Status</th> 
+     
       <th>Bank Account</th>
       <th>Partner Info</th> 
-      <th>Referer Code</th> 
+      <th>Referer Code</th>
+      <th>Referedby Code</th>   
+      <th>Sales code</th> 
     </tr>
     <tr>
-      <td>{{$data->pospstatus}}</td>  
+      
       <td>{{$data->bankaccount}}</td>  
       <td><a href="" data-toggle="modal" data-target="#partnerInfo"onclick="getpartnerinfo('{{$data->fbaid}}')">partner info</a>
         <td>{{$data->Refcode}}</td> 
-    </tr>  
-      <tr>
-        <th>Referedby Code</th>   
-        <th>Sales code</th>
-        <th>FSM Details</th>  
-        <th>Customer ID</th> 
-      </tr>  
-      <tr>
-        <td>{{$data->Refbycode}}</td>  
+         <td>@if($data->Refbycode=='')
+        <a href="" data-toggle="modal" data-target="#referer_code_update"onclick="Gettype2('{{$data->fbaid}}',this)">Update Ref.By.Code</a>
+            @else
+        <span id="btnviewcid{{$data->fbaid}}">{{$data->Refbycode}}</span>
+        @endif
+        </td>
+ 
         <td>
          @if($data->salescode=='' || $data->salescode=='Update')
          <a id="update_{{$data->fbaid}}" onclick="sales_update_fn('{{$data->fbaid}}'),('{{$data->fbaid}}')">Update</a>
@@ -102,6 +126,17 @@
          <a id="update_{{$data->fbaid}}" onclick="sales_update_fn('{{$data->fbaid}}',{{$data->salescode}})">  {{$data->salescode}}</a>
          @endif
        </td>
+    </tr>  
+      <tr>
+        
+        <th>FSM Details</th>  
+        <th>Customer ID</th>
+        <th>Type</th> 
+        <th>Erp Id</th>    
+        <th>AppSource</th>  
+      </tr>  
+      <tr>
+         
        <td>
         <a href="#" style="" data-toggle="modal" data-target=".fsmdetails">Fsm details</a>
       </td>
@@ -112,15 +147,7 @@
         <span id="btnviewcid{{$data->fbaid}}">{{$data->CustID}}</span>
         @endif
       </td>
-    </tr>
-    <tr>
-      <th>Type</th> 
-      <th>Erp Id</th>    
-      <th>AppSource</th> 
-      <th>State</th>      
-    </tr>
-    <tr>
-      <td>
+           <td>
        @if($data->Type=='')
        <span id="bind_updated_type_{{$data->fbaid}}"><a id="type{{$data->fbaid}}" data-toggle="modal" onclick="Gettype('{{$data->fbaid}}',this)" data-target="#myModal">Update</a><span id="bind_updated_type_{{$data->fbaid}}"></span>  
        @else
@@ -128,27 +155,71 @@
        @endif
      </td> 
      <td>{{$data->erpid}}</td>
-     <td>{{$data->AppSource}}</td>
-     <td>{{$data->statename}}</td>
-   </tr>
-   <tr>
-    <th>Document</th>
+     <td>    
+     @if($data->AppSource=='AppSource')
+  <a id="type{{$data->fbaid}}" data-toggle="modal" onclick="Gettype('{{$data->fbaid}}',this)" data-target="#appsourcemodel">Update</a>
+  @else
+  <a id="type{{$data->fbaid}}" data-toggle="modal" onclick="Gettype('{{$data->fbaid}}',this)" data-target="#appsourcemodel">{{$data->AppSource}}</a>
+    @endif
+    </td>
+    </tr>
+    <tr>
+     
+    <th>State</th>
+    <th>Zone</th>
     <th>RRM Name</th> 
     <th>Field sales</th>
-    <th>Upload Payment GRID</th>
-  </tr>
-  <tr>
-   <td>
-     @if($data->isdocupload=='Uploaded')
-     <a href="" style="" data-toggle="modal"  data-target="#docviwer" onclick="docview('{{$data->fbaid}}')">uploaded</a>
-     @else
-     <a data-target="#docviwer"{{$data->fbaid}}">Pending</a>      
-     @endif     
-   </td>
+    <th>Upload Payment GRID</th>      
+    </tr>
+    <tr>
+ 
+     <td>{{$data->statename}}</td>
+       <td>{{$data->zone}} </td>
    <td>{{$data->RRM}}</td>
    <td>{{$data->Field_Manger}}</td>
    <td><a onclick="uploadpaymentgrid('{{$data->fbaid}}',this)">View/Upload</a></td>
+   </tr>
+
+
+     <tr>
+    <th>Document</th>
+    <th>FBA Status</th> 
+    <th>View SMS</th>
+    <th>Transaction History</th>
+    <th>Pincode</th>
+  </tr>
+
+
+  <tr>
+   <td> @if($data->isdocupload=='Uploaded')
+     <a href="" style="" data-toggle="modal"  data-target="#docviwer" onclick="docview('{{$data->fbaid}}')">uploaded</a>
+     @else
+     <a data-target="#docviwer"{{$data->fbaid}}">Pending</a>      
+     @endif
+   </td>
+   <td>
+   	@if($data->isactive=='isactive')
+     <a href="" style="" data-toggle="modal"  data-target="#activefbamodel" onclick="Gettype('{{$data->fbaid}}')">update</a>
+     @else
+
+     <a href="" style="" data-toggle="modal"  data-target="#activefbamodel" onclick="Gettype('{{$data->fbaid}}')">{{$data->isactive}}</a>      
+     @endif
+   </td>
+     <td>@if($data->POSPNo=='')
+   <span></span> 
+   @else
+      <a href="http://d3j57uxn247eva.cloudfront.net/Health_Web/sms_list.html?ss_id={{$data->POSPNo}}&fba_id={{$data->fbaid}}" target="_blank">View All SMS</a>
+   
+     @endif
+</td>  
+
+  <td><a href="{{url('fba-transection-history')}}/{{$data->fbaid}}" target="_blank">Transaction History</a>
+  </td>
+<td>{{$data->Pincode}}</td>
  </tr>
+
+
+
 </tbody>
 </table>
 <br>
@@ -221,7 +292,7 @@
       <div class="form-group"> 
          <label>From Date</label>
             <div id="datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
-               <input class="form-control" type="text" placeholder="From Date" name="txtfromdate" id="txtfromdate" required>
+               <input class="form-control" type="text" placeholder="From Date" name="txtfromdate" id="txtfromdate" readonly>
           <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
          </div>
       </div>
@@ -230,7 +301,7 @@
       <div class="form-group">
         <label>To Date</label>
          <div id="datepicker1" class="input-group date" data-date-format="yyyy-mm-dd">
-             <input class="form-control" type="text" placeholder="To Date"  name="txttodate"  id="txttodate" required>
+             <input class="form-control" type="text" placeholder="To Date"  name="txttodate"  id="txttodate" readonly>
           <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
         </div>
       </div>
@@ -267,9 +338,84 @@
     </tbody>
   </table>
 </div>
+
+<br>
+<h3>Profile Update</h3>
+<hr/>
+<br>
+<div class="table-responsive col-md-12">
+  <table class="table table-striped table-bordered" id="profileupdate">
+    <thead>
+      <tr>
+        <th>RRM</th>
+        <th>Recruiter</th>
+        <th>Recruiter TL</th>
+        <th>Training</th>
+        <th>Field Sales</th>
+        <th>Cluster Head</th> 
+        <th>State Head</th> 
+        <th>Zonal Head</th>
+        <th>Action</th>
+
+        
+      </tr>
+    </thead>
+
+    <tbody>
+     @isset($Hierarchy)
+  @foreach($Hierarchy as $val)
+      <tr>
+        <td>{{$val->rrmuid}}</td>
+        <td>{{$val->recruiteruid}}</td>
+        <td>{{$val->recruitertluid}}</td>
+        <td>{{$val->trainingopsuid}}</td>
+        <td>{{$val->fieldsalesuid}}</td>
+        <td>{{$val->clusterheaduid}}</td>
+        <td>{{$val->stateheaduid}}</td>
+        <td>{{$val->zonalheaduid}}</td>
+   @endforeach
+   @endisset
+
+        <td><a href="#" id="btnupdte" class="qry-btn" style="" data-toggle="modal" data-target=".updateprofile" onclick="Gettype2('{{$data->fbaid}}',this)" name="btnupdte" class="btn btn-default">Update</a></td>
+
+      
+       
+    </tbody>
+  </table>
+
 </div>
 </div>
 </div>
+</div>
+
+<!-- Mobile Number 2 model Start -->
+<div class="salesupdate modal fade" role="dialog" id="mobilenotwo">   
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header"  >
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title">Alternate Mobile Number</h4>
+      </div>
+      <div class="modal-body">
+        <form name="update_mobile_two" id="update_mobile_two">
+         {{ csrf_field() }}
+         <div class="form-group">
+          <input type="hidden" name="mobile_fbaid" id="mobile_fbaid" value="">
+          <label class="control-label" for="message-text">Enter Mobile Number : </label>
+          <input type="text" class="recipient-name form-control" id="mobiletwo" name="mobiletwo" required="required" maxlength="10" onkeypress="return isNumber(event)"/>
+        </div>
+      </form>
+       <div class="modal-footer"> 
+        <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+        <input type="button" name="mobile2_update" id="mobile2_update" class="btn btn-primary" onclick="update_alternate_mobile(document.getElementById('mobile_fbaid').value)" value="Submit">
+      </div>
+    </div>
+  </div>
+</div> 
+</div>
+
+
+<!-- Mobile Number 2 model End -->
 <!-- send sms -->
 <div class="sms_sent_id id modal fade" role="dialog">   
   <div class="modal-dialog" role="document">
@@ -362,6 +508,45 @@
   </div>
 </div>
 </div>
+
+       <!-- Refered Code Model Start -->
+@if((Session::get('usergroup')== '13') || (Session::get('usergroup')=='50'))
+<div class="salesupdate modal fade" role="dialog" id="referer_code_update">   
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header"  >
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title">Referedby_Code</h4>
+      </div>
+      <div class="modal-body">
+        <form name="update_refrbycode" id="update_refrbycode">
+         {{ csrf_field() }}
+           <div class="form-group col-md-6">
+          <div class="col-md-5">
+          <input type="hidden" name="ref_fbaid" id="ref_fbaid" value="">
+          </div>
+          <div class="form-group">
+            <select  name="txtRefererby" id="txtRefererby" class="text-primary form-control">
+              <option value="">--Select--</option>
+              @foreach($refererby_recruiter as $val)  
+              <option value="{{$val->referer_code}}">{{$val->Profile}}</option>
+              @endforeach
+            </select>
+          </div>
+        </div>
+      </form>
+      <div class="modal-footer"> 
+        <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+        <input type="button" name="btn_submit" id="btn_submit" class="btn btn-primary" onclick="update_refercode(document.getElementById('ref_fbaid').value)" value="Submit">
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+@endif
+<!-- Refered Code Model End
+ -->
+
 <!-- update posp -->
 <div class="updatePosp modal fade" role="dialog">   
   <div class="modal-dialog" role="document">
@@ -388,6 +573,131 @@
   </div>
 </div>
 </div>
+
+<!-- UPDATE PROFILE START -->
+<div class="updateprofile modal fade" role="dialog">   
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title">Update Profile</h4>
+        
+      </div>
+      <div class="modal-body" style="height:417px;width: 700;">
+        <form id="pupdate">
+        {{csrf_field()}}
+        <input type="hidden" name="profilehidden" id="profilehidden" value="" readonly>
+          <div class="form-group">
+          </div>
+
+
+      <tr>
+          <!-- <td style="text-align: center;line-height: 39px;">RRM</td>  -->
+          <label style="margin-left:7%;margin-top:0%;">RRM</label>
+            <td><select style="width: 36%" name="rrmuid" id="rrmuid" class="text-primary form-control" required="">
+        <option value="">--No RRM--</option>
+         @foreach($hierarchypr as $val)
+         <option {{$val->selected_status}} value="{{$val->UId}}">{{$val->EmployeeName}}</option>
+          @endforeach
+
+        </select>
+        </td>
+         </tr> <br>
+
+
+         <tr>
+        
+          <!-- <td id="name" name="namea" style="margin-bottom:10%;">Recruiter</td> -->
+          <!-- <td style="margin-left: 20%;">Recruiter</td> -->
+          <label style="margin-left:55%;margin-top: -13%;">Recruiter</label>
+          <td><select style="width:36%;margin-bottom: 30px;margin-left: 309px;margin-top:-56px;" name="recruiteruid" id="recruiteruid" class="text-primary form-control" required="">
+         <option  value="">--NO Recruiter--</option>
+         @foreach($recruiter as $val)
+          <option {{$val->selected_status}}  value="{{$val->UId}}">{{$val->EmployeeName}}</option>
+          @endforeach
+         </select>
+         </td>
+
+         </tr><br>
+
+         <tr>
+         <label style="margin-left:55%;margin-top: -5%;">Training OPS</label>
+          <!-- <td style="text-align: right;line-height: 39px;">Training gopsuid</td> -->
+            <td><select style="width:36%;margin-left: 309px;margin-top: -5px"  name="trainingops" id="trainingops" class="text-primary form-control" required="">
+        <option value="">--NO Training OPS--</option>
+         @foreach($trainingopsuid as $val)
+         <option {{$val->selected_status}} value="{{$val->UId}}">{{$val->EmployeeName}}</option>
+          @endforeach
+        </select>
+        </td>
+         </tr> <br>
+           <tr>
+           <label style="margin-left:7%;margin-top: -13%;">Field Sales</label>
+          <!-- <td style="text-align: right;line-height: 39px;">Fieldsales Uid</td> -->
+            <td><select style="width:36%;margin-top: -56px;" name="fieldsalesuid" id="fieldsalesuid" class="text-primary form-control" required="">
+        <option value="">--NO Field Sales--</option>
+         @foreach($fieldsalesuid as $val)
+         <option {{$val->selected_status}}  value="{{$val->UId}}">{{$val->EmployeeName}}</option>
+          @endforeach
+        </select>
+        </td>
+         </tr> <br>
+           <tr>
+           <label style="margin-left:7%;margin-top: -1%;">Cluster Head</label>
+             <!-- <td style="text-align: right;line-height: 39px;">Clusterhead Uid</td> -->
+            <td><select style="width:36%"  name="clusterheaduid" id="clusterheaduid" class="text-primary form-control" required="">
+        <option value="">--NO Cluster Head--</option>
+         @foreach($clusterheaduid as $val)
+         <option {{$val->selected_status}}  value="{{$val->UId}}">{{$val->EmployeeName}}</option> 
+          @endforeach 
+        </select>
+        </td>
+         </tr> <br>
+         <tr>
+          <!-- <td style="text-align: right;line-height: 39px;">State Uid</td> -->
+          <label style="margin-left:55%;margin-top: -12%;">State Head</label>
+            <td><select style="width:36%;margin-top: -56px;margin-left: 309px;"  name="stateheaduid" id="stateheaduid" class="text-primary form-control" required="">
+        <option value="">--NO State Head--</option>
+         @foreach($stateheaduid as $val)
+        <option {{$val->selected_status}} value="{{$val->UId}}">{{$val->EmployeeName}}</option>
+          @endforeach
+        </select>
+        </td>
+         </tr> <br>
+
+          <!--  <td style="margin-left: 50px;"><b>zonalhead Uid</b></td> -->
+           <label style="margin-left:7%;margin-top:0%;">Zonal Head</label>
+            <td><select style="width:36%"  name="zonalheaduid" id="zonalheaduid" class="text-primary form-control" required="">
+        <option value="">--NO Zonal Head--</option>
+         @foreach($zonalheaduid as $val)
+        <option {{$val->selected_status}} value="{{$val->UId}}">{{$val->EmployeeName}}</option>
+          @endforeach
+        </select>
+        </td>
+        <br>
+        <label style="margin-left:55%;margin-top: -12%;">Recruiter TL</label>
+            <td><select style="width:36%;margin-top: -56px;margin-left: 309px;"  name="recruitertluid" id="recruitertluid" class="text-primary form-control" required="">
+        <option value="">--NO Recruiter TL--</option>
+         @foreach($recruitertluid as $val)
+        <option {{$val->selected_status}} value="{{$val->UId}}">{{$val->EmployeeName}}</option>
+          @endforeach
+        </select>
+        </td>
+         </tr><br>
+<div>
+<input type="button" name="btn_submitprofile" id="btn_submitprofile" class="btn btn-primary" value="Submit" onclick='profile_update_hierarchy();'>
+<button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+ </form>
+ </div>
+    
+       
+     
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- UPDATE PROFILE END -->
 <!-- Document Upload Start -->
 <div id="docviwer" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -427,7 +737,8 @@
         <select class="form-control" required id="ddltype" name="ddltype">
          <option value="">---Select---</option>
          <option value="1">FBA</option>
-         <option value="2">POSP</option> 
+         <option value="2">POSP</option>
+         <option value="3">T-POS</option> 
        </select>
        <input type="hidden" name="txtfbaid" id="txtfbaid">
      </div>        
@@ -441,6 +752,78 @@
 </div>
 </div>
 </div>
+
+<!-- App Sourcee Update Start -->
+@if((Session::get('usergroup')== '13') || (Session::get('usergroup')=='50'))
+<div class="modal" id="appsourcemodel">
+  <div class="modal-dialog">
+    <div class="modal-content">      
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Update App Source</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>        
+      <!-- Modal body -->
+      <div class="modal-body">
+       <form id="appsourcefrom" name="appsourcefrom" method="post">
+        {{ csrf_field() }}
+        <label>Select:</label>
+        <select name="apsource" id="apsource" class="text-primary form-control" required="">
+          <option value="">-- Update App Source --</option>
+           @foreach($sourceupdate as $val)
+            <option value="{{$val->ID}}">{{$val->Source_name}}</option>
+             @endforeach
+          </select>
+         
+       <input type="hidden" name="hidedenapsourcefba" id="hidedenapsourcefba">
+     </div>        
+     <!-- Modal footer -->
+     <div class="modal-footer">
+       <input type="button" name="btn_source" id="btn_source" class="btn btn-primary" value="submit" onclick="update_app_source(this.id)"> 
+     </form>
+     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+   </div>
+ </div>
+</div>
+</div>
+</div>
+@endif
+
+
+<!-- FBA ACTIVE INACTIVE -->
+@if((Session::get('usergroup')== '13') || (Session::get('usergroup')=='50'))
+<div class="modal" id="activefbamodel">
+  <div class="modal-dialog">
+    <div class="modal-content">      
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Active FBA</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>        
+      <!-- Modal body -->
+      <div class="modal-body">
+       <form id="fbaactivefrom" name="fbaactivefrom" method="post">
+        {{ csrf_field() }}
+        <label>Select:</label>
+        <select class="form-control" required id="activefba" name="activefba"  >
+         <option value="  ">-- Update FBA Status --</option>
+         <option value="1">Active </option>
+         <option value="0">Inactive</option> 
+       </select>
+       <input type="hidden" name="hiddenactivefba" id="hiddenactivefba" >
+     </div>        
+     <!-- Modal footer -->
+     <div class="modal-footer">
+       <input type="button" name="btn_status" id="btn_status" class="btn btn-primary" value="submit" onclick="update_fba_status(this.id)"> 
+     </form>
+     <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+   </div>
+ </div>
+</div>
+</div>
+</div>
+@endif
+
 <!-- Partner Info Start -->
 <div id="partnerInfo" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -589,14 +972,51 @@
     </div>
   </div>
 </div>
+
+
+
 @endsection
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+<script type="text/javascript">
+  function get_alternat_mobi_fbid(fbaid,value){
+    $("#mobile_fbaid").val(fbaid);
+     $('#mobiletwo').val(value);
+  }
+
+</script>
+<script type="text/javascript">
+  function isNumber(evt) {
+    evt = (evt) ? evt : window.event;
+    var charCode = (evt.which) ? evt.which : evt.keyCode;
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        return false;
+    }
+    return true;
+}
+</script>
+<script type="text/javascript">
+   function update_alternate_mobile(this_id){
+    //alert(this_id);
+   $('#mobile_fbaid').val(mobile_fbaid);
+   $.ajax({ 
+   url: "{{URL::to('update-alternate-mobile')}}",
+   method:"GET",
+   data: {fbaid:this_id,'mobiletwo':$("#mobiletwo").val()},
+   success: function(msg){
+    console.log(msg);
+   
+  alert("Data Save Successfully");
+  $('.close').click(); 
+  location.reload();
+ }
+  });   
+ };   
+</script>
 <script type="text/javascript">
  $(document).ready(function() {
-   $("#tblsubfba").DataTable();
- /*  $("#tblfbacalllogs").DataTable();
-   $("#tblfbaBusiness").DataTable();*/
+   $("#tblsubfba").DataTable();   
    $(document).ready(function() {
   // Bootstrap datepicker
   $('.input-daterange input').each(function() {
@@ -612,7 +1032,21 @@
  $('.date-range-filter').datepicker();
 });
  });
+   function pmesgsend(){
+     alert("SMS Send successfully..");
+     $.ajax({ 
+       url: "{{URL::to('pmesgsend')}}",
+       method:"POST",
+       data: $('#modelpaylink').serialize(),
+       success: function(msg)  
+       {
+         console.log(msg);
+
+       }
+     });
+   }
 </script>
+
 
 
 
@@ -621,6 +1055,36 @@
 
 
 <!-- Search Pospno and Fbaid start -->
+
+<!-- Refer Code Update script start -->
+
+<script type="text/javascript">
+   function update_refercode(this_id){
+    //alert(this_id);
+    // $("#referer_code_update").val("");
+   $('#ref_fbaid').val(ref_fbaid);
+   $.ajax({ 
+   url: "{{URL::to('update-Referedby-code')}}",
+   method:"GET",
+   data: {fbaid:this_id,'txtRefererby':$("#txtRefererby").val()},
+   success: function(msg){
+    console.log(msg);
+    if(msg){
+      alert(msg);
+     $("#txtRefererby").val("");
+
+    }else{
+  alert("Data Save Successfully");
+}
+  $('.close').click(); 
+  location.reload();
+ }
+  });   
+ };   
+</script>
+<!-- Refer Code Update script End
+ -->
+
 
 <script type="text/javascript">
  $(function(){
@@ -667,46 +1131,111 @@
 } 
 </script> 
 
+<!-- AVTIVE IS ACTIVE FBA START -->
+<script type="text/javascript">
+ function update_fba_status(this_id){
+  if (confirm("Are you sure to Submit this Record"))
+  if($("#activefba").val() == ""){
+    alert("Please Select at least one option");
+  }else{
+
+    var formdata = new FormData($("#fbaactivefrom")[0]);
+
+    $.ajax({ 
+      url: "{{URL::to('fba-status')}}",
+      method:"POST",
+      data: formdata,
+      contentType:false,
+      processData:false,
+      success: function(response)  {
+
+        var resp = JSON.parse(response);
+        alert(resp.alert_msg);
+        $("#" + resp.field).html(resp.show_field_status);
+        $('.close').click();
+        location.reload();
+        
+      }
+    });
+
+  }
+  
+} 
+</script> 
+
 <script>
-  function Gettype(fbaid){
+  function Gettype2(fbaid){
     //alert(fbaid);
-    $("#txtfbaid").val(fbaid);
+    $("#profilehidden").val(fbaid);
+    $("#ref_fbaid").val(fbaid);   
     
   }
 
+  function profile_update_hierarchy(){
+  //alert("Testt");
+
+  $.ajax({ 
+   url: "{{URL::to('update-profile')}}",
+   method:"POST",
+   data: $('#pupdate').serialize(),
+   success: function(msg){
+     alert("Update Successfully");
+     $('.close').click(); 
+     $('#updateprofile').modal('hide');
+     location.reload();
+   }
+ });
+
+
+} 
 </script>
-<!-- 
+
 <script type="text/javascript">
-  function getpaylinknew(){
-    $.ajax({
-      url: 'getpaylinknew/'+$('#fba').val(),
-      type: "GET",                  
-      success:function(data) {
-        var json = JSON.parse(data);
-        if(json.StatusNo==0){
-          $('#divpartnertable_payment').html(json.MasterData.PaymentURL);
-          $('#txtlink').val(json.MasterData.PaymentURL);
-        }
+ function update_app_source(this_id){
+  if (confirm("Are you sure to Submit this Record"))
+
+    if($("#apsource").val() == ""){
+      alert("Please Select Source");
+    }else{
+
+      var formdata = new FormData($("#appsourcefrom")[0]);
+
+      $.ajax({ 
+        url: "{{URL::to('fba-source-update')}}",
+        method:"POST",
+        data: formdata,
+        contentType:false,
+        processData:false,
+        success: function(response) {
+          alert("Update Successfully");
+        // var resp = JSON.parse(response);
+        // alert(resp.alert_msg);
+        // $("#" + resp.field).html(resp.show_field_status);
+        $('.close').click(); 
+        location.reload();
       }
-
     });
-  }
 
-
-</script> -->
-<!-- 
-  CLOSE BUTTON SCRIPT -->
-  <script language="javascript" type="text/javascript">
-    function windowClose() {
-      window.open('','_parent','');
-      window.close();
     }
-  </script>
+  } 
+</script> 
 
+<script>
+  function Gettype(fbaid,value){
+    if (value=='Active') {
+      var intval=1;
+    }else{
+      var intval=0;
+    }
+    //alert(value);
+    $("#activefba").val(intval);
+    $("#txtfbaid").val(fbaid);
+    $("#hiddenactivefba").val(fbaid);
+    $("#hidedenapsourcefba").val(fbaid);
+    
 
-
-  <script type="text/javascript">
-    function getpaylinknew(){
+  }
+ function getpaylinknew(){
 
       $.ajax({
         url: '../getpaylinknew/'+$('#fba').val(),
@@ -725,70 +1254,4 @@
       alert("Payment Link Genrate successfully..");
     }
 
-    function pmesgsend(){
-     alert("SMS Send successfully..");
-     $.ajax({ 
-       url: "{{URL::to('pmesgsend')}}",
-       method:"POST",
-       data: $('#modelpaylink').serialize(),
-       success: function(msg)  
-       {
-         console.log(msg);
-
-       }
-     });
-   }
-function uploadpaymentgrid(fbaid){
-  $("#paymentgrid").modal('show');  
-  $("#txtpayfbaid").val('');
-  $("#txtpayfbaid").val(fbaid);  
-   $.ajax({
-        url: '../get-paygrid-doc/'+fbaid,
-        type: "GET",                  
-        success:function(data){       
-          var json = JSON.parse(data);          
-          $("#olddocpath").attr('src','');
-          if (json.length > 0){
-            if(json[0].doc_path!=0){   
-              $("#txtolddoc").val('');        
-              $("#txtolddoc").val(json[0].doc_path);              
-              $("#olddocpath1").attr('src','{{url('/upload/paygrid')}}/'+json[0].doc_path);
-              $("#olddocpath").attr('href','{{url('/upload/paygrid')}}/'+json[0].doc_path);
-            }
-          }
-        }
-      });
-}
-function passvalue(){
-  var fromdate=$("#txtfromdate").val();
-  var todate=$("#txttodate").val();
-
-  if (fromdate!=''&&todate!='') {
-$("#btnshowbusiness").attr("href", "{{URL::to('FBA-Business-Report')}}/{{$data->fbaid}}/"+fromdate+"/"+todate);
-$("#btnshowbusiness").attr("target","_blank");
-}else{ 
-  alert("Select Proper Date Rage");  
-}
-}
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

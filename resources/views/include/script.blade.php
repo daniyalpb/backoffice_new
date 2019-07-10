@@ -1189,7 +1189,7 @@ $.ajax({
 
  // show Password start
  function getpassword(password){
-  // alert('Test');
+   //alert('Test');
  $('#show_password').html(password);
 }
 
@@ -1479,7 +1479,7 @@ function getcustomerid(text,fbaid){
  <!-- End shubham raise a ticket -->
  <!-- Loader Script -->
 <script>
-     var $loading = $('#loading').hide();
+     var $loading = $('#loading');
      //Attach the event handler to any element
      $(document)
        .ajaxStart(function () {

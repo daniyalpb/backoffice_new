@@ -23,11 +23,11 @@
     19 => 'Illuminate\\Translation\\TranslationServiceProvider',
     20 => 'Illuminate\\Validation\\ValidationServiceProvider',
     21 => 'Illuminate\\View\\ViewServiceProvider',
-    22 => 'Carbon\\Laravel\\ServiceProvider',
-    23 => 'Lavary\\Menu\\ServiceProvider',
-    24 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
-    25 => 'Laravel\\Tinker\\TinkerServiceProvider',
-    26 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    22 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
+    23 => 'Laravel\\Tinker\\TinkerServiceProvider',
+    24 => 'Lavary\\Menu\\ServiceProvider',
+    25 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    26 => 'Carbon\\Laravel\\ServiceProvider',
     27 => 'Webpatser\\Uuid\\UuidServiceProvider',
     28 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
     29 => 'App\\Providers\\AppServiceProvider',
@@ -48,9 +48,9 @@
     7 => 'Illuminate\\Pagination\\PaginationServiceProvider',
     8 => 'Illuminate\\Session\\SessionServiceProvider',
     9 => 'Illuminate\\View\\ViewServiceProvider',
-    10 => 'Carbon\\Laravel\\ServiceProvider',
-    11 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
-    12 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    10 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
+    11 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    12 => 'Carbon\\Laravel\\ServiceProvider',
     13 => 'Webpatser\\Uuid\\UuidServiceProvider',
     14 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
     15 => 'App\\Providers\\AppServiceProvider',
@@ -156,8 +156,8 @@
     'translation.loader' => 'Illuminate\\Translation\\TranslationServiceProvider',
     'validator' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'validation.presence' => 'Illuminate\\Validation\\ValidationServiceProvider',
-    'Lavary\\Menu\\Menu' => 'Lavary\\Menu\\ServiceProvider',
     'command.tinker' => 'Laravel\\Tinker\\TinkerServiceProvider',
+    'Lavary\\Menu\\Menu' => 'Lavary\\Menu\\ServiceProvider',
   ),
   'when' => 
   array (
@@ -197,10 +197,10 @@
     'Illuminate\\Validation\\ValidationServiceProvider' => 
     array (
     ),
-    'Lavary\\Menu\\ServiceProvider' => 
+    'Laravel\\Tinker\\TinkerServiceProvider' => 
     array (
     ),
-    'Laravel\\Tinker\\TinkerServiceProvider' => 
+    'Lavary\\Menu\\ServiceProvider' => 
     array (
     ),
   ),

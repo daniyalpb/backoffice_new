@@ -35,7 +35,7 @@ class ApiController extends CallApiController
   }
 
   public function send_failure_response($message,$status,$data){
-    $res = array('Message' =>$message ,'Status'=>$status,'StatusNo'=>1,'MasterData'=>[] );
+    $res = array('Message' =>$message ,'Status'=>$status,'StatusNo'=>1,'MasterData'=>$data );
    // print_r($res);exit();
     return json_encode($res);
   }

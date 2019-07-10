@@ -204,7 +204,12 @@ foreach($viewimgone as $val ){
         }
 
      public function getquotediscriptionnew($PkId,$product_name){
+<<<<<<< HEAD
               //print_r($product_name); exit();
+=======
+              //echo $PkId; 
+              //echo $product_name; exit();
+>>>>>>> 804e2535aeb991f95a9572058286711b9bdd828b
         $quotedisc= DB::select('call get_quote_description_new(?,?)',array($PkId,$product_name));
          return json_encode($quotedisc);
            //return view('offline-request-new',['data'=>$data]); 
@@ -233,6 +238,7 @@ foreach($viewimgone as $val ){
           return json_encode($data);
            //return view('offline-request-new',['data'=>$data]); 
         }
+<<<<<<< HEAD
 
         public function updatestatusofflinequotes(Request $req)
         {
@@ -260,4 +266,6 @@ foreach($viewimgone as $val ){
           return $filepath;
         }
 
+=======
+>>>>>>> 804e2535aeb991f95a9572058286711b9bdd828b
 }

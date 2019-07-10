@@ -131,7 +131,8 @@
                <td> {{$val->MOTOR}}</td>                           
                <td> {{$val->TWO_WHEELER}}</td>
                <td>{{$val->Life}}</td>
-               <td>{{$val->PL}}</td>  
+               <td>{{$val->PL}}</td> 
+               <td>{{$val->RRM_Name}}</td>   
                @else  
                <td> not found</td>
                  <?php  break; ?>

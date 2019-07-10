@@ -1254,4 +1254,74 @@
       alert("Payment Link Genrate successfully..");
     }
 
+<<<<<<< HEAD
 </script>
+=======
+    function pmesgsend(){
+     alert("SMS Send successfully..");
+     $.ajax({ 
+       url: "{{URL::to('pmesgsend')}}",
+       method:"POST",
+       data: $('#modelpaylink').serialize(),
+       success: function(msg)  
+       {
+         console.log(msg);
+
+       }
+     });
+   }
+function uploadpaymentgrid(fbaid){
+  $("#paymentgrid").modal('show');  
+  $("#txtpayfbaid").val('');
+  $("#txtpayfbaid").val(fbaid);  
+   $.ajax({
+        url: '../get-paygrid-doc/'+fbaid,
+        type: "GET",                  
+        success:function(data){       
+          var json = JSON.parse(data);          
+          $("#olddocpath").attr('src','');
+          if (json.length > 0){
+            if(json[0].doc_path!=0){   
+              $("#txtolddoc").val('');        
+              $("#txtolddoc").val(json[0].doc_path);              
+              $("#olddocpath1").attr('src','{{url('/upload/paygrid')}}/'+json[0].doc_path);
+              $("#olddocpath").attr('href','{{url('/upload/paygrid')}}/'+json[0].doc_path);
+            }
+          }
+        }
+      });
+}
+function passvalue(){
+  var fromdate=$("#txtfromdate").val();
+  var todate=$("#txttodate").val();
+  if (fromdate!=''&&todate!='') {
+$("#btnshowbusiness").attr("href", "{{URL::to('FBA-Business-Report')}}/{{$data->fbaid}}/"+fromdate+"/"+todate);
+$("#btnshowbusiness").attr("target","_blank");
+}else{ 
+  alert("Select Proper Date Rage");  
+}
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> 804e2535aeb991f95a9572058286711b9bdd828b

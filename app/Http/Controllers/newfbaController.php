@@ -138,6 +138,7 @@ public function export($data)
                 if($checkexcess[0]->GiveAccess=='1'){
                         $update = DB::select("call update_new_fba_fbaList($fbaid,$loggedinfbaid)");
 
+<<<<<<< HEAD
                        $lastbuss = DB::select("call Last_business_done_by_fba($fbaid)");
                        $calllogs = DB::select("call fba_call_logs($fbaid)"); 
                       $subfba = DB::select("call parrent_fba_data($fbaid)");
@@ -163,6 +164,10 @@ public function export($data)
 
        // print_r($update);
         //exit;
+=======
+ // print_r($update);
+  //exit;
+>>>>>>> 804e2535aeb991f95a9572058286711b9bdd828b
 }
          return view('dashboard.update-fba-list',['data'=>$update[0]]);
        }

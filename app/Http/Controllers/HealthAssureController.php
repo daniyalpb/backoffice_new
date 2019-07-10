@@ -8,7 +8,7 @@ class HealthAssureController extends CallApiController
 {
    public function gethealthassure(){
 try{
-   	$data=array("pack_param"=> array("username"=>"Datacomp","pass"=>"Health@1234","packcode"=>71));
+   	$data=array("RegistrationNumber"=>$req->RegistrationNumber);
  
    	 $post_data=json_encode($data);
    	// print_r($post_data); exit();
@@ -19,10 +19,10 @@ try{
 	            $s=str_replace('}"', "}", $st);
 	            $m=$s=str_replace('\\', "", $s);
 	            $update_user='';
-	            $obj = json_decode($m);
-	           // print_r($m); exit();
+	            $obj = json_decode($m->content(), true);
+	       // print_r(json_encode($m->Employee_Name));exit();
                 
-              
+               print_r($obj[0]['UID']);exit();
                
 
                    if($obj->d->status='Success'){

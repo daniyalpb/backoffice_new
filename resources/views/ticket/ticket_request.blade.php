@@ -66,9 +66,9 @@
   {{ csrf_field() }}
  <input type="hidden" name="TicketRequestId" id="TicketRequest_Id" >
  <div class="form-group">
- <label for="inputEmail" class="control-label col-xs-2"> Select</label>
+ <label for="inputEmail" class="control-label col-xs-2">Select</label>
   <div class="col-xs-10">
-  <select name="FBAUserId"  class="form-control"  id="FBAUserId">
+  <select name="FBAUserId"class="form-control"  id="FBAUserId">
   <option value="0">select</option>
   @foreach($users as $v)
   <option value="{{$v->FBAUserId}}">{{$v->UserName}}</option>
@@ -155,9 +155,9 @@
                   console.log("error");
                  }
           }).fail(function(xhr, status, error) {
+            console.log("error");
                  alert('Something went wrong');  
             });
-
         }
    })
 

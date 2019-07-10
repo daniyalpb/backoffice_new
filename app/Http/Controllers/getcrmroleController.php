@@ -17,8 +17,7 @@ use Excel;
 
          	public function crm_role(Request $req){
 			//print_r($req->all());exit();
-		 	 $data=DB::select('call get_crm_disposition_role(?,?)',array($req->id,$req->fba_id));	
-
+		 	 $data=DB::select('call get_crm_disposition_role(?,?)',array($req->id,$req->fba_id));
 		  	if (count($data)>0) {
 		  	return $this->send_success_response('Successfully','Success',$data);
 		  }else{
@@ -35,8 +34,7 @@ use Excel;
 		  	return $this->send_success_response('Successfully','Success',$data);
 		  }else{
 		  	return $this->send_failure_response('Data Not Found','Failure',[]);
-		  }
-		 
+		  }		 
 	}
 
 }

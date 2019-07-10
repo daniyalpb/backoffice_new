@@ -3,13 +3,14 @@ Dear [Developer],
 A Ticket has been assigned to you,Kindly find the details below.
 <br>
 <br>
-FBA ID:{{$data->FBAID}}
+@foreach($data as $val)
+FBA ID:{{$val->FBAID}}
 <br>
-Ticket ID:{{$data->TicketRequestId}}
+Ticket ID:{{$val->TicketRequestId}}
 <br>
-Category:{{$data->CateName}}
+Category:{{$val->CateName}}
 <br>
-
+@endforeach
 <br>
 Ticket Summary
 <br>

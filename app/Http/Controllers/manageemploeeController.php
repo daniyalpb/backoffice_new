@@ -30,23 +30,46 @@ class manageemploeeController extends CallApiController{
  
 
  		public function viewmaageemployy($uid){
+
+    $currentsource_array = array();
  		$data=DB::select("call get_employee_by_uid('$uid')");
  		$catgory=DB::select("call get_finmartemployeemaster_Category()");
+    $catgoryupdtetl=DB::select("call update_Employee_Category_tl()");
+    $catgoryupdtealm=DB::select("call update_Employee_Category_alm()");
+    $alldata=DB::select ("call manage_emp_all_data()");
+
  		$digngtion=DB::select("call get_finmartemployeemaster_Designation()");     
     $role=DB::select("call get_finmartemployeemaster_roal_id()"); 
     $profilesave=DB::select("call get_finmartemployeemaster_profile()");
-    $status=DB::select("call get_Employee_Status()"); 
- 
+    $status=DB::select("call get_Employee_Status()");
+    $source=DB::select ("call employee_source_mapping()");
+    $currentsource=DB::select ("call get_current_source('$uid')"); 
 
+  foreach ($currentsource as $value) {
+       $currentsource_array[] = $value -> Source_name;
+     }
 
-		return view('dashboard.manage-employee',['data'=>$data,'catgory'=>$catgory,'digngtion'=>$digngtion,'role'=>$role,'profilesave'=>$profilesave,'status'=>$status]);
+		return view('dashboard.manage-employee',['data'=>$data,'catgory'=>$catgory,'catgoryupdtetl'=>$catgoryupdtetl,'catgoryupdtealm'=>$catgoryupdtealm,'alldata'=>$alldata,'digngtion'=>$digngtion,'role'=>$role,'profilesave'=>$profilesave,'status'=>$status,'source'=>$source,'currentsource_array'=>$currentsource_array]);
 }
 
 
          public function update_emp_details(Request $req){
         
-    //$id=Session::get('fbauserid');
-		DB::select('call usp_update_emp_details(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array(
+     $fbauser=Session::get('username');
+      $post_array = $req->all();
+      //print_r( $post_array);exit();
+      //$post_array = explode(',',$post_array['esource']);exit();
+ //foreach($post_array['esource'] as $esource){
+    if(isset($post_array['esource'])){
+ DB::select('call update_employee_campign_mapping(?,?,?,?)',array(
+   $fbauser,
+   $req->efbid,
+   $req->euid,implode(',', $post_array['esource'])));
+} 
+     
+//}
+
+  DB::select('call usp_update_emp_details(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array(
 		  $req->sfbaid, 
 		  $req->euid,   
 		  $req->efbid, 
@@ -65,7 +88,12 @@ class manageemploeeController extends CallApiController{
       $req->paysystem,
       $req->emptype, 
       $req->emolocation,
-      $req->ugropid
+      $req->ugropid,
+      $req->joindate,
+      $req->cclocation,
+      $req->tlname,
+      $req->emplanguage,
+       $req->secondlanguage
 
  ));
 
@@ -74,14 +102,16 @@ class manageemploeeController extends CallApiController{
 
 
 		public function addfbaemp(){
-
-		$profileadd=DB::select("call get_finmartemployeemaster_profile()"); 
+    $profileadd=DB::select("call get_finmartemployeemaster_profile()"); 
  		$catgoryadd=DB::select("call get_finmartemployeemaster_Category()");
  		$digngtionadd=DB::select("call get_finmartemployeemaster_Designation()");
  		//$roleadd=DB::select("call get_finmartemployeemaster_roal_id()"); 
  		$statusadd=DB::select("call get_Employee_Status()"); 
-     
-return view('dashboard.add-employee',['profileadd'=>$profileadd,'catgoryadd'=>$catgoryadd,'digngtionadd'=>$digngtionadd,'statusadd'=>$statusadd]);
+    $empsource=DB::select ("call employee_source_mapping");
+    $catgoryupdtealmadd=DB::select("call update_Employee_Category_alm()");
+    $catgoryupdtetladd=DB::select("call update_Employee_Category_tl()");
+   
+return view('dashboard.add-employee',['profileadd'=>$profileadd,'catgoryadd'=>$catgoryadd,'digngtionadd'=>$digngtionadd,'statusadd'=>$statusadd,'empsource'=>$empsource,'catgoryupdtealmadd'=>$catgoryupdtealmadd,'catgoryupdtetladd'=>$catgoryupdtetladd]);
 }
 
       public function getroleid($id){
@@ -93,18 +123,21 @@ return view('dashboard.add-employee',['profileadd'=>$profileadd,'catgoryadd'=>$c
       public function getugroupid($id){
     $usgroupid=DB::select("call usp_user_group_id('$id')");
       return json_encode($usgroupid);
-           
-          
-
-   }
-
-
-
+  }
 
 public function new_emp_add(Request $req){
-        
-    //$id=Session::get('fbauserid');
-		DB::select('call usp_insert_new_finemployee(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array(
+$fbauser=Session::get('username');
+   $post_array = $req->all();
+ if(isset($post_array['esource']))
+  foreach($post_array['esource'] as $esource){
+  DB::select('call insert_employee_source(?,?,?,?)',array(
+    $fbauser,
+    $post_array['efbid'],
+    $post_array['euid'],$esource));
+
+  }
+
+  DB::select('call usp_insert_new_finemployee(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',array(
    	 	$req->euid,  
    	 	$req->efbid,  
    	 	$req->eroleid,    
@@ -122,10 +155,16 @@ public function new_emp_add(Request $req){
       $req->paysystem, 
       $req->emolocation,
       $req->emptype,
-      $req->ugropid
+      $req->ugropid,
+      $req->joindate,
+      $req->cclocation,
+      $req->tlname,
+      $req->emplanguage,
+      $req->almname,
+      $req->secondlanguage
     	
 ));
-
+Session::flash('message', 'Record Insert Successfully');
 	  return redirect('emp-details');
 }
 
@@ -176,6 +215,26 @@ if ($err) {
  return  $response;
 }
 }
+
+        public function tl_category_name($EmployeeCategory){
+          // $tlname = DB::select("call user_list_tl_name()");
+          $tlname = DB::select("call user_list_tl_name(?)",array($EmployeeCategory) );
+            echo json_encode($tlname);
+      }
+
+
+                public function export_user_list(){
+          $query=[];
+          $query=DB::select('call get_finmartemployeemaster_data()');
+          $data = json_decode( json_encode($query), true) ;
+          return Excel::create('User-list', function($excel) use ($data) {
+          $excel->sheet('User list', function($sheet) use ($data)
+     {
+     $sheet->fromArray($data);
+      });
+          })->download('xls');
+    }
+
 
 }
 

@@ -38,12 +38,18 @@
             </div>
           </div>
              <div class="form-group row">
-                   <label for="inputPassword" class="col-md-2 col-form-label">Calltype</label>
+                   <label for="inputPassword" class="col-md-2 col-form-label">Connection result</label>
                <div class="col-md-6">
-                 <input type="text" class="form-control"  id="calltype" readonly>
+                 <!-- <input type="text" class="form-control"  id="conresult" readonly> -->
+                  <select class="form-control"data-style="btn-success" name="conresult" id="conresult" required>
+                <option value=''>-- Select --</option>
+                @foreach($condata as $val)
+                <option value="{{$val->id}}">{{$val->connection_type}}</option>
+                @endforeach
+              </select>
               </div>
             </div>
-             <div class="form-group row">
+             <!-- <div class="form-group row">
                    <label for="inputPassword" class="col-md-2 col-form-label">Outcome</label>
                <div class="col-md-6">
                  <input type="text"  class="form-control" readonly id="Outcome">
@@ -60,7 +66,7 @@
                <div class="col-md-6">
                 <input type="text"  class="form-control" readonly id="emp_category">
               </div>
-            </div>
+            </div> -->
             <div class="form-group row" id="followup_date_id">
              <label for="inputPassword" class="col-md-2 col-form-label">Followup Date <b style="color: red; font-size: 15px;">*</b></label>
                 <div class="col-md-6">                
@@ -176,14 +182,14 @@
 
         $.get("{{url('crm-followup-disposition')}}",{historyid:"{{$history_id}}"}).done(function(msg){ 
 
- 
+
           if(msg.res.action=="n"){
                 $('#check1').attr('checked', true);
           }
           if(msg.res.action=="y"){
                 $('#check2').attr('checked', true);
           }
-
+           // $("#conresult").val(msg.res.connection_type);
             $('#disposition_id').val(msg.res.id);  
             $('#fbamappin_id').val(msg.res.fbamappin_id);
             $('#disposition_').val(msg.res.disposition);

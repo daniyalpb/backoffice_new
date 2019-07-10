@@ -55,10 +55,15 @@
 </div>
 <script type="text/javascript">
 $( document ).ready(function() {
-       $("#crmineractiontable").DataTable();
+       $('#crmineractiontable').DataTable( {
+        "paging":   false,        
+    });
 });
 function fnExcelReport()
 {
+    $('#crmineractiontable').DataTable( {
+        "paging":   false,        
+    });
     var tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";
     var textRange; var j=0;
     tab = document.getElementById('crmineractiontable'); // id of table

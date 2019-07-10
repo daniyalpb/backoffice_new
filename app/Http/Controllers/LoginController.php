@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use Response;
-//use Validator;
+use Validator;
 use Redirect;
 use Session;
 use URL;
 use Mail;
-use Illuminate\Support\Facades\Validator;
+/*use Illuminate\Support\Facades\Validator;*/
 use Illuminate\Support\Facades\Hash;
 
 
@@ -55,14 +55,15 @@ $query=DB::select('call sp_user_login(?,?,?)',array($request->email,$request->pa
                     $request->session()->put('usergroup',$val->usergroup);
                     $request->session()->put('companyid',$val->companyid);
                     $request->session()->put('last_login',$val->last_login);
-$qu=DB::table('finmartemployeemaster')->select('fba_id','UId','Profile')
+$qu=DB::table('finmartemployeemaster')->select('fba_id','UId','Profile','Location')
        ->where('fba_id','=',$val->fbaid)->first();
  
        if($qu)
        {
            $request->session()->put('UId',$qu->UId);
            $request->session()->put('Profile',$qu->Profile);
-       } 
+           $request->session()->put('Location',$qu->Location);
+       }  
 
               if($val->usergroup=="7"){
                   return redirect()->intended('user_mapping');

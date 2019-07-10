@@ -11,6 +11,8 @@
         <link href="{{url('stylesheets/bootstrap/dataTables.bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+
+
 		<script type="text/javascript">
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('service-worker.js').then(()=>{

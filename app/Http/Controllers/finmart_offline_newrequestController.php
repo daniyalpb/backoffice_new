@@ -204,8 +204,12 @@ foreach($viewimgone as $val ){
         }
 
      public function getquotediscriptionnew($PkId,$product_name){
+<<<<<<< HEAD
+              //print_r($product_name); exit();
+=======
               //echo $PkId; 
               //echo $product_name; exit();
+>>>>>>> 804e2535aeb991f95a9572058286711b9bdd828b
         $quotedisc= DB::select('call get_quote_description_new(?,?)',array($PkId,$product_name));
          return json_encode($quotedisc);
            //return view('offline-request-new',['data'=>$data]); 
@@ -234,4 +238,34 @@ foreach($viewimgone as $val ){
           return json_encode($data);
            //return view('offline-request-new',['data'=>$data]); 
         }
+<<<<<<< HEAD
+
+        public function updatestatusofflinequotes(Request $req)
+        {
+          print_r($req->all());exit();
+         $image1=$this->fileupload_images($req->file('txtfile1'));
+         $image2=$this->fileupload_images($req->file('txtfile2'));
+         $image3=$this->fileupload_images($req->file('txtfile3'));
+         $image4=$this->fileupload_images($req->file('txtfile4'));
+         $data=DB::select('call update_offline_quotes_status(?,?,?,?,?,?)',array($image1,$image2,$req->txtticketno,$req->txtpolsat,$req->txtcsno,$req->txttransid));
+       
+        }
+        public  function fileupload_images($image)
+        {
+          $filepath='';
+          if($image!=''){
+            $name = time().'.'.$image->getClientOriginalName();
+            $destinationPath = public_path('upload/offlinecs/'); //->save image folder 
+            $image->move($destinationPath, $name);
+            $filepath=$name;
+          }else
+          {
+            $filepath='0';
+          } 
+
+          return $filepath;
+        }
+
+=======
+>>>>>>> 804e2535aeb991f95a9572058286711b9bdd828b
 }

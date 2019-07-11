@@ -1,22 +1,4 @@
 <?php return array (
-  'nesbot/carbon' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Carbon\\Laravel\\ServiceProvider',
-    ),
-  ),
-  'lavary/laravel-menu' => 
-  array (
-    'providers' => 
-    array (
-      0 => 'Lavary\\Menu\\ServiceProvider',
-    ),
-    'aliases' => 
-    array (
-      'Menu' => 'Lavary\\Menu\\Facade',
-    ),
-  ),
   'fideloper/proxy' => 
   array (
     'providers' => 
@@ -31,6 +13,17 @@
       0 => 'Laravel\\Tinker\\TinkerServiceProvider',
     ),
   ),
+  'lavary/laravel-menu' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Lavary\\Menu\\ServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Menu' => 'Lavary\\Menu\\Facade',
+    ),
+  ),
   'maatwebsite/excel' => 
   array (
     'providers' => 
@@ -40,6 +33,13 @@
     'aliases' => 
     array (
       'Excel' => 'Maatwebsite\\Excel\\Facades\\Excel',
+    ),
+  ),
+  'nesbot/carbon' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Carbon\\Laravel\\ServiceProvider',
     ),
   ),
   'webpatser/laravel-uuid' => 

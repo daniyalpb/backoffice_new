@@ -430,6 +430,8 @@
    var hiddenid='';
 
 function offlinedocview(fbaid){
+$('#imagefile').attr('src', '');
+$('#imagefileone').attr('src', '');
   //alert(fbaid);
   $("#hidedenquote").val(fbaid);
 

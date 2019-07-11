@@ -10,6 +10,12 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+ // Route::group(['namespace' => 'marketingcampaign' ], function() {
+Route::get('marketing-campaign/{referercode}','MarketingCampaignController@loadcampaign');
+Route::get('marketing_campaign_data','MarketingCampaignController@campaign_discription');
+
+
 Route::get('happybirthday1','HappybirthdayController@getbirthday');
 Route::get('happybirthday2','HappybirthdayController@getbirthday1');
 Route::get('happybirthday3','HappybirthdayController@getbirthday2');
@@ -20,6 +26,7 @@ Route::get('health-packages','BookAppointmentController@health_packages');
 Route::get('birthday-mail','finmartempBirthdayController@viewsmstemplate');
 Route::get('motor-lead-details/{FBAID}','motorleaddetailsController@view_motor_leads');
 Route::get('motor-lead-alldetails/{FBAID}/{month_no}','motorleaddetailsController@getleadata');
+Route::get('from-contacts-count','motorleaddetailsController@count_from_contacts');
 
 Route::post('health-insurance-analysis','BookAppointmentController@health_insurance_analysis');
 Route::get('order-summary','BookAppointmentController@order_summary');
@@ -106,12 +113,17 @@ Route::get('cc-report/{startdate}/{enddate}','allsalesreportController@creditcar
 Route::get('load-non-fba-list','newfbaController@nonfbalist');
 Route::get('new-fba-list','newfbaController@getnonfba');
 Route::get('export-excel','newfbaController@nonfbaexportexcel');
-
 route::post('upload-paygrid','newfbaController@uploadpaygrid');
 route::get('get-paygrid-doc/{fbaid}','newfbaController@getpaygriddoc');
 Route::get('load-update-fba-list/{fbaid}','newfbaController@update_fba_list'); 
 Route::get('load-update-pospnew/{id}','newfbaController@UpdatePospnonew');
-Route::post('get-type','newfbaController@update_type'); 
+Route::post('get-type','newfbaController@update_type');
+Route::post('fba-status','newfbaController@activeisactivefba');
+Route::post('fba-source-update','newfbaController@update_app_source');
+Route::get('update-Referedby-code','newfbaController@updte_refer_by_code');
+Route::get('update-alternate-mobile','newfbaController@update_alternate_mobile');
+Route::get('fba-crn-detail-view','fba_crn_details_Controller@fba_crn_view');
+Route::get('fba-crn-detail','fba_crn_details_Controller@fba_crn_details_view');
 
 
 
@@ -122,8 +134,6 @@ Route::post('upload-nca-doc','ncdcampaignController@insertncafbadoc');
 Route::get('view-nca-doc/{id}','ncdcampaignController@viewncadoc');   
 Route::get('ncd-update-status','ncdcampaignController@insert_ncd_status');
 Route::get('ncdstatuscurrent/{id}','ncdcampaignController@getncdstatus');
-
-
 //User_mapping vikas End
 // Finmart offline request start
 Route::get('offline-request','finmart_offline_requestController@display_offline_request');
@@ -133,8 +143,35 @@ Route::post('upload-doc','finmart_offline_requestController@insertoflinedoc');
 Route::get('view-upload-doc/{id}','finmart_offline_requestController@getdocoffline');
 Route::get('quotestatus/{id}','finmart_offline_requestController@getcurrentstatus');
 Route::get('view-upload-doc-one/{id}','finmart_offline_requestController@getdocofflineone');  
- Route::get('getquotediscription/{PkId}','finmart_offline_requestController@getquotediscription');
+Route::get('getquotediscription/{PkId}','finmart_offline_requestController@getquotediscription');
+Route::get('hierarchy-profile','newfbaController@get_hierarchy_profile'); 
+//Route::get('hierarchy-profile-name/{Profile}','newfbaController@get_hierarchy_uid');
+Route::post('update-profile','newfbaController@updateHierarchyprofile');
+Route::get('manually-pincode','manuallypincodeinsertController@insert_pincode_details');
+Route::get('get-manually-pincode','manuallypincodeinsertController@getstate');
+Route::post('get-manually-city','manuallypincodeinsertController@get_city_pincode');
+Route::post('manually-pincode','manuallypincodeinsertController@get_pincode');
+Route::post('insert-pincode','manuallypincodeinsertController@insert_pincod_data');
 
+// MANUALLY IFSC CODE START
+Route::get('manually-ifsc-code','manuallyIFSCinsertController@insert_ifsc_details');
+Route::get('get-manually-ifsc','manuallyIFSCinsertController@getbank');
+Route::post('ifsc-manually-city','manuallyIFSCinsertController@get_city_ifsc');
+Route::post('insert-ifsc-code','manuallyIFSCinsertController@insert_ifsc_code');
+// MANUALLY IFSC CODE END
+
+//CLUSTER hierarchy VIEW START
+Route::get('hierarchy_cluster_view','hierarchy_cluster_Controller@cluster_hierarchy_view');
+Route::get('hierarchy_cluster_data','hierarchy_cluster_Controller@get_profile_data_new');
+//Route::get('hierarchy_rrm_view/{rrmuid}','hierarchy_cluster_Controller@rrm_fba_view');
+Route::get('hierarchy_rrm_fba/{fbaid}','hierarchy_rrm_data_Controller@rrm_fba_view');
+route::get('fba_details/{uid}','hierarchy_cluster_Controller@get_fba_details');
+Route::get('hierarchy_state_head/{fbaid}','hierarchy_rrm_data_Controller@state_head_data');
+Route::get('hierarchy_fieldsales_data/{uid}','hierarchy_rrm_data_Controller@fieldsales_fba_view');
+Route::get('hierarchy_state_data/{uid}','hierarchy_rrm_data_Controller@state_fba_view');
+route::get('fieldsales_details/{uid}','hierarchy_cluster_Controller@fieldsales_fba');
+Route::get('tree_view','hierarchy_rrm_data_Controller@tree_view_model');
+Route::get('fba-transection-history/{fbaid}','newfbaController@fba_transaction_history');
 
 // Finmart offline request End
 // Finmart offline request START NEW
@@ -145,12 +182,16 @@ Route::get('get-life-data','finmart_offline_newrequestController@getlifedata');
 Route::get('get-motor-data','finmart_offline_newrequestController@etproductdata/');
 Route::get('offline-status-new/{PkId}','finmart_offline_newrequestController@getnewcurrentstatus');
 Route::get('insert-new-status','finmart_offline_newrequestController@new_updte_offline_amt_date');
-Route::get('new-update-status','finmart_offline_newrequestController@new_insert_offline_status');
+Route::post('new-update-status','finmart_offline_newrequestController@new_insert_offline_status');
 Route::post('new-upload-doc','finmart_offline_newrequestController@newinsertoflinedoc');
 Route::get('getnewquotediscription/{PkId}','finmart_offline_newrequestController@getnnewquotediscription');
 
 Route::get('view-upload-doc-one-new/{id}','finmart_offline_newrequestController@getdocofflineonenew');
 Route::get('view-upload-doc-two-new/{id}','finmart_offline_newrequestController@getdocofflinenew');
+Route::post('update-status-offline-quotes','finmart_offline_newrequestController@updatestatusofflinequotes');
+
+
+Route::get('view-uplod-doc-cs/{id}','finmart_offline_newrequestController@viw_doco_ffline_cs');
 
 // Finmart offline request END NEW
 
@@ -169,7 +210,6 @@ Route::post('empuidupdate','statecitywiseprofileController@updateuid');
 
 // Route::get('get-city-pincode/{flag}/{value}',array('as'=>'FSMRegister.ajax','uses'=>'statecitywiseprofileController@profilecity_pincode'));
 
-
 // Vikas FBA EXCEPTION MAPPING START
   Route::get('fba-crm-exception','fba_crm_exceptionController@show_state_city');
   Route::get('get-fba-exception','fba_crm_exceptionController@getstateexceptionfba');
@@ -178,8 +218,6 @@ Route::post('empuidupdate','statecitywiseprofileController@updateuid');
   Route::post('fba-exception-data','fba_crm_exceptionController@statecityfbaexception'); 
   Route::post('fbaexception-city','fba_crm_exceptionController@fba_exception_city');
  // Route::get('fbaexception-city/{id}',array('as'=>'leadquick.ajax','uses'=>'fba_crm_exceptionController@fba_exception_city'));
-
-
 
  // --------------------------------------
 // vivek start
@@ -199,6 +237,7 @@ Route::get('pincode-update-table','UploadFBACmMappingController@updatepintable')
 /////////////shubham podp
 Route::get('Fba-list-Update-posp/{id}','FbaController@UpdatePospno');
 
+
 // export excel  
 Route::get('export','FbaController@exportexcel');
 // Route::get('export/{fdate}/{todate}','FbaController@exportexcel');
@@ -206,7 +245,12 @@ Route::get('export','FbaController@exportexcel');
 
 // Route::get('forgot-password','LoginController@forgotpassword');
 // Route::post('forgot-password','LoginController@forgot_password');
+// MY LARAVEL TEST ROUTE START
 
+// droup_down_with_checkbox
+Route::get('droup_down_with_checkbox','mylaraveltestController@droup_down_with_checkbox');
+
+// MY LARAVEL TEST ROUTE End
 
 
 
@@ -228,6 +272,9 @@ Route::get('refresh-data/{fbaid}','FbaController@get_refresh_data');
 Route::get('fba-count/{fbaid}','FbaController@get_fba_count');
 
 // Refresh get dataget_refresh_data functiolity End
+Route::get('refresh-data-new/{fbaid}','newfbaController@get_refresh_data_new');
+Route::get('fba-count-new/{fbaid}','newfbaController@get_fba_count_new');
+Route::get('offline-count-new/{PkId}','finmart_offline_newrequestController@get_offline_count');
 
 
 
@@ -236,10 +283,16 @@ Route::get('fba-count/{fbaid}','FbaController@get_fba_count');
 Route::get('finmartemployee-details','manageemploeeController@finemployeeview'); 
 Route::get('emp-details','manageemploeeController@allemployeedata');  
 Route::get('manage-employee/{uid}','manageemploeeController@viewmaageemployy');
-Route::post('update_detailsemp','manageemploeeController@update_emp_details'); 
+Route::post('update_detailsemp','manageemploeeController@update_emp_details');
+Route::get('user_list_export','manageemploeeController@export_user_list'); 
+
+// Route::get('get-cs-no/{PkId}','finmart_offline_newrequestController@get_cs_no');
+
 
 // add employee start  
 Route::get('add-employee','manageemploeeController@addfbaemp');
+Route::get('add-employee-new','manageemploeeController@addfbaemp');
+
 Route::post('add-new-emp','manageemploeeController@new_emp_add'); 
 // Manage Emploee End
 // prodouct-lead-details Start
@@ -309,11 +362,21 @@ Route::get('get-role-id/{id}','manageemploeeController@getroleid');
 Route::get('get-ugroup-id/{id}','manageemploeeController@getugroupid');
 
 Route::get('fba-data','manageemploeeController@getfbadata');
-Route::get('uid-data','manageemploeeController@getuiddata');  
+Route::get('uid-data','manageemploeeController@getuiddata'); 
+Route::get('category-tl-name/{EmployeeCategory}','manageemploeeController@tl_category_name');
+Route::get('rrm-tl-name/{Profile}','manageemploeeController@rrm_tl_name');
+
+ 
+Route::get('Lead-data-import','CaptureleaddataController@getleaddata');
+Route::post('import-lead-data','CaptureleaddataController@importleaddata');
 
 
 // Route::get('fba-list/{salescode}/{fbaid}',array('as'=>'fba-list.ajax','uses'=>'FbaController@salesupdate'));
 
+//VikasTree_View_Test Start
+Route::get('my-test-blade','tree_view_test_Controller@tree_view');
+
+//VikasTree_View_Test END
 
 
 Route::get('fba-list/{fbaid}/{value}/{flag}',array('as'=>'fba-list.ajax','uses'=>'FbaController@updateposp'));
@@ -339,6 +402,7 @@ Route::get('register-form','RegisterFormController@register_form');
 
 //FSM Details
 Route::get('Fsm-Details','FsmDetailsController@FsmDetails');
+Route::get('get-app-source/{AppSource}','newfbaController@get_app_source');
 
 /// shubham ///
 
@@ -366,10 +430,6 @@ Route::get('send-sms-needaproval/{userid}','SendSmsRightsController@isneedapprov
 Route::get('Approve-send-sms','SendSmsapprovalController@sendsmsview');
 
 Route::get('Fba-profile/{fbaid}','FbaprofileController@fbaprofileview');
-
-
-
-
 Route::post('Fba-profile-insert','FbaprofileController@Insertfbaprofile');
 Route::get('Fba-profile-fbaprofile/{fbaid}','FbaprofileController@getfbaprofile');
 Route::get('fba-profile-company-mapping/{profileid}','FbaprofileController@getfbaprofilecompanymapping');

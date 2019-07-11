@@ -21,10 +21,8 @@ class bankofferController extends InitialController
        // $pincode=DB::select("call usp_load_pincodes(3,".'pincode'.")");
 
        return view('dashboard.bankoffer',['query'=>$query,'state'=>$state,'pincode'=>$pincode]);
-  
+   }
 
-       
-      
-        }
+
 
 }

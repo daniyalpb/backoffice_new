@@ -122,7 +122,13 @@ class QueriesController extends Controller
                
                 $status=7;
                }else if($req->queries==8 || $req->export==8){
-                     $query=DB::select('call usp_load_transactions_today() ');
+
+                if($req->app_source == '' or $req->app_source == null){
+                  $p_app_source = '';
+                }else{
+                  $p_app_source = $req->app_source;
+                }
+                     $query=DB::select('call usp_load_transactions_today(?,?) ' ,  array($req->daily_trans_date,$p_app_source) );
                                if(isset( $req->export)){
                                     $data = json_decode( json_encode($query), true) ;
                       return Excel::create('laravelcode', function($excel) use ($data) {
@@ -156,9 +162,9 @@ class QueriesController extends Controller
                
 
  
-               
+               $app_source_master = DB::select('call app_source_master()');
 
-        	     return view('dashboard/queries',['query'=>$query,'status'=>$status]);
+        	     return view('dashboard/queries',['query'=>$query,'status'=>$status,'app_source_master'=>$app_source_master]);
         }
 
 

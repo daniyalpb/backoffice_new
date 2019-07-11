@@ -24,140 +24,42 @@
     <hr>
   </div>
 
+      <table class="datatable-responsive table table-striped table-bordered nowrap" id="example">
+      <tr>
+      <th><h4>Select</h4></th>
+       <th><h4>State</h4></th>
+      <th><h4>City</h4></th>
+      <th><h4>Pincode</h4></th>
+       </tr>
+        <td><input type="radio" name="chekpin" id="yes" checked="" value="1"></td>
+       <tr id="TrSection1">
+       <td></td>
+      
+       <div id="Section1" name="Section1">
 
-
-<!--      <div class="form-group col-md-6">
-        <div class="col-md-5">
-           <button type="button" class="btn btn-default btn-sm dropdown-toggle form-control" data-toggle="dropdown">--SELECT --</button>
-          <ul class="dropdown-menu" style="min-width: 24rem;   height: 250px; overflow: auto;">
-             @foreach($stateview as $val)
-            <li style="font-size: 17px;"><a href="#" class="small" data-value="option1" tabIndex="-1"><input type="checkbox" name="state[]" id="state" value="{{$val->state_id}}" style="margin: 4px 7px 0;" />{{$val->state_name}}</a></li>
-            @endforeach
-          </ul>
-        </div>
-      </div> -->
-
-
-      <div class="col-md-4 col-sm-4 col-xs-12">
-       <h4 style="margin-left: 45%;">State</h4>
-       <ul class="dropdown-menu" style="min-width: 24rem;  height: 250px; overflow: auto;"> </ul>
-
-       <div class="form-group">
-         <select multiple="multiple" class="form-control select-sty" name="state[]" id="state" >    
-         </select>
-       </div>
-     </div>
-
-
-<!--      <div class="form-group col-md-6">
-        <div class="col-md-5">
-           <button type="button" class="btn btn-default btn-sm dropdown-toggle form-control" data-toggle="dropdown">--SELECT --</button>
-          <ul class="dropdown-menu" style="min-width: 24rem;   height: 250px; overflow: auto;">
-           @isset($profilrcity)
-             @foreach($profilrcity as $val)
-            <li style="font-size: 17px;"><a href="#" class="small" data-value="option1" tabIndex="-1"><input type="checkbox" name="city[]" id="city" value="{{$val->PinCode}}" style="margin: 4px 7px 0;" />{{$val->cityname}}</a></li>
-            @endforeach
-              @endisset
-          </ul>
-        </div>
-         </div>
-       -->
-
-
-       <div class="col-md-4 col-sm-4 col-xs-12">
-         <h4 style="margin-left: 45%;">City</h4>
-         <div class="form-group">
+          <td><select multiple="multiple" class="form-control select-sty" name="state[]" id="state" >    
+         </select></td><td>
            <select  multiple="multiple" class="form-control select-sty" name="city[]" id="city">
-           </select>
-         </div>
-       </div>
-
-       <div class="col-md-4 col-sm-4 col-xs-12">
-         <h4 style="margin-left: 45%;">Pin Code</h4>
-         <div class="form-group">
+           </select></td>
+           <td>
            <select  multiple="multiple" class="form-control select-sty" name="PinCode[]" id="PinCode">
-           </select>
-         </div>
-       </div>
-
-
-<!--      <div class="form-group col-md-6">
-        <div class="col-md-5">
-        <label>Profile:</label>
-        </div>
-         <div class="col-md-7">
-        <select name="eprofile" id="eprofile"  class="text-primary form-control">
-             @isset($empprofile)
-      @foreach($empprofile as $val)
-      <option value="{{$val->Profile}}">{{$val->Profile}}</option>
- @endforeach
-   @endisset
-          </select>
-          </div>
-        </div> -->
-        <div class="form-group col-md-6"> 
-          <div class="col-md-5">
+           </select></td></div></tr>
+            <td><input type="radio" name="chekpin" id="no" value="0"></td>
+           <tr id="TrSection2" style="display: none">
+          
+           <div id="Section2" name="Section2">
+           <td colspan=3><textarea rows="4" name="txtpincode" id="txtpincode" placeholder="Enter Comma Seperated Pin Codes Here..."></textarea></td></div></tr>
+           <tr><td></td><td>
+           @foreach($empprofile as $val)
+           @endforeach
             <select name="eprofile" id="eprofile"  class="text-primary form-control" onchange="getprofilename(this.value,document.getElementById ('PinCode').value)" value="{{$val->Profile}}" >
              <option value="">--Select Profile--</option>
              @foreach($empprofile as $val)
-             <!-- ($val->Profile->Profile) -->{
-             <option value="{{$val->role_id}}">{{$val->Profile}}</option>
-           }
-           
-           @endforeach
-         </select>
-       </div>
-     </div>
-
-
-
-
-     <!-- <div class="button-group"> -->
-<!--        <div class="form-group col-md-6">
-        <div class="col-md-5">
-           <button type="button" class="btn btn-default btn-sm dropdown-toggle form-control" data-toggle="dropdown">--SELECT PROFILE--</button>
-          <ul class="dropdown-menu" style="min-width: 24rem;   height: 250px; overflow: auto;">
-             @foreach($empprofile as $val)
-            <li style="font-size: 17px;"><a href="#" class="small" data-value="option1" tabIndex="-1"><input type="checkbox" name="eprofile" onclick="getprofilename(this.value,document.getElementById('PinCode').value)" value="{{$val->Profile}}" style="margin: 4px 7px 0;" />{{$val->Profile}},{{$val->role_id}}</a></li>
-            @endforeach
-          </ul>
-           
-        </div>
-      </div> -->
-
-
-
- <!--     <div class="col-md-4 col-sm-4 col-xs-12" style="margin-left: -499px">
-     <h4 style="margin-left: 45%;">Name</h4>
-     <div class="form-group"> -->
-       <div class="form-group col-md-6" style="margin-left: -409px"> 
-        <div class="col-md-5">
-         <select class="form-control select-sty" name="pname" id="pname">
-         </select>
-       </div>
-     </div> 
-
-     <div class="col-md-6" style="margin-left:-383px;margin-top: 7px;">
-      <input type="checkbox" name="mapfba" id="mapfba" value="1"> Override FBA Mapping
-    </div>
-
-
-    <div class="col-md-12">
-      <div class="overflow-scroll">
-        <div class="table-responsive" >
- <!--    <table class="datatable-responsive table table-striped table-bordered nowrap" id="example">
-
-                     <thead>
-                  </thead>
-                <tbody>
-             </tbody>
-           </table> -->
-           
-           <input type="Submit" name="statussub" id="statussub" value="submit" class="btn btn-success">
-
-         </div>
-       </div>
-     </div>
+             <option value="{{$val->role_id}}">{{$val->Profile}}</option>           
+             @endforeach
+         </select></td><td><select class="form-control select-sty" name="pname" id="pname">
+         </select></td><td><input type="checkbox" name="mapfba" id="mapfba" value="1"> Override FBA Mapping</td></tr><tr><td align=center colspan=4><input type="Submit" name="statussub" id="statussub" value="submit" class="btn btn-success"></td></tr>
+    </table>
    </form>
 @endif
 
@@ -168,7 +70,7 @@
        success: function(datas)  
        {
          var data=$.parseJSON(datas);
- // console.log(data);
+
  if(data)
    { $.each(data, function( index, value ) {
      $('#state').append('<option value="'+value.state_id+'">'+value.state_name+'</option>');
@@ -213,7 +115,7 @@
 
     $('#city').on('change', function() {
       $("#PinCode").empty();
-   // alert('okae');
+
    var state=$('#city').find(":selected").val();
    var array = "";
    var i=0;
@@ -224,7 +126,7 @@
      array+= $(this).val()+",";
    });
    console.log(array);
-  // $('#PinCode').append(arr); 
+
 
   
   
@@ -268,8 +170,7 @@
   }
 
   $( event.target ).blur();
-  
-   //console.log( options );
+
    return false;
  });
 </script>
@@ -278,71 +179,61 @@
 <script type="text/javascript">
   function getprofilename(Profile){
    $("#pname").empty();
-    //console.log(Profile);
+
     $.ajax({ 
-        //url: 'profile-name/'+Profile+'/'+PinCode,
+
         url: 'profile-name/'+Profile,
         method:"GET",
         success: function(data){
           var msg = JSON.parse(data);
-          //$("#pname").val("");
+          $("#pname").append('<option value="Null">No Mapping</option');
+
           $.each(msg, function(index) {
             $("#pname").append('<option value="'+msg[index].UId+'">'+msg[index].EmployeeName+'</option');
-            //alert(msg[index].EmployeeName);
+
           });
 
-          //console.log(data);
+
         }
       });
   }
 
 
 </script>
-
-
-
-
-
-<!-- 
 <script type="text/javascript">
+ $(function() {
+   $("input[name='chekpin']").click(function() {
+     if ($("#yes").is(":checked")) {
+       $("#TrSection1").show();
+      $("#TrSection2").hide();
+     } else {
+       $("#TrSection1").hide();
+        $("#TrSection2").show();
+     }
+   });
+ });
+</script>
+
+<script type="text/javascript">
+   
+   $(function(){
+   $('#txtpincode').keyup(function(){    
+   var yourInput = $(this).val();
+   re = /[A-Za-z]?[A-Za-z `~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi;
+   var isSplChar = re.test(yourInput);
+    if(isSplChar)
+    {
+    var no_spl_char = yourInput.replace(/[A-Za-z]?[A-Za-z `~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
+    $(this).val(no_spl_char);
+    }
+  });
  
-  $(document).ready(function(){
-    //alert('test');
-      $('#statussub').onclick(function () {
-      alert('test');
-   ($('#updateempdtl').valid()){
-   $.ajax({ 
-   url: "{{URL::to('update-uid')}}",
-   method:"POST",
-   data: $('#updateempdtl').serialize(),
-   success: function(msg)  
-   {
-    alert('Update Successfully');
-    //window.location.reload();
-
-
-   }
-
-});
- }
-
 });
 
-      });
 
-</script> -->
-<!-- <script type="text/javascript">
-function Formvalidation(){
-var validate = validateForm();
-if( validate == true ){
-    alert("success");
-}
-else{
-    alert("not success");
-}
-return validate;
-}
+</script>
 
-</script> -->
+
+
 
 @endsection

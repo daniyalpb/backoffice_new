@@ -48,6 +48,8 @@ use Excel;
 		$state_string .= implode("','",$req->state);
 		$state_string .= "'";
 
+		
+
 	$fbascity = DB::select("select FBAID,FullName from FBAMast where StatID in ($state_string) and City in($city_string) and AppSource = 1");
 	return json_encode($fbascity);
 }

@@ -51,13 +51,14 @@ $query=DB::select('call sp_user_login(?,?,?)',array($request->email,$request->pa
                     $request->session()->put('last_login',$val->last_login);
 
 
-$qu=DB::table('finmartemployeemaster')->select('fba_id','UId','Profile')
+$qu=DB::table('finmartemployeemaster')->select('fba_id','UId','Profile','Location')
        ->where('fba_id','=',$val->fbaid)->first();
- 
+ // print_r($qu->Location);exit();
        if($qu)
        {
            $request->session()->put('UId',$qu->UId);
            $request->session()->put('Profile',$qu->Profile);
+           $request->session()->put('Location',$qu->Location);
        } 
 
               if($val->usergroup=="7"){

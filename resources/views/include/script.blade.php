@@ -1398,6 +1398,9 @@ function fncalc(msdsSearch,msdsValue)
         if(msdsSearch=="pospname" && msdsValue!="draw"){
            return true;
         }
+        if(msdsSearch=="AppSource" && msdsValue!="draw"){
+           return true;
+        }
             
           return false;
 }

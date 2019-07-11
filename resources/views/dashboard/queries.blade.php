@@ -1,5 +1,24 @@
 @extends('include.master')
- @section('content')
+@section('content')
+
+<style>
+.qry-btn1 {
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    display: inline-block;
+    margin-bottom: 5px !important;
+    font-weight: normal;
+    text-transform: uppercase;
+    font-size: 12px !important;
+    padding: 7px 16px;
+    background: #337ab7;
+    color: #d1e2f1;
+}
+.error_class{
+  color : red;
+}
+</style>
 
        <div class="container-fluid white-bg">
        <div class="col-md-12"><h3 class="mrg-btm">Queries</h3></div>
@@ -11,7 +30,7 @@
   <a href="{{url('queries')}}?queries=5" class="qry-btn">Inactive POSP </a>
   <a href="{{url('queries')}}?queries=6" class="qry-btn">POSP Without POSP No</a>
   <a href="{{url('queries')}}?queries=7" class="qry-btn">POSP Without Payment</a>
-  <a href="{{url('queries')}}?queries=8"  class="qry-btn">Transaction Today</a>
+  <a data-toggle="modal" data-target="#daily_transaction_nodal"  class="qry-btn1">Daily Transactions</a>
   <a href="{{url('queries')}}?queries=9"  class="qry-btn">Not Posp but sold policy</a>
 </div>
 
@@ -39,6 +58,8 @@
   </table>
 </div>
 <br>
+
+
         <table id="example" class="datatable-responsive table table-striped table-bordered dt-responsive nowrap" >
                  <thead >
                  <tr class="thead_cl">
@@ -97,7 +118,7 @@
 
                @elseif($status==2)
                <td> {{$val->City}}</td>
-               <td> {{$val->HEALTH}}</td>
+               <!-- <td> {{$val->HEALTH}}</td> -->
                <td> {{$val->MOTOR}}</td>
                <td> {{$val->HOME_LOAN}}</td>
                <td> {{$val->PL}}</td>
@@ -113,7 +134,7 @@
                @elseif($status==5)
                <td> {{$val->City}}</td>
                  <td> {{$val->created_date}}</td>
-                  <td> {{$val->HEALTH}}</td>
+                  <!-- <td> {{$val->HEALTH}}</td> -->
                <td> {{$val->MOTOR}}</td>
                
                <td> {{$val->TWO_WHEELER}}</td>
@@ -127,12 +148,15 @@
                 <td> {{$val->POSPName}}</td>
                @elseif($status==8)
                <td> {{$val->City}}</td>
-               <td> {{$val->HEALTH}}</td>
+              <!--  <td> {{$val->HEALTH}}</td> -->
                <td> {{$val->MOTOR}}</td>                           
+               <td> {{$val->HOME_LOAN}}</td>                           
                <td> {{$val->TWO_WHEELER}}</td>
                <td>{{$val->Life}}</td>
                <td>{{$val->PL}}</td> 
                <td>{{$val->RRM_Name}}</td>   
+               <td>{{$val->Date}}</td>   
+               <td>{{$val->Source_name}}</td>   
                @else  
                <td> not found</td>
                  <?php  break; ?>
@@ -151,13 +175,72 @@
       </div>
 
 
+{{-- DAILY TRANSACTION SELECT DATE MODAL WINDOW --}}
+<div class="salesupdate modal fade" role="dialog" id="daily_transaction_nodal">   
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header"  >
+        <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        <h4 class="modal-title">Daily Transactions</h4>
+      </div>
+      <div class="modal-body">
+        <form name="form_daily_transactions" id="form_daily_transactions">
+         {{ csrf_field() }}
+
+      <div class="form-group">
+       <p>Select Date</p>
+       <div id="pm_datepicker" class="input-group date" data-date-format="yyyy-mm-dd">
+          <input class="form-control date-range-filter" type="text" readonly="readonly" placeholder="Select Date" name="daily_trans_date" id="daily_trans_date"/>
+          <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+       </div>
+       <div><span class='error_class' id='err_daily_trans_date'></span></div>
+      </div>
+
+
+      <div class="form-group">
+       <p>Select Source</p>
+       <select class='form-control' name='app_source' id='app_source'>
+        <option value=''>Select Source</option>
+        @foreach($app_source_master as $val)
+          <option value='{{ $val -> ID }}'>{{ $val -> Source_name }}</option>
+        @endforeach
+       </select>
+      </div>
+
+        </form>
+        <div class="modal-footer"> 
+          <button class="btn btn-default" type="button" data-dismiss="modal">Close</button>
+          <button class="btn btn-primary" type="button" id='btn_submit_daily_transactions'>Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{-- DAILY TRANSACTION SELECT DATE MODAL WINDOW --}}
 
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript">
+<script type="text/javascript" src="{{ url('javascripts/bootstrap-datepicker.js') }}"></script>
 
-  
+<script type="text/javascript">
+  $("#btn_submit_daily_transactions").on('click',function(){
+
+    if($("#daily_trans_date").val() == '' || $("#daily_trans_date").val() == null){
+      $("#err_daily_trans_date").text('Please Select Date');
+      return false;
+    }else{
+      window.location.href = '{{ url('queries?queries=8') }}&daily_trans_date=' + $("#daily_trans_date").val() + '&app_source=' + $("#app_source").val();
+    }
+  });
+
+
+  $("#pm_datepicker").datepicker({ 
+    autoclose: true, 
+    todayHighlight: true,
+    endDate: new Date(),
+  }).datepicker("getDate");
+
 </script>
     
   <script>

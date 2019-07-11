@@ -5,10 +5,14 @@
 <p class="alert alert-success"><?php echo e(Session::get('message')); ?></p>
 </div>
 <?php endif; ?>
+
+<?php if(Session::get('usergroup')=='13'||Session::get('usergroup')=='50'): ?>
 <div class="container-fluid white-bg">
   <div class="form group">
            	 <div class="col-md-4 col-xs-12">
               <h4>Update FBA Details</h4>
+           
+
             </div>
           </div>
 
@@ -17,7 +21,11 @@
     <span class="glyphicon glyphicon-search"></span> Search</button>
  placeholder="Enter FBA ID"  -->
 <!-- <form id="demo_form" name="demo_form" class="form-horizontal" method="POST" action="<?php echo e(url('update_fbamaster')); ?>"> 
-  <?php echo e(csrf_field()); ?>  -->
+  <?php echo e(csrf_field()); ?>  --> 
+ <div> <a href="<?php echo e(url('manually-ifsc-code')); ?>" class="qry-btn" style="margin-top:-2px;margin-left:545px;" name="udtbankdetails" id="udtbankdetails" target="_blank" >Update Bank Details</a>
+
+ <a href="<?php echo e(url('manually-pincode')); ?>" class="qry-btn"  name="udtbankdetails" id="udtbankdetails" target="_blank" >Update Pin Code</a>
+ </div>
 
 <form id="demo_form" name="demo_form" class="form-horizontal" method="POST" action="<?php echo e(url('update_fbamaster')); ?>"> 
  <?php echo e(csrf_field()); ?> 
@@ -32,8 +40,6 @@
       <span class="glyphicon glyphicon-search"></span> Search</button>
       </div>
       </div><br><br>
-
- 
 <!-- <form id="demo_form" name="demo_form" class="form-horizontal" method="POST" action="<?php echo e(url('update_fbamaster')); ?>"> 
            <?php echo e(csrf_field()); ?>  -->
 
@@ -173,5 +179,7 @@
 </script>
 
 
+
 <?php $__env->stopSection(); ?>
+<?php endif; ?>
 <?php echo $__env->make('include.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

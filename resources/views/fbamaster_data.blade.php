@@ -6,10 +6,14 @@
 <p class="alert alert-success">{{ Session::get('message') }}</p>
 </div>
 @endif
+
+@if(Session::get('usergroup')=='13'||Session::get('usergroup')=='50')
 <div class="container-fluid white-bg">
   <div class="form group">
            	 <div class="col-md-4 col-xs-12">
               <h4>Update FBA Details</h4>
+           
+
             </div>
           </div>
 
@@ -18,7 +22,11 @@
     <span class="glyphicon glyphicon-search"></span> Search</button>
  placeholder="Enter FBA ID"  -->
 <!-- <form id="demo_form" name="demo_form" class="form-horizontal" method="POST" action="{{url('update_fbamaster')}}"> 
-  {{csrf_field()}}  -->
+  {{csrf_field()}}  --> 
+ <div> <a href="{{url('manually-ifsc-code')}}" class="qry-btn" style="margin-top:-2px;margin-left:545px;" name="udtbankdetails" id="udtbankdetails" target="_blank" >Update Bank Details</a>
+
+ <a href="{{url('manually-pincode')}}" class="qry-btn"  name="udtbankdetails" id="udtbankdetails" target="_blank" >Update Pin Code</a>
+ </div>
 
 <form id="demo_form" name="demo_form" class="form-horizontal" method="POST" action="{{url('update_fbamaster')}}"> 
  {{csrf_field()}} 
@@ -33,8 +41,6 @@
       <span class="glyphicon glyphicon-search"></span> Search</button>
       </div>
       </div><br><br>
-
- 
 <!-- <form id="demo_form" name="demo_form" class="form-horizontal" method="POST" action="{{url('update_fbamaster')}}"> 
            {{csrf_field()}}  -->
 
@@ -174,4 +180,6 @@
 </script>
 
 
+
 @endsection
+@endif

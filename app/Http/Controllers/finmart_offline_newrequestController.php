@@ -18,6 +18,11 @@ class finmart_offline_newrequestController extends CallApiController
     $Quotes = DB::select("call usp_get_offline_quotes_new()");
     return view('offline-request-new',['Quotes'=>$Quotes]); 
 	}
+  //       public function get_cs_no($PkId){
+  //       $csno=DB::select("call get_data_cs_no_offine('$Transid')");
+
+  //           return view('offline-request-new',['csno'=>$csno]); 
+  // }
 
     public function getmotorcarrierdata(){
      //$fbaid=Session::get('fbaid');
@@ -57,7 +62,7 @@ class finmart_offline_newrequestController extends CallApiController
 		DB::select('call usp_update_status_details(?,?,?)',array(
 	    $req->hiddenid,		
 		  $req->ddltype,  
-   	 	$req->statuscomment,  
+   	 	$req->statuscomment,
 ));
       //  Session::flash('message', 'Record has been saved successfully');
       //return Redirect::back(); 
@@ -67,10 +72,22 @@ class finmart_offline_newrequestController extends CallApiController
 
       public function new_insert_offline_status(Request $req){                
       //print_r($req->all()); exit();
-    DB::select('call usp_new_update_status_details(?,?,?)',array(
+   
+          $image1=$this->fileupload_images($req->file('txtfile1'));
+         $image2=$this->fileupload_images($req->file('txtfile2'));
+         $image3=$this->fileupload_images($req->file('txtfile3'));
+         $image4=$this->fileupload_images($req->file('txtfile4'));
+
+       
+      DB::select('call usp_new_update_status_details(?,?,?,?,?,?,?)',array(
       $req->hiddenid,   
       $req->ddltype,  
-      $req->statuscomment,  
+      $req->statuscomment,
+      $image1,
+      $image2, 
+      $image3, 
+      $image4,   
+  
 ));
         
 }
@@ -204,8 +221,7 @@ foreach($viewimgone as $val ){
         }
 
      public function getquotediscriptionnew($PkId,$product_name){
-              //echo $PkId; 
-              //echo $product_name; exit();
+              //print_r($product_name); exit();
         $quotedisc= DB::select('call get_quote_description_new(?,?)',array($PkId,$product_name));
          return json_encode($quotedisc);
            //return view('offline-request-new',['data'=>$data]); 
@@ -234,4 +250,45 @@ foreach($viewimgone as $val ){
           return json_encode($data);
            //return view('offline-request-new',['data'=>$data]); 
         }
+
+        public function updatestatusofflinequotes(Request $req)
+        {
+          // print_r($_POST);
+          // print_r($_FILES);
+          // exit();
+         // $image1=$this->fileupload_images($req->file('txtfile1'));
+         // $image2=$this->fileupload_images($req->file('txtfile2'));
+         // $image3=$this->fileupload_images($req->file('txtfile3'));
+         // $image4=$this->fileupload_images($req->file('txtfile4'));
+
+         $data=DB::select('call update_offline_quotes_status(?,?,?,?)',array($req->txtticketno,$req->txtpolsat,$req->txtcsno,$req->txttransid));
+
+         // array($image1,$image2,$image3,$image4,$req->txtticketno,$req->txtpolsat,$req->txtcsno,$req->txttransid));
+       
+        }
+        public  function fileupload_images($image)
+        {
+          $filepath='';
+          if($image!=''){
+            $name = time().'.'.$image->getClientOriginalName();
+            $destinationPath = public_path('upload/offlinecs/'); //->save image folder 
+            $image->move($destinationPath, $name);
+            $filepath=$name;
+          }else
+          {
+            $filepath='0';
+          } 
+
+          return $filepath;
+        }
+
+
+          public function viw_doco_ffline_cs($id){ 
+            //print_r($id);
+          //print_r($req->all()); exit(); 
+     $viewimgecs= DB::select('call get_offline_doc_cs_no (?)',array($id));
+    echo json_encode($viewimgecs); 
+
+
+}
 }

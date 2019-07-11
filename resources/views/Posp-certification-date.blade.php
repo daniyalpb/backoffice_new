@@ -27,11 +27,6 @@
 
 <input type="text" class="form-control" id="txtfbasearch"  name="txtfbasearch" placeholder="Search" onkeyup="searchdata()" style="display:none; display:margin-top:2px; width:14%;margin-right: 272px; margin-top: -44px;float:right;"/>
   </form>
-
-
-
-
-
  <table id="Certificationtbl" class="table table-bordered table-striped tbl" >
                                   <thead>
                                       <tr>
@@ -49,25 +44,25 @@
                                      </tr>
 
                  
-                </thead>
-                <tbody>
-                    @isset($rcreationdate)
-                @foreach($rcreationdate as $val)     
+                                   </thead>
+                                   <tbody>
+                                    @isset($rcreationdate)
+                                    @foreach($rcreationdate as $val)     
 
-              <td><?php echo $val->fbaid; ?></td> 
-          <td><?php echo $val->FullName; ?></td>   
-          <td><?php echo $val->createdate; ?></td>
-          <td><?php echo $val->pospcreationdate; ?></td>
-          <td><?php echo $val->pospcertificationdate; ?></td>  
-          <td><?php echo $val->City; ?></td> 
-          <td><?php echo $val->Pincode; ?></td> 
-          <td><?php echo $val->statename; ?></td> 
-          <td><?php echo $val->Zone; ?></td>   
-          <td><?php echo $val->pospname; ?></td>
-          <td><?php echo $val->AppSource; ?></td>   
-     </tr>
-       @endforeach
-       @endisset
+                                    <td><?php echo $val->fbaid; ?></td> 
+                                    <td><?php echo $val->FullName; ?></td>   
+                                    <td><?php echo $val->createdate; ?></td>
+                                    <td><?php echo $val->pospcreationdate; ?></td>
+                                    <td><?php echo $val->pospcertificationdate; ?></td>  
+                                    <td><?php echo $val->City; ?></td> 
+                                    <td><?php echo $val->Pincode; ?></td> 
+                                    <td><?php echo $val->statename; ?></td> 
+                                    <td><?php echo $val->Zone; ?></td>   
+                                    <td><?php echo $val->pospname; ?></td>
+                                    <td><?php echo $val->AppSource; ?></td>   
+                                  </tr>
+                                  @endforeach
+                                  @endisset
 
   
 
@@ -79,88 +74,82 @@
       </div>
 
 
-<script type="text/javascript">
+      <script type="text/javascript">
 
-$(document).ready(function(){
-   $("#Certificationtbl").DataTable();
+        $(document).ready(function(){
+         $("#Certificationtbl").DataTable();
 
  //alert("test data");
-    var fdate = $('#min').val();
-    var ldate = $('#max').val();
-$.ajax({ 
-     url: 'posp-certification-date/'+fdate+'/'+ldate,
-     dataType : 'json',
-     method:"GET",
-     success: function(msg){
-         
-  
- }
-   });  
-  
-    });  
-  
+ var fdate = $('#min').val();
+ var ldate = $('#max').val();
+ $.ajax({ 
+   url: 'posp-certification-date/'+fdate+'/'+ldate,
+   dataType : 'json',
+   method:"GET",
+   success: function(msg){
+
+
+   }
+ });  
+
+});  
+
 </script>
 
 <script type="text/javascript">
-  
+
  $(document).ready(function(){
-    $(".fbsearch").on("keyup change",function(){ 
-         table1 = $('#Certificationtbl').DataTable();
+  $(".fbsearch").on("keyup change",function(){ 
+   table1 = $('#Certificationtbl').DataTable();
          //table1.columns(0).search( this.value).draw();
          if ($(this).val()!= '') {
-        table1.columns(0).search('^'+$(this).val() + '$', true, true).draw(); 
-      }
-      else
-        table1.columns(0).search($(this).val(), true, true).draw(); 
-    });
+          table1.columns(0).search('^'+$(this).val() + '$', true, true).draw(); 
+        }
+        else
+          table1.columns(0).search($(this).val(), true, true).draw(); 
+      });
 });
 
 
 </script>
 
-
-
-
-
 <script type="text/javascript">
   function searchdata()
-{
-  var index = $('#msds-select').val();
-  if(index=='fbacity')
   {
-    colsearch(5);
+    var index = $('#msds-select').val();
+    if(index=='fbacity')
+    {
+      colsearch(5);
+    }
+    else if(index == 'FBAID')
+    {
+      colsearch(0);
+    }
+    else if(index == 'POSPNO')
+    {
+      colsearch(11);
+    }else if(index=='state'){colsearch(7);}
+    else if(index == 'zone'){colsearch(8);}
+    else if(index == 'fbaname'){colsearch(1);}
+    else if(index == 'pospname'){colsearch(9);}
   }
-  else if(index == 'FBAID')
+  function colsearch(index)
   {
-    colsearch(0);
-  }
-  else if(index == 'POSPNO')
-  {
-    colsearch(11);
-  }else if(index=='state'){colsearch(7);}
-  else if(index == 'zone'){colsearch(8);}
-  else if(index == 'fbaname'){colsearch(1);}
-  else if(index == 'pospname'){colsearch(9);}
-}
-function colsearch(index)
-{
-  table1 = $('#Certificationtbl').DataTable();
+    table1 = $('#Certificationtbl').DataTable();
     if ($('#txtfbasearch').val()!= '') {
-    table1.columns(index).search('^'+ $('#txtfbasearch').val() + '$', true, true).draw(); 
- }
+      table1.columns(index).search('^'+ $('#txtfbasearch').val() + '$', true, true).draw(); 
+    }
     else
-    table1.columns(index).search($('#txtfbasearch').val(), true, true).draw(); 
-}
+      table1.columns(index).search($('#txtfbasearch').val(), true, true).draw(); 
+  }
 
-function selectIndex(dd) {
-
-  
-  if (dd.selectedIndex>=4){
+  function selectIndex(dd) {  
+    if (dd.selectedIndex>=4){
      dd.form['txtfbasearch'].style.display='block';
-  }else{
+   }else{
     dd.form['txtfbasearch'].style.display='none';
   }  
-var table = $('#Certificationtbl').DataTable(); 
+  var table = $('#Certificationtbl').DataTable(); 
   table.draw();
 }
 
@@ -170,33 +159,29 @@ var table = $('#Certificationtbl').DataTable();
 
 <script> 
 
-$('#msds-select').change(function () {
+  $('#msds-select').change(function () {
 
-if($('#txtfbasearch').val()==''){
+    if($('#txtfbasearch').val()==''){
       var table = $('#Certificationtbl').DataTable(); 
-   $.fn.dataTable.ext.search.push(
-    function( settings, data, dataIndex ) {
-        var msdsSearch = $( "#msds-select option:selected" ).val();
-        var msdsValue = data[11]|| 0;
+      $.fn.dataTable.ext.search.push(
+        function( settings, data, dataIndex ) {
+          var msdsSearch = $( "#msds-select option:selected" ).val();
+          var msdsValue = data[11]|| 0;
        //console.log(data);
-        var numbers = /^[0-9]+$/;
-        return fncalc(msdsSearch,msdsValue);
-}); 
+       var numbers = /^[0-9]+$/;
+       return fncalc(msdsSearch,msdsValue);
+     }); 
       
-    table.draw();
-  }
-  else{
-    var table1 = $('#Certificationtbl').DataTable(); 
-    $('#txtfbasearch').val('');
-    table1.columns(0).search($('#txtfbasearch').val(), true, true).draw(); 
-  }
+      table.draw();
+    }
+    else{
+      var table1 = $('#Certificationtbl').DataTable(); 
+      $('#txtfbasearch').val('');
+      table1.columns(0).search($('#txtfbasearch').val(), true, true).draw(); 
+    }
 
-});
-
-
-
-
-  </script>
+  });
+</script>
 
 
 

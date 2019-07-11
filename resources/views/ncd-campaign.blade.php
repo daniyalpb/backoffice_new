@@ -196,8 +196,6 @@ h3.mrg-btm {
  $("#hiddenguid").val(guid);
  var var_guid = $("#hiddenguid").val();
 
-
-
  $("#fbacustomerhiddenid").val(id);
  //alert(id);
  $.ajax({

@@ -25,6 +25,7 @@
   }
 </style>
 
+
 <div class="container-fluid white-bg">
             <div class="col-md-12"><h3 class="mrg-btm" style="margin-left: 90px;font-size: 27px;"></h3></div>
 <!-- 
@@ -64,48 +65,64 @@
 
 
 <!-- <div id="content" style="overflow:scroll;"> -->
+
+
+<div id="spassword" class="modal fade spassword" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Alert</h4>
+      </div>
+      <div class="modal-body" style="font-weight: bolder">
+      You have (<span id='modal_span_count'></span>) leads in this month. However these leads will be visible 45 days prior to expiry .
+        <div style="color: blue;" id="show_password" class="show_password">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
        <div class="container-fluid white-bg">
         
-  <!--      <div class="col-md-8 col-md-offset-2 box-shadow"> -->
-           <div class="col-md-6 col-md-offset-2 box-shadow" style="padding-left:0px; padding-right:0px;margin-left: 22.66666667%;margin-top: 50px">
-       <h3 class="text-center title11">Calendar <img src="../images/calendar_white.png" style="width: 19px;margin-top: -5px;" /></h3>
+       <div class="offset-2 box-shadow">
+           <div class="col-md-6 col-md-offset-2 box-shadow" style="padding-left:0px; padding-right:0px;margin-left:7.666667%;margin-top: 50px">
+       <h3 style="margin-top: -7%;" class="text-center title11">My Leads <img src="../images/calendar_white.png" style="width: 19px;margin-top: -5px;" /></h3>
 
+<?php
+  $p_mod = 1;
+?>
+<?php $__currentLoopData = $motorlead; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+<?php
+  if((($p_mod % 2) == 1) and ($p_mod <6)){ $set_class = 'efefef'; }
+  if((($p_mod % 2) == 0) and ($p_mod <= 6)){ $set_class = ''; }
 
-  <?php $__currentLoopData = $motorlead; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-      <?php if($val->Count!='0' && $val->url!=''): ?>
-        <a href="#"><div class="col-md-2 month1 col-xs-6 col-sm-6 efefef">
-       <span class="count"><a href="<?php echo e(url('motor-lead-alldetails')); ?>/<?php echo e($val->FBAID); ?>/<?php echo e($val->month_no); ?>" onclick="getmonthcount()"><?php echo e($val->Month_Name); ?> <br>(<?php echo e($val->Count); ?>)
-            </a></span>
-       </div></a> 
+  if((($p_mod % 2) == 0) and ($p_mod > 6)){ $set_class = 'efefef'; }
+  if((($p_mod % 2) == 1) and ($p_mod >= 6)){ $set_class = ''; }
+?>
+
+<?php if($val->Count!='0' and $val->url!=''): ?>
+      
+      <a href="#">
+       <div class="col-md-2 month1 col-xs-6 col-sm-6 <?php echo e($set_class); ?>">
+       <span class="count">
+       <a href="<?php echo e(url('motor-lead-alldetails')); ?>/<?php echo e($val->FBAID); ?>/<?php echo e($val->month_no); ?>"><?php echo e($val->Month_Name); ?> <br>(<?php echo e($val->Count); ?>)
+       </a>
+       </span>
+       </div>
+      </a> 
        <?php else: ?>
-         <a href="#"><div class="col-md-2 month1 col-xs-6 col-sm-6 efefef">
-       <span class="count"><a href="#" onclick="getmonthcount()"><?php echo e($val->Month_Name); ?> <br>(<?php echo e($val->Count); ?>)
-            </a></span>
-       </div></a> 
 
-       <?php endif; ?>
-       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
+      <a href="#">
+        <div class="col-md-2 month1 col-xs-6 col-sm-6 <?php echo e($set_class); ?>">
+          <a href="#" data-toggle="modal" data-target="#spassword" onclick='load_modal("count_<?php echo e($val->Month_Name); ?>")'><?php echo e($val->Month_Name); ?> <br>(<span id="count_<?php echo e($val->Month_Name); ?>"><?php echo e($val->Count); ?></span>)
+          </a>
+        </div>
+      </a> 
 
-
-
-
-
-       
-
-     <!-- <?php $__currentLoopData = $motorlead; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $val): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-      <?php if($val->Count!='0'): ?>
-        <a href="#"><div class="col-md-2 month1 col-xs-6 col-sm-6 efefef">
-       <span class="count"><a href="<?php echo e(url('motor-lead-alldetails')); ?>/<?php echo e($val->FBAID); ?>/<?php echo e($val->month_no); ?>" onclick="getmonthcount()"><?php echo e($val->Month_Name); ?> <br>(<?php echo e($val->Count); ?>)
-            </a></span>
-       </div></a> 
-       <?php else: ?>
-         <a href="#"><div class="col-md-2 month1 col-xs-6 col-sm-6 efefef">
-       <span class="count"><a href="#" onclick="getmonthcount()"><?php echo e($val->Month_Name); ?> <br>(<?php echo e($val->Count); ?>)
-            </a></span>
-       </div></a> 
-
-       <?php endif; ?>
-       <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>  --> 
+<?php endif; ?>
+<?php $p_mod++;?>
+<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?> 
 
   </div> 
        </div>
@@ -113,107 +130,15 @@
 
        
           
-       
-
- 
-
- <script type="text/javascript">
-  $(document).ready(function() {
-  // $('#tbl-motor-lead-details').DataTable( {
-     
-  //   });
-
-});
-
-  function getmonthcount(){
-        $.ajax({ 
-        url: 'motor-lead-alldetails/'+FBAID+'/'+month_no,  
-        method:"GET",
-        success: function(data){
- }
-        });
-  }
-
-      </script>
+<div style="margin-left:12.4%;margin-top: 32px;font-weight: bolder;">Leads generated from Syncing of contacts: <?php echo e($val->Contactscount); ?> leads from <?php echo e($val->newcount); ?> contacts synced</div>
+<div style="margin-left:12.4%;margin-top: 13px;font-weight: bolder;">Manual leads generated: <?php echo e($val->manullycount); ?></div>
 
 
-<!-- <script type="text/javascript">
-alert('test123');
-  
-function getmonthcount(){
-$.ajax({  
-  
-         type: "GET",  
-          url: 'motor-lead-alldetails/'+FBAID+'/'+month_no,
-         success: function(data){
-          //alert(data);
+<script type='text/javascript'>
 
-      var data = JSON.parse(data);
-      var str = "<table class='table'><tr style='height:30px;margin:5px;'><td>Client Name</td><td>Mobile No</td><td>Category</td><td>Registration No</td><td>Expiry Date</td></tr>";
-       for (var i = 0; i < data.length; i++)
-       {
+function load_modal(span_id){
+  var p_count = $('#' + span_id).text();
 
-         str = str + "<tr style='height:30px;margin:5px;'><td>"+data[i].ClientName+"</td><td>"+data[i].MobileNo+"</td><td>"+data[i].Category+"</td><td>"+data[i].RegistrationNo+"</td><td>"+data[i].ExpiryDate+"</td></tr>";
-       }
-         str = str + "</table>";
-           $('#divleadtable').html(str);   
-       }  
-      });
+  $('#modal_span_count').text(p_count);
 }
-
-
-</script> -->
-
-
-      <!-- Button trigger modal -->
-<!-- <button type="button" class="" data-toggle="modal" data-target="#leaddataModal">
-  Button
-</button> -->
-<!-- Modal -->
-<!-- <div class="modal fade" id="leaddataModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Details</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <div class="table-responsive">
-        <div id="divleadtable" name="divleadtable">
-
-        </div>
-        </div>
-  
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-  </div>
-</div> -->
-<!--    <button id="mycalender" name="mycalender" onclick="getthreemonth()" class="btn btn-primary message_sms_id" type="button">Get Month</button>
-
-<p id="test1"></p>
-<p id="test2"></p>
-<p id="test3"></p>
-
-<script type="text/javascript">
-
-function getthreemonth(){
-  alert('test');
-    var previous = new Date();
-    var current = new Date();
-    var next = new Date();
-    previous.setMonth(previous.getMonth(), -30);
-    current.setMonth(current.getMonth(), 1);
-    next.setMonth(next.getMonth(), +31);
-    document.getElementById("test1").innerHTML = previous;
-    document.getElementById("test2").innerHTML = current;
-    document.getElementById("test3").innerHTML = next;
-     alert(previous);  alert(current);  alert(next);
-      
-}
-</script> -->
-
+</script>
